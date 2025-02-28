@@ -8,9 +8,12 @@ wire [15:0] SumRaw;
 //first level of addition tree
 wire [3:0] cout;
 add_4bit adder1 (.A(A[3:0]), .B(B[3:0]), .cin(1'b0), .Sum(SumRaw[3:0]), .Cout(cout[0]));
-add_4bit adder2 (.A(A[7:4]), .B(B[7:4]), .cin(cout[0]), .Sum(SumRaw[7:4]), .Cout(cout[1]));
-add_4bit adder3 (.A(A[11:8]), .B(B[11:8]), .cin(cout[1]), .Sum(SumRaw[11:8]), .Cout(cout[2]));
-add_4bit adder4 (.A(A[15:12]), .B(B[15:12]), .cin(cout[2]), .Sum(SumRaw[15:12]), .Cout(cout[3]));
+add_4bit adder2 (.A(A[7:4]), .B(B[7:4]), .cin(1'b0), .Sum(SumRaw[7:4]), .Cout(cout[1]));
+add_4bit adder3 (.A(A[11:8]), .B(B[11:8]), .cin(1'b0), .Sum(SumRaw[11:8]), .Cout(cout[2]));
+add_4bit adder4 (.A(A[15:12]), .B(B[15:12]), .cin(1'b0), .Sum(SumRaw[15:12]), .Cout(cout[3]));
+
+//adding carry bits
+add_4bit adderCarry1 (.A({3'b0, cout[0]}), .B(), .cin(1'b0), .Sum(SumRaw), .Cout(cout[4]));
 
 //second level of addition tree
 wire [4:0] sumAEBF, sumCGDH;

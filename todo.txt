@@ -1,0 +1,15 @@
+ALU:
+- ROR module -> Edward
+- Overarching ALU module -> Edward
+
+Memory: Daniel
+- kinda everything lol
+- Data and inst memory, control 
+
+Control: Ethan
+- branches 
+- PC incrementor
+- build the overall cpu.v
+
+Reset Sequence and Flags
+- part of control
