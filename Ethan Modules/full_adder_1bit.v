@@ -1,4 +1,4 @@
-module full_adder_1bit (
+/*module full_adder_1bit (
     input A, B, cin,
     output S, cout
 );
@@ -10,4 +10,4 @@ module full_adder_1bit (
     //A, B are both equal to 1 (generate)
     //only 1 signal (either A or B) is 1, and cin is 1 (propagate)
 
-endmodule
+endmodule*/

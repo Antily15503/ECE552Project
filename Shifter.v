@@ -1,4 +1,4 @@
-/*module Shifter(
+module Shifter(
     input [15:0] Shift_In,
     input [3:0] Shift_val,
     input Mode,
@@ -33,4 +33,4 @@ assign Shift_Out = Shift_val[0] ? (
     } : {shift_c[14:0], 1'b0}
 ) : shift_c;
 
-endmodule*/
+endmodule

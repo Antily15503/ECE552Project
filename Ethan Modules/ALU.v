@@ -5,7 +5,7 @@ module ALU (
     output Error
 );
 
-/* 
+/*
     An ALU block implementation with the following opcodes encoded:
     00 : Addition
     01 : Subtraction

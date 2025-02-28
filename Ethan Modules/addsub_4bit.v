@@ -1,4 +1,4 @@
-module addsub_4bit (
+/*module addsub_4bit (
     input [3:0] A, B, //Input values
     input sub, // add-sub indicator
     output [3:0] Sum, //sum output
@@ -21,4 +21,4 @@ module addsub_4bit (
     //overflow only occurs if the bits of A and B are the same, but the sign bits of A and Sum are different
 
 endmodule
-
+*/
