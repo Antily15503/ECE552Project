@@ -56,7 +56,17 @@ module cpu(
         .negative(Neg),
         .branch(branchSelect)
     );
-    //
+    //branch address calculator
+    wire [15:0] pcBranch;
+    add_16bit brAdder(
+        .A(pcInc),
+        .B({immEx[13:0], 2'b00}),
+        .cin(1'b0),
+        .Sum(pcBranch),
+        .Cout()
+    );
+    //mux for next program instruction address
+    assign pcD = branchSelect ? pcBranch : pcInc;
 
 //Control Unit
     wire RegDst, AluSrc, MemtoReg, RegWrite, MemRead, MemWrite, Branch;
