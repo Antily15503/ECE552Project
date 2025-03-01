@@ -1,0 +1,35 @@
+m255
+K4
+z2
+!s11f vlog 2020.1 2020.02, Feb 28 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dC:/Users/edwar/Downloads/ECE 552/hw4
+vShifter
+!s110 1740813461
+!i10b 1
+!s100 Eg1;<[JDPEaR04H9lX93:3
+!s11b Dg1SIo80bB@j0V0VzS_@n1
+ImVHgomUo0oT8O;GeTf;LM0
+VDg1SIo80bB@j0V0VzS_@n1
+dC:/Users/edwar/Downloads/ECE 552/ECE552Project
+w1740813385
+8C:/Users/edwar/Downloads/ECE 552/ECE552Project/Shifter.v
+FC:/Users/edwar/Downloads/ECE 552/ECE552Project/Shifter.v
+!i122 0
+L0 1 36
+OV;L;2020.1;71
+r1
+!s85 0
+31
+!s108 1740813461.000000
+!s107 C:/Users/edwar/Downloads/ECE 552/ECE552Project/Shifter.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/edwar/Downloads/ECE 552/ECE552Project/Shifter.v|
+!i113 1
+o-work work
+tCvgOpt 0
+n@shifter
