@@ -46,13 +46,22 @@ module cpu(
     assign secB = instr[7:4];
     assign secC = instr[3:0];
 
-//Jumps and Branch Handling
-    
+//Branch Handling
+    //branch module
+    wire branchSelect;
+    branch branchSelect(
+        .condition(branch ? secA[3:1] : 3'b000),
+        .zero(Zero),
+        .overflow(Overflow),
+        .negative(Neg),
+        .branch(branchSelect)
+    );
+    //
 
 //Control Unit
     wire RegDst, AluSrc, MemtoReg, RegWrite, MemRead, MemWrite, Branch;
     wire [2:0] AluOp;
-    control(
+    control controlUnit(
         //inputs
         .opcode(opcode),
         //outputs
@@ -63,8 +72,7 @@ module cpu(
         .RegWrite(RegWrite),  //used
         .MemRead(MemRead),  //used
         .MemWrite(MemWrite),  //used
-        .Branch(Branch),
-        .Jump(Jump)
+        .Branch(Branch), //used
     );
 
 //Register Reading
@@ -86,10 +94,10 @@ module cpu(
         .wrData(MemtoReg ? data_out : aluOut) //CONTROL SIGNAL FOR ALUOUT: 1 for memory output, 0 for ALU output
     );
 
-//Arithmetic Logic Unit UNUSED OUTPUT: Zero
+//Arithmetic Logic Unit DONE
     wire [15:0] aluOut;
     wire [15:0] immEx;
-    wire Zero;
+    wire Zero, Neg, Overflow;
 
     //sign extending immediate value (if applicable)
 
@@ -99,9 +107,10 @@ module cpu(
         .ALU_In1(regAData),
         .B(AluSrc ? regBData : immEx), //CONTROL SIGNAL FOR ALUSRC: 1 for R instructions, 0 for I instructions
         .ALUOp(ALUOp), //8 possible operations represented by [2:0] ALUOp Signal
-        .ALUSrc(ALUSrc),
         .ALUOut(aluOut),
-        .Zero(Zero) // zero flag
+        .Z_Flag(Zero), // zero flag
+        .N_Flag(Neg), // negative flag
+        .V_Flag(Overflow) // overflow flag
     );
 
 //Data Memory Access

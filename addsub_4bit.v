@@ -23,7 +23,7 @@ module addsub_4bit (
     assign C[2] = G[1] | (P[1] & C[1]);
     assign C[3] = G[2] | (P[2] & C[2]);
     assign Cout = G[3] | (P[3] & C[3]);
-    assign SumRaw = P ^ C[3:0];
+    assign SumRaw = P ^ C;
 
     //Overriding Sum if overflow detected
     assign posOv = ( (A[3] == 1'b0) && (Bnot[3] == 1'b0) && (SumRaw[3] == 1'b1));

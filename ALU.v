@@ -1,10 +1,10 @@
 module ALU (
     input [15:0] ALU_In1, ALU_In2,
-    input [3:0] Opcode,
+    input [2:0] Opcode,
     output [15:0] ALU_Out,
     input Cin,
-    input inv1, inv2; //inversons for subtraction (may need to delete for CLA)
-    output Z_Flag, N_Flag, V_Flag, 
+    input inv1, inv2, //inversons for subtraction (may need to delete for CLA)
+    output Z_Flag, N_Flag, V_Flag,
     output Error
 );
     wire [15:0] adder_out;
@@ -32,38 +32,38 @@ module ALU (
 
     //shifer
     Shifter shifter_unit(
-        .Shift_In(ALU_In1)
-        .Shift_val(ALU_In2[3:0])
-        .Mode(Op[1:0])
+        .Shift_In(ALU_In1),
+        .Shift_val(ALU_In2[3:0]),
+        .Mode(Op[1:0]),
         .Shift_Out(shift_out)
     );
 
     //PADDSB instruction
     paddsub paddsub_unit(
-        .a(ALU_In1)
-        .b(ALU_In2)
+        .a(ALU_In1),
+        .b(ALU_In2),
         .sum(paddsub_out)
     );
 
     //reduction unit
     RED red_unit(
-        .A(ALU_In1)
-        .B(ALU_In2)
+        .A(ALU_In1),
+        .B(ALU_In2),
         .Sum(red_out)
     );
 
     always @(*) begin
         case(Opcode)
-            4'b0000: ALU_Out = adder_out;   // ADD
-            4'b0001: ALU_Out = adder_out;   // SUB (using invB and Cin=1)
-            4'b0010: ALU_Out = xor_out;     // XOR
-            4'b0011: ALU_Out = red_out;     // RED
-            4'b0100: ALU_Out = shift_out;   // SLL
-            4'b0101: ALU_Out = shift_out;   // SRA
-            4'b0110: ALU_Out = shift_out;   // ROR
-            4'b0111: ALU_Out = paddsb_out;  // PADDSB
+            3'b000: ALU_Out = adder_out;   // ADD
+            3'b001: ALU_Out = adder_out;   // SUB (using invB and Cin=1)
+            3'b010: ALU_Out = xor_out;     // XOR
+            3'b011: ALU_Out = red_out;     // RED
+            3'b100: ALU_Out = shift_out;   // SLL
+            3'b101: ALU_Out = shift_out;   // SRA
+            3'b110: ALU_Out = shift_out;   // ROR
+            3'b111: ALU_Out = paddsb_out;  // PADDSB
             default: ALU_Out = 16'h0000;
         endcase
     end
 
-endmodule;
+endmodule
