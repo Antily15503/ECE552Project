@@ -241,6 +241,29 @@ r1
 !i113 1
 R7
 R8
+vcpu
+!s110 1740952939
+!i10b 1
+!s100 i55V]Wkb5DUaLYZ?jR;Bb2
+R1
+I4EcULJ]TZaVH[TAZgj5^83
+R2
+R3
+w1740952900
+8C:/Users/themi/ECE552Project/cpu.v
+FC:/Users/themi/ECE552Project/cpu.v
+!i122 249
+L0 1 143
+R5
+r1
+!s85 0
+31
+!s108 1740952938.000000
+!s107 C:/Users/themi/ECE552Project/cpu.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/themi/ECE552Project/cpu.v|
+!i113 1
+R7
+R8
 vdata_memory
 Z15 !s110 1740952113
 !i10b 1

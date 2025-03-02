@@ -33,6 +33,13 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 
 Top level modules:
 	addsub_16bit_tb
 
+} {} {}} C:/Users/themi/ECE552Project/branch.v {1 {vlog -work work -stats=none C:/Users/themi/ECE552Project/branch.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module branch
+
+Top level modules:
+	branch
+
 } {} {}} C:/Users/themi/ECE552Project/add_16bit.v {1 {vlog -work work -stats=none C:/Users/themi/ECE552Project/add_16bit.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
 -- Compiling module add_16bit
@@ -143,26 +150,7 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 
 Top level modules:
 	addsub_16bit
 
-} {} {}} C:/Users/themi/ECE552Project/cpu.v {0 {vlog -work work -stats=none C:/Users/themi/ECE552Project/cpu.v
-Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module cpu
-** Error: C:/Users/themi/ECE552Project/cpu.v(62): (vlog-2730) Undefined variable: 'branch'.
-** Error (suppressible): C:/Users/themi/ECE552Project/cpu.v(66): (vlog-2388) 'BranchReg' already declared in this scope (cpu) at C:/Users/themi/ECE552Project/cpu.v(55).
-** Error (suppressible): C:/Users/themi/ECE552Project/cpu.v(66): (vlog-2388) 'hlt' already declared in this scope (cpu) at C:/Users/themi/ECE552Project/cpu.v(4).
-** Error (suppressible): C:/Users/themi/ECE552Project/cpu.v(86): (vlog-2388) 'regBData' already declared in this scope (cpu) at C:/Users/themi/ECE552Project/cpu.v(57).
-** Error (suppressible): C:/Users/themi/ECE552Project/cpu.v(87): (vlog-2388) 'regA' already declared in this scope (cpu) at C:/Users/themi/ECE552Project/cpu.v(41).
-** Error (suppressible): C:/Users/themi/ECE552Project/cpu.v(87): (vlog-2388) 'regB' already declared in this scope (cpu) at C:/Users/themi/ECE552Project/cpu.v(41).
-** Error: C:/Users/themi/ECE552Project/cpu.v(89): (vlog-2730) Undefined variable: 'recB'.
-** Error: C:/Users/themi/ECE552Project/cpu.v(97): (vlog-2730) Undefined variable: 'data_out'.
-** Error: C:/Users/themi/ECE552Project/cpu.v(97): (vlog-2730) Undefined variable: 'aluOut'.
-** Error (suppressible): C:/Users/themi/ECE552Project/cpu.v(112): (vlog-2388) 'aluOut' already declared in this scope (cpu) at C:/Users/themi/ECE552Project/cpu.v(97).
-** Error (suppressible): C:/Users/themi/ECE552Project/cpu.v(114): (vlog-2388) 'Zero' already declared in this scope (cpu) at C:/Users/themi/ECE552Project/cpu.v(54).
-** Error (suppressible): C:/Users/themi/ECE552Project/cpu.v(114): (vlog-2388) 'Neg' already declared in this scope (cpu) at C:/Users/themi/ECE552Project/cpu.v(54).
-** Error (suppressible): C:/Users/themi/ECE552Project/cpu.v(114): (vlog-2388) 'Overflow' already declared in this scope (cpu) at C:/Users/themi/ECE552Project/cpu.v(54).
-** Error (suppressible): C:/Users/themi/ECE552Project/cpu.v(129): (vlog-2388) 'data_out' already declared in this scope (cpu) at C:/Users/themi/ECE552Project/cpu.v(97).
-** Error: (vlog-13069) C:/Users/themi/ECE552Project/cpu.v(138): near ")": syntax error, unexpected ')', expecting .* or '.'.
-
-} {4.0 5.0 10.0 13.0 18.0 19.0} {}} C:/Users/themi/ECE552Project/memory.v {1 {vlog -work work -stats=none C:/Users/themi/ECE552Project/memory.v
+} {} {}} C:/Users/themi/ECE552Project/memory.v {1 {vlog -work work -stats=none C:/Users/themi/ECE552Project/memory.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
 
 } {} {}}
