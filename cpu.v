@@ -103,14 +103,15 @@ module cpu(
     //CONTROL SIGNAL FOR ALUOUT: 1 for memory output, 0 for ALU output
     wire [15:0] wrDataIntermed, wrData;
     wire [15:0] data_out;
-
-    case({pcswitch, lwhalf, MemtoReg})
-        3'b1xx: assign wrDataIntermed = pcD;
-        3'b01x: assign wrDataIntermed = opcode[0] ? ((regAData & 16'hFF00) | instr[7:0]) : ((regAData & 16'h00FF) | instr[7:0]);
-        3'b001: assign wrDataIntermed = data_out;
-        3'b000: assign wrDataIntermed = aluOut;
-        default: assign wrDataIntermed = 16'h0000;
-    endcase
+    always @(*) begin
+        case({pcswitch, lwhalf, MemtoReg})
+            3'b1xx: assign wrDataIntermed = pcD;
+            3'b01x: assign wrDataIntermed = opcode[0] ? ((regAData & 16'hFF00) | instr[7:0]) : ((regAData & 16'h00FF) | instr[7:0]);
+            3'b001: assign wrDataIntermed = data_out;
+            3'b000: assign wrDataIntermed = aluOut;
+            default: assign wrDataIntermed = 16'h0000;
+        endcase
+    end
 
     
 
