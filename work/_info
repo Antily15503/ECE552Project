@@ -241,24 +241,47 @@ r1
 !i113 1
 R7
 R8
-vcpu
-!s110 1740952939
+vcontrol
+!s110 1740956788
 !i10b 1
-!s100 i55V]Wkb5DUaLYZ?jR;Bb2
+!s100 fGIP^GeBgW^jG0gGn2AiL3
 R1
-I4EcULJ]TZaVH[TAZgj5^83
+I4>G`N``E`Xn0UzDEQB^LH1
 R2
 R3
-w1740952900
-8C:/Users/themi/ECE552Project/cpu.v
-FC:/Users/themi/ECE552Project/cpu.v
-!i122 249
-L0 1 143
+w1740956778
+8C:/Users/themi/ECE552Project/control.v
+FC:/Users/themi/ECE552Project/control.v
+!i122 250
+L0 1 141
 R5
 r1
 !s85 0
 31
-!s108 1740952938.000000
+!s108 1740956788.000000
+!s107 C:/Users/themi/ECE552Project/control.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/themi/ECE552Project/control.v|
+!i113 1
+R7
+R8
+vcpu
+!s110 1740956834
+!i10b 1
+!s100 `@Zb4O1^Uih<`RPcme;SP3
+R1
+IhLbK8<:WlfiK``I^Ug60=0
+R2
+R3
+w1740956831
+8C:/Users/themi/ECE552Project/cpu.v
+FC:/Users/themi/ECE552Project/cpu.v
+!i122 251
+L0 1 164
+R5
+r1
+!s85 0
+31
+!s108 1740956833.000000
 !s107 C:/Users/themi/ECE552Project/cpu.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/themi/ECE552Project/cpu.v|
 !i113 1

@@ -101,15 +101,16 @@ module cpu(
     //TWO 2-1 MUXES FOR SELECTING REGISTER WRITE DATA (PC, ALUOUT, or MEMOUT)
     //CONTROL SIGNAL FOR PC: 1 for PC, 0 for everything else
     //CONTROL SIGNAL FOR ALUOUT: 1 for memory output, 0 for ALU output
-    wire [15:0] wrDataIntermed, wrData;
+    reg [15:0] wrDataIntermed;
+    wire [15:0] wrData;
     wire [15:0] data_out;
     always @(*) begin
         case({pcswitch, lwhalf, MemtoReg})
-            3'b1xx: assign wrDataIntermed = pcD;
-            3'b01x: assign wrDataIntermed = opcode[0] ? ((regAData & 16'hFF00) | instr[7:0]) : ((regAData & 16'h00FF) | instr[7:0]);
-            3'b001: assign wrDataIntermed = data_out;
-            3'b000: assign wrDataIntermed = aluOut;
-            default: assign wrDataIntermed = 16'h0000;
+            3'b1xx: wrDataIntermed = pcD;
+            3'b01x: wrDataIntermed = opcode[0] ? ((regAData & 16'hFF00) | instr[7:0]) : ((regAData & 16'h00FF) | instr[7:0]);
+            3'b001: wrDataIntermed = data_out;
+            3'b000: wrDataIntermed = aluOut;
+            default: wrDataIntermed = 16'h0000;
         endcase
     end
 
