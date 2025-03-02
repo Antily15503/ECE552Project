@@ -18,7 +18,7 @@ module cpu(
     wire [15:0] pcInc;
     add_16bit pcIncr(
         .A(pc),
-        .B(16'h0040),
+        .B(16'h0002),
         .cin(1'b0),
         .Sum(pcInc),
         .Cout()
@@ -28,7 +28,7 @@ module cpu(
     wire [15:0] instr;
     inst_memory instruction_mem(
             .clk(clk),
-            .rst(rst_n),
+            .rst(~rst_n),
             .addr(pc),
             .data_out(instr),
             .data_in(16'h0000),
@@ -69,7 +69,7 @@ module cpu(
     assign pcD = branchSelect ? pcBranch : pcInc;
 
 //Control Unit
-    wire RegDst, AluSrc, MemtoReg, RegWrite, MemRead, MemWrite, Branch;
+    wire RegDst, AluSrc, MemtoReg, RegWrite, MemRead, MemWrite, Branch, pcswitch, halt;
     wire [2:0] AluOp;
     control controlUnit(
         //inputs
@@ -83,6 +83,8 @@ module cpu(
         .MemRead(MemRead),  //used
         .MemWrite(MemWrite),  //used
         .Branch(Branch), //used
+        .PC(pcswitch),
+        .Halt(halt)
     );
 
 //Register Reading
@@ -92,16 +94,23 @@ module cpu(
     assign regB = recB;
     //CONTROL SIGNAL FOR REGDST: 1 for R instructions, 0 for I instructions
     assign regC = RegDst ? (secC) : (secB);
+
+    //TWO 2-1 MUXES FOR SELECTING REGISTER WRITE DATA (PC, ALUOUT, or MEMOUT)
+    //CONTROL SIGNAL FOR PC: 1 for PC, 0 for everything else
+    //CONTROL SIGNAL FOR ALUOUT: 1 for memory output, 0 for ALU output
+    wire [15:0] wrDataIntermed;
+    assign wrDataIntermed = pcswitch ? pcD : (MemtoReg ? data_out : aluOut);
+
     reg_file(
         .clk(clk),
-        .rst(rst_n),
+        .rst(~rst_n),
         .src_reg1(regB),
         .src_reg2(regC),
         .dst_reg(regA),
         .src_data1(regAData),
         .src_data2(regBData),
         .write_reg(RegWrite), //CONTROL SIGNAL FOR REGWRITE: 1 for write, 0 for read
-        .wrData(MemtoReg ? data_out : aluOut) //CONTROL SIGNAL FOR ALUOUT: 1 for memory output, 0 for ALU output
+        .wrData(wrDataIntermed)
     );
 
 //Arithmetic Logic Unit DONE
@@ -127,7 +136,7 @@ module cpu(
     wire [15:0] data_out;
     data_memory(
         .clk(clk),
-        .rst(rst_n),
+        .rst(~rst_n),
         .addr(aluOut),
         .data_out(data_out),
         .data_in(regBData),
