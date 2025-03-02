@@ -48,7 +48,9 @@ module cpu(
 
 //Branch Handling DONE
     //branch module
-    wire [15:0] pcBranch;
+    wire [15:0] pcBranch, regBData;
+    wire BranchReg;
+    wire Zero, Neg, Overflow;
     branch branchSelect(
         .condition(secA[3:1]),
         .Flags({Zero, Overflow, Neg}),
@@ -59,11 +61,11 @@ module cpu(
         .pcOut(pcBranch)
     );
     //mux for next program instruction address
-    assign pcDRaw = branch ? pcBranch : pcInc;
+    assign pcDRaw = Branch ? pcBranch : pcInc;
     assign pcD = hlt ? pc : pcDRaw;
 
 //Control Unit
-    wire RegDst, AluSrc, MemtoReg, RegWrite, MemRead, MemWrite, Branch, BranchReg, pcswitch, hlt;
+    wire RegDst, AluSrc, MemtoReg, RegWrite, MemRead, MemWrite, Branch, pcswitch;
     wire [2:0] AluOp;
     control controlUnit(
         //inputs
@@ -83,10 +85,11 @@ module cpu(
     );
 
 //Register Reading
-    wire [15:0] regAData, regBData;
+    wire [15:0] regAData;
+    wire [15:0] aluOut;
     wire [3:0] regA, regB, regC;
     assign regA = secA;
-    assign regB = recB;
+    assign regB = secB;
     //CONTROL SIGNAL FOR REGDST: 1 for R instructions, 0 for I instructions
     assign regC = RegDst ? (secC) : (secB);
 
@@ -94,6 +97,8 @@ module cpu(
     //CONTROL SIGNAL FOR PC: 1 for PC, 0 for everything else
     //CONTROL SIGNAL FOR ALUOUT: 1 for memory output, 0 for ALU output
     wire [15:0] wrDataIntermed;
+    wire [15:0] data_out;
+
     assign wrDataIntermed = pcswitch ? pcD : (MemtoReg ? data_out : aluOut);
 
     reg_file(
@@ -109,9 +114,8 @@ module cpu(
     );
 
 //Arithmetic Logic Unit DONE
-    wire [15:0] aluOut;
     wire [15:0] immEx;
-    wire Zero, Neg, Overflow;
+    
 
     //sign extending immediate value (if applicable)
 
@@ -126,7 +130,6 @@ module cpu(
     );
 
 //Data Memory Access
-    wire [15:0] data_out;
     data_memory(
         .clk(clk),
         .rst(~rst_n),
@@ -134,7 +137,7 @@ module cpu(
         .data_out(data_out),
         .data_in(regBData),
         .wr(MemWrite), //CONTROL SIGNAL FOR MEMWRITE: 1 for write, 0 for read
-        .enable(MemRead), //CONTROL SIGNAL FOR MEMREAD: 1 for read, 0 for write
+        .enable(MemRead) //CONTROL SIGNAL FOR MEMREAD: 1 for read, 0 for write
     );
 
 endmodule

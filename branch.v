@@ -22,7 +22,7 @@ module branch(
             3'b100: assign b = |{zero, ~|{negative, zero}}; //greater than or equal to
             3'b101: assign b = !(negative | zero); //less than or equal to
             3'b110: assign b = overflow; //overflow
-            3'b111: assign b = 1'b1; //default to branch (jump)
+            3'b111: assign b = 1'b1; //unconditional branch (jump)
             default: assign b = 1'b0;
         endcase
     end

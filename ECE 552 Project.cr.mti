@@ -1,0 +1,168 @@
+C:/Users/themi/ECE552Project/D-Flip-Flop.v {1 {vlog -work work -stats=none C:/Users/themi/ECE552Project/D-Flip-Flop.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module dff
+
+Top level modules:
+	dff
+
+} {} {}} C:/Users/themi/ECE552Project/add_4bit.v {1 {vlog -work work -stats=none C:/Users/themi/ECE552Project/add_4bit.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module add_4bit
+
+Top level modules:
+	add_4bit
+
+} {} {}} C:/Users/themi/ECE552Project/Shifter.v {1 {vlog -work work -stats=none C:/Users/themi/ECE552Project/Shifter.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module Shifter
+
+Top level modules:
+	Shifter
+
+} {} {}} C:/Users/themi/ECE552Project/register.v {1 {vlog -work work -stats=none C:/Users/themi/ECE552Project/register.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module register
+
+Top level modules:
+	register
+
+} {} {}} C:/Users/themi/ECE552Project/addsub_16bit_tb.v {1 {vlog -work work -stats=none C:/Users/themi/ECE552Project/addsub_16bit_tb.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module addsub_16bit_tb
+
+Top level modules:
+	addsub_16bit_tb
+
+} {} {}} C:/Users/themi/ECE552Project/add_16bit.v {1 {vlog -work work -stats=none C:/Users/themi/ECE552Project/add_16bit.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module add_16bit
+
+Top level modules:
+	add_16bit
+
+} {} {}} C:/Users/themi/ECE552Project/add_8bit.v {1 {vlog -work work -stats=none C:/Users/themi/ECE552Project/add_8bit.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module add_8bit
+
+Top level modules:
+	add_8bit
+
+} {} {}} C:/Users/themi/ECE552Project/write_decoder_4_16.v {1 {vlog -work work -stats=none C:/Users/themi/ECE552Project/write_decoder_4_16.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module write_decoder_4_16
+
+Top level modules:
+	write_decoder_4_16
+
+} {} {}} C:/Users/themi/ECE552Project/psa_16bit.v {1 {vlog -work work -stats=none C:/Users/themi/ECE552Project/psa_16bit.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module psa_16bit
+
+Top level modules:
+	psa_16bit
+
+} {} {}} C:/Users/themi/ECE552Project/decoder_one_hot.v {1 {vlog -work work -stats=none C:/Users/themi/ECE552Project/decoder_one_hot.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module decoder_one_hot
+
+Top level modules:
+	decoder_one_hot
+
+} {} {}} C:/Users/themi/ECE552Project/control.v {0 {vlog -work work -stats=none C:/Users/themi/ECE552Project/control.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module control
+** Error: C:/Users/themi/ECE552Project/control.v(9): The generate case condition must be a constant expression.
+
+} {4.0 5.0} {}} C:/Users/themi/ECE552Project/read_decoder_4_16.v {1 {vlog -work work -stats=none C:/Users/themi/ECE552Project/read_decoder_4_16.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module read_decoder_4_16
+
+Top level modules:
+	read_decoder_4_16
+
+} {} {}} C:/Users/themi/ECE552Project/ALU.v {1 {vlog -work work -stats=none C:/Users/themi/ECE552Project/ALU.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module ALU
+
+Top level modules:
+	ALU
+
+} {} {}} C:/Users/themi/ECE552Project/data_memory.v {1 {vlog -work work -stats=none C:/Users/themi/ECE552Project/data_memory.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module data_memory
+
+Top level modules:
+	data_memory
+
+} {} {}} C:/Users/themi/ECE552Project/RED.v {1 {vlog -work work -stats=none C:/Users/themi/ECE552Project/RED.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module RED
+
+Top level modules:
+	RED
+
+} {} {}} C:/Users/themi/ECE552Project/register_file.v {1 {vlog -work work -stats=none C:/Users/themi/ECE552Project/register_file.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module register_file
+
+Top level modules:
+	register_file
+
+} {} {}} {C:/Users/themi/ECE552Project/memory copy.v} {1 {vlog -work work -stats=none {C:/Users/themi/ECE552Project/memory copy.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module inst_memory
+
+Top level modules:
+	inst_memory
+
+} {} {}} C:/Users/themi/ECE552Project/addsub_4bit.v {1 {vlog -work work -stats=none C:/Users/themi/ECE552Project/addsub_4bit.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module addsub_4bit
+
+Top level modules:
+	addsub_4bit
+
+} {} {}} C:/Users/themi/ECE552Project/inst_memory.v {1 {vlog -work work -stats=none C:/Users/themi/ECE552Project/inst_memory.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module inst_memory
+
+Top level modules:
+	inst_memory
+
+} {} {}} C:/Users/themi/ECE552Project/bit_cell.v {1 {vlog -work work -stats=none C:/Users/themi/ECE552Project/bit_cell.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module bit_cell
+
+Top level modules:
+	bit_cell
+
+} {} {}} C:/Users/themi/ECE552Project/addsub_16bit.v {1 {vlog -work work -stats=none C:/Users/themi/ECE552Project/addsub_16bit.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module addsub_16bit
+
+Top level modules:
+	addsub_16bit
+
+} {} {}} C:/Users/themi/ECE552Project/cpu.v {0 {vlog -work work -stats=none C:/Users/themi/ECE552Project/cpu.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module cpu
+** Error: C:/Users/themi/ECE552Project/cpu.v(62): (vlog-2730) Undefined variable: 'branch'.
+** Error (suppressible): C:/Users/themi/ECE552Project/cpu.v(66): (vlog-2388) 'BranchReg' already declared in this scope (cpu) at C:/Users/themi/ECE552Project/cpu.v(55).
+** Error (suppressible): C:/Users/themi/ECE552Project/cpu.v(66): (vlog-2388) 'hlt' already declared in this scope (cpu) at C:/Users/themi/ECE552Project/cpu.v(4).
+** Error (suppressible): C:/Users/themi/ECE552Project/cpu.v(86): (vlog-2388) 'regBData' already declared in this scope (cpu) at C:/Users/themi/ECE552Project/cpu.v(57).
+** Error (suppressible): C:/Users/themi/ECE552Project/cpu.v(87): (vlog-2388) 'regA' already declared in this scope (cpu) at C:/Users/themi/ECE552Project/cpu.v(41).
+** Error (suppressible): C:/Users/themi/ECE552Project/cpu.v(87): (vlog-2388) 'regB' already declared in this scope (cpu) at C:/Users/themi/ECE552Project/cpu.v(41).
+** Error: C:/Users/themi/ECE552Project/cpu.v(89): (vlog-2730) Undefined variable: 'recB'.
+** Error: C:/Users/themi/ECE552Project/cpu.v(97): (vlog-2730) Undefined variable: 'data_out'.
+** Error: C:/Users/themi/ECE552Project/cpu.v(97): (vlog-2730) Undefined variable: 'aluOut'.
+** Error (suppressible): C:/Users/themi/ECE552Project/cpu.v(112): (vlog-2388) 'aluOut' already declared in this scope (cpu) at C:/Users/themi/ECE552Project/cpu.v(97).
+** Error (suppressible): C:/Users/themi/ECE552Project/cpu.v(114): (vlog-2388) 'Zero' already declared in this scope (cpu) at C:/Users/themi/ECE552Project/cpu.v(54).
+** Error (suppressible): C:/Users/themi/ECE552Project/cpu.v(114): (vlog-2388) 'Neg' already declared in this scope (cpu) at C:/Users/themi/ECE552Project/cpu.v(54).
+** Error (suppressible): C:/Users/themi/ECE552Project/cpu.v(114): (vlog-2388) 'Overflow' already declared in this scope (cpu) at C:/Users/themi/ECE552Project/cpu.v(54).
+** Error (suppressible): C:/Users/themi/ECE552Project/cpu.v(129): (vlog-2388) 'data_out' already declared in this scope (cpu) at C:/Users/themi/ECE552Project/cpu.v(97).
+** Error: (vlog-13069) C:/Users/themi/ECE552Project/cpu.v(138): near ")": syntax error, unexpected ')', expecting .* or '.'.
+
+} {4.0 5.0 10.0 13.0 18.0 19.0} {}} C:/Users/themi/ECE552Project/memory.v {1 {vlog -work work -stats=none C:/Users/themi/ECE552Project/memory.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+
+} {} {}}
