@@ -46,30 +46,24 @@ module cpu(
     assign secB = instr[7:4];
     assign secC = instr[3:0];
 
-//Branch Handling
+//Branch Handling DONE
     //branch module
-    wire branchSelect;
-    branch branchSelect(
-        .condition(branch ? secA[3:1] : 3'b000),
-        .zero(Zero),
-        .overflow(Overflow),
-        .negative(Neg),
-        .branch(branchSelect)
-    );
-    //branch address calculator
     wire [15:0] pcBranch;
-    add_16bit brAdder(
-        .A(pcInc),
-        .B({immEx[13:0], 2'b00}),
-        .cin(1'b0),
-        .Sum(pcBranch),
-        .Cout()
+    branch branchSelect(
+        .condition(secA[3:1]),
+        .Flags({Zero, Overflow, Neg}),
+        .branchRegMux(BranchReg),
+        .I(instr[8:0]),
+        .branchReg(regBData),
+        .pcIn(pcInc),
+        .pcOut(pcBranch)
     );
     //mux for next program instruction address
-    assign pcD = branchSelect ? pcBranch : pcInc;
+    assign pcDRaw = branch ? pcBranch : pcInc;
+    assign pcD = hlt ? pc : pcDRaw;
 
 //Control Unit
-    wire RegDst, AluSrc, MemtoReg, RegWrite, MemRead, MemWrite, Branch, pcswitch, halt;
+    wire RegDst, AluSrc, MemtoReg, RegWrite, MemRead, MemWrite, Branch, BranchReg, pcswitch, hlt;
     wire [2:0] AluOp;
     control controlUnit(
         //inputs
@@ -83,8 +77,9 @@ module cpu(
         .MemRead(MemRead),  //used
         .MemWrite(MemWrite),  //used
         .Branch(Branch), //used
+        .BranchReg(BranchReg), //used
         .PC(pcswitch),
-        .Halt(halt)
+        .Halt(hlt)
     );
 
 //Register Reading
@@ -127,9 +122,7 @@ module cpu(
         .B(AluSrc ? regBData : immEx), //CONTROL SIGNAL FOR ALUSRC: 1 for R instructions, 0 for I instructions
         .ALUOp(ALUOp), //8 possible operations represented by [2:0] ALUOp Signal
         .ALUOut(aluOut),
-        .Z_Flag(Zero), // zero flag
-        .N_Flag(Neg), // negative flag
-        .V_Flag(Overflow) // overflow flag
+        .Flags({Zero, Overflow, Neg})
     );
 
 //Data Memory Access
