@@ -38,7 +38,7 @@ module cpu(
 
 //Instruction Decoding DONE
     wire [3:0] opcode;
-    wire [3:0] regA, regB;
+    wire [3:0] secA, secB, secC;
     wire [15:0] imm;
 
     assign opcode = instr[15:12];
@@ -49,7 +49,7 @@ module cpu(
 //Branch Handling DONE
     //branch module
     wire [15:0] pcBranch, regBData;
-    wire BranchReg;
+    wire BranchReg, Branch;
     wire Zero, Neg, Overflow;
     branch branchSelect(
         .condition(secA[3:1]),
@@ -65,7 +65,7 @@ module cpu(
     assign pcD = hlt ? pc : pcDRaw;
 
 //Control Unit
-    wire RegDst, AluSrc, MemtoReg, RegWrite, MemRead, MemWrite, Branch, pcswitch;
+    wire RegDst, AluSrc, MemtoReg, RegWrite, MemRead, MemWrite, pcswitch;
     wire [2:0] AluOp;
     control controlUnit(
         //inputs
