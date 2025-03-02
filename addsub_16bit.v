@@ -1,7 +1,8 @@
 module addsub_16bit (
     input [15:0] A, B, //input values
     input sub, // add-sub indicator
-    output [15:0] Sum //sum output
+    output [15:0] Sum, //sum output
+    output overflow //signal for checking overflow
 );
 
 //16bit carry lookahead addder or subtractor
@@ -40,8 +41,9 @@ assign Cout = G[15] | (P[15] & Carry[15]);
 assign SumRaw = P ^ Carry; //Generate the sum through P, G, and carry signals
 
 //Overriding Sum if overflow detected
-assign posOv = ( (A[15] == 1'b0) && (Bnot[15] == 1'b0) && (SumRaw[15] == 1'b1));
-assign negOv = ( (A[15] == 1'b1) && (Bnot[15] == 1'b1) && (SumRaw[15] == 1'b0));
+assign posOv = ( (A[15] == 1'b0) & (Bnot[15] == 1'b0) & (SumRaw[15] == 1'b1));
+assign negOv = ( (A[15] == 1'b1) & (Bnot[15] == 1'b1) & (SumRaw[15] == 1'b0));
+assign overflow = posOv | negOv;
 assign Sum = posOv ? (16'h7FFF) : (//16'h7FFF = 0x0111111111111111 
     negOv ? (16'h8000) : ( //16'h8000 = 0x1000000000000000
         SumRaw

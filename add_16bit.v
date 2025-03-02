@@ -13,7 +13,7 @@ assign cinInternal[2] = coutInternal[1];
 assign cinInternal[3] = coutInternal[2];
 assign cout = coutInternal[3];
 
-add_4bit adders [4:0] (
+add_4bit adders [3:0] (
     .A(A),
     .B(B),
     .cin(cinInternal),

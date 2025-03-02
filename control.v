@@ -47,10 +47,6 @@ case (opcode)
 
     end
     4'b1100: begin //Branch Relative (B)
-        assign regd = 1'b0;
-        assign branch = 1'b1;
-        assign memr = 1'b0;
-        assign memtr = 1'b0;
 
 
     end
