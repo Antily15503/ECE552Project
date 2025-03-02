@@ -3,7 +3,7 @@ module ALU (
     input [2:0] Opcode,
     output [15:0] ALU_Out,
     input Cin,
-    input inv1, inv2, //inversons for subtraction (may need to delete for CLA)
+    //input inv1, inv2, //inversons for subtraction (may need to delete for CLA)
     output Z_Flag, N_Flag, V_Flag,
     output Error
 );
@@ -13,18 +13,17 @@ module ALU (
     wire [15:0] red_out;
     wire [15:0] paddsub_out;
     
-    wire [15:0] In1_PostInversion, In2_PostInversion; //may need to delete for CLA
+    //wire [15:0] In1_PostInversion, In2_PostInversion; //may need to delete for CLA
 
-    assign In1_PostInversion = invA ? ~ALU_In1 : ALU_In1;
-    assign In2_PostInversion = inv2 ? ~ALU_In2 : ALU_In2;
+    //assign In1_PostInversion = invA ? ~ALU_In1 : ALU_In1;
+    //assign In2_PostInversion = inv2 ? ~ALU_In2 : ALU_In2;
 
     //adder/subtractor
-    add_16bit adder(
+    addsub_16bit adder_sub(
         .A(ALU_In1),
         .B(ALU_In2),
-        .cin(Cin),
-        .sum(adder_out),
-        .cout(ALU_Out)
+        .sub(Opcode[0]),
+        .Sum(adder_out),
     );
 
     //XOR instruction
