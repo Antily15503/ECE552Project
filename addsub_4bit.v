@@ -18,7 +18,7 @@ module addsub_4bit (
     assign G = A & Bnot; //if both A and Bnot is 1, then generate
 
     //ripple carry signals from P and G
-    assing C[0] = sub;
+    assign C[0] = sub;
     assign C[1] = G[0] | (P[0] & C[0]);
     assign C[2] = G[1] | (P[1] & C[1]);
     assign C[3] = G[2] | (P[2] & C[2]);
