@@ -11,10 +11,10 @@ module psa_16bit (
 wire [3:0] sum0, sum1, sum2, sum3;
 wire ovfl0, ovfl1, ovfl2, ovfl3;
 
-addsub_4bit iAdder0 (.a(a[15:12]), .b(b[15:12]), .sum(sum[15:12]), .ovfl(ovfl3));
-addsub_4bit iAdder1 (.a(a[11:8]),  .b(b[11:8]),  .sum(sum[11:8]),  .ovfl(ovfl2));
-addsub_4bit iAdder2 (.a(a[7:4]),   .b(b[7:4]),   .sum(sum[7:4]),   .ovfl(ovfl1));
-addsub_4bit iAdder3 (.a(a[3:0]),   .b(b[3:0]),   .sum(sum[3:0]),   .ovfl(ovfl0));
+addsub_4bit iAdder0 (.A(a[15:12]), .B(b[15:12]), .Sum(sum[15:12]), .Cout(ovfl3), .sub(1'b0));
+addsub_4bit iAdder1 (.A(a[11:8]),  .B(b[11:8]),  .Sum(sum[11:8]),  .Cout(ovfl2), .sub(1'b0));
+addsub_4bit iAdder2 (.A(a[7:4]),   .B(b[7:4]),   .Sum(sum[7:4]),   .Cout(ovfl1), .sub(1'b0));
+addsub_4bit iAdder3 (.A(a[3:0]),   .B(b[3:0]),   .Sum(sum[3:0]),   .Cout(ovfl0), .sub(1'b0));
 
 // Detect any overflow
 assign error = ovfl0 | ovfl1 | ovfl2 | ovfl3;

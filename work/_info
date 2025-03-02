@@ -9,27 +9,237 @@ z2
 !i10f 100
 cModel Technology
 dC:/Users/edwar/Downloads/ECE 552/hw4
-vShifter
-!s110 1740813461
+vadd_16bit
+Z0 !s110 1740903113
 !i10b 1
-!s100 Eg1;<[JDPEaR04H9lX93:3
-!s11b Dg1SIo80bB@j0V0VzS_@n1
-ImVHgomUo0oT8O;GeTf;LM0
-VDg1SIo80bB@j0V0VzS_@n1
-dC:/Users/edwar/Downloads/ECE 552/ECE552Project
-w1740813385
-8C:/Users/edwar/Downloads/ECE 552/ECE552Project/Shifter.v
-FC:/Users/edwar/Downloads/ECE 552/ECE552Project/Shifter.v
-!i122 0
-L0 1 36
-OV;L;2020.1;71
+!s100 dJK<BF5:L]ee0T5`R=TKB2
+Z1 !s11b Dg1SIo80bB@j0V0VzS_@n1
+IkQjiaU?fQPXPeGHdhP[GS1
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+Z3 dC:/Users/edwar/Downloads/ECE 552/ECE552Project
+Z4 w1740895316
+8C:/Users/edwar/Downloads/ECE 552/ECE552Project/add_16bit.v
+FC:/Users/edwar/Downloads/ECE 552/ECE552Project/add_16bit.v
+!i122 225
+Z5 L0 1 24
+Z6 OV;L;2020.1;71
 r1
 !s85 0
 31
-!s108 1740813461.000000
+Z7 !s108 1740903113.000000
+!s107 C:/Users/edwar/Downloads/ECE 552/ECE552Project/add_16bit.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/edwar/Downloads/ECE 552/ECE552Project/add_16bit.v|
+!i113 1
+Z8 o-work work
+Z9 tCvgOpt 0
+vadd_4bit
+R0
+!i10b 1
+!s100 e]J]:`1;GXa86V>>4=Q<G0
+R1
+IZ3N>m]P;Ig`bHd?UaC`lV2
+R2
+R3
+R4
+8C:/Users/edwar/Downloads/ECE 552/ECE552Project/add_4bit.v
+FC:/Users/edwar/Downloads/ECE 552/ECE552Project/add_4bit.v
+!i122 223
+R5
+R6
+r1
+!s85 0
+31
+R7
+!s107 C:/Users/edwar/Downloads/ECE 552/ECE552Project/add_4bit.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/edwar/Downloads/ECE 552/ECE552Project/add_4bit.v|
+!i113 1
+R8
+R9
+vadd_8bit
+R0
+!i10b 1
+!s100 :6N^j1ZZ=SM9Lon39dHLD1
+R1
+I3=S]fjDzO<foG4?gmUNa`2
+R2
+R3
+R4
+8C:/Users/edwar/Downloads/ECE 552/ECE552Project/add_8bit.v
+FC:/Users/edwar/Downloads/ECE 552/ECE552Project/add_8bit.v
+!i122 224
+L0 1 28
+R6
+r1
+!s85 0
+31
+R7
+!s107 C:/Users/edwar/Downloads/ECE 552/ECE552Project/add_8bit.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/edwar/Downloads/ECE 552/ECE552Project/add_8bit.v|
+!i113 1
+R8
+R9
+vaddsub_16bit
+R0
+!i10b 1
+!s100 BgE3`FXDQJFkRaVE8D1093
+R1
+IOKXdaR_f]m`UN4[WmfLRn2
+R2
+R3
+R4
+8C:/Users/edwar/Downloads/ECE 552/ECE552Project/addsub_16bit.v
+FC:/Users/edwar/Downloads/ECE 552/ECE552Project/addsub_16bit.v
+!i122 218
+L0 1 52
+R6
+r1
+!s85 0
+31
+R7
+!s107 C:/Users/edwar/Downloads/ECE 552/ECE552Project/addsub_16bit.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/edwar/Downloads/ECE 552/ECE552Project/addsub_16bit.v|
+!i113 1
+R8
+R9
+vaddsub_4bit
+R0
+!i10b 1
+!s100 m23^G:9]RhYm7V^e_Nd^X0
+R1
+IiAV7W5FKWfkh3YlcJ@;XM2
+R2
+R3
+w1740899350
+8C:/Users/edwar/Downloads/ECE 552/ECE552Project/addsub_4bit.v
+FC:/Users/edwar/Downloads/ECE 552/ECE552Project/addsub_4bit.v
+!i122 222
+Z10 L0 1 36
+R6
+r1
+!s85 0
+31
+R7
+!s107 C:/Users/edwar/Downloads/ECE 552/ECE552Project/addsub_4bit.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/edwar/Downloads/ECE 552/ECE552Project/addsub_4bit.v|
+!i113 1
+R8
+R9
+vALU
+R0
+!i10b 1
+!s100 @l4dSCc1L2aW?<DjfiVF;3
+R1
+InYfQM5<hAGVnl<FYLhCN?3
+R2
+R3
+w1740901120
+8C:/Users/edwar/Downloads/ECE 552/ECE552Project/ALU.v
+FC:/Users/edwar/Downloads/ECE 552/ECE552Project/ALU.v
+!i122 219
+L0 1 69
+R6
+r1
+!s85 0
+31
+R7
+!s107 C:/Users/edwar/Downloads/ECE 552/ECE552Project/ALU.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/edwar/Downloads/ECE 552/ECE552Project/ALU.v|
+!i113 1
+R8
+R9
+n@a@l@u
+vALU_tb
+!s110 1740903114
+!i10b 1
+!s100 6iA=ZHgQL^IQ15]ROccil0
+R1
+IJA^Z?NE4=DkP4MkdEZT`C2
+R2
+R3
+w1740902987
+8C:/Users/edwar/Downloads/ECE 552/ECE552Project/test/ALU_tb.v
+FC:/Users/edwar/Downloads/ECE 552/ECE552Project/test/ALU_tb.v
+!i122 226
+L0 1 303
+R6
+r1
+!s85 0
+31
+R7
+!s107 C:/Users/edwar/Downloads/ECE 552/ECE552Project/test/ALU_tb.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/edwar/Downloads/ECE 552/ECE552Project/test/ALU_tb.v|
+!i113 1
+R8
+R9
+n@a@l@u_tb
+vpsa_16bit
+R0
+!i10b 1
+!s100 5DZc<8BK@X9S7DM4jDmaY3
+R1
+I?3mSZ;aYFn8gO;^6nkeI93
+R2
+R3
+w1740900868
+8C:/Users/edwar/Downloads/ECE 552/ECE552Project/psa_16bit.v
+FC:/Users/edwar/Downloads/ECE 552/ECE552Project/psa_16bit.v
+!i122 221
+L0 3 20
+R6
+r1
+!s85 0
+31
+R7
+!s107 C:/Users/edwar/Downloads/ECE 552/ECE552Project/psa_16bit.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/edwar/Downloads/ECE 552/ECE552Project/psa_16bit.v|
+!i113 1
+R8
+R9
+vRED
+R0
+!i10b 1
+!s100 Jh^Y[oLBO8fV^<g0]hc=;0
+R1
+IiTXXjRT72o?h5Df1fbd=K2
+R2
+R3
+R4
+8C:/Users/edwar/Downloads/ECE 552/ECE552Project/RED.v
+FC:/Users/edwar/Downloads/ECE 552/ECE552Project/RED.v
+!i122 220
+L0 1 40
+R6
+r1
+!s85 0
+31
+R7
+!s107 C:/Users/edwar/Downloads/ECE 552/ECE552Project/RED.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/edwar/Downloads/ECE 552/ECE552Project/RED.v|
+!i113 1
+R8
+R9
+n@r@e@d
+vShifter
+R0
+!i10b 1
+!s100 Eg1;<[JDPEaR04H9lX93:3
+R1
+ImVHgomUo0oT8O;GeTf;LM0
+R2
+R3
+w1740813385
+8C:/Users/edwar/Downloads/ECE 552/ECE552Project/Shifter.v
+FC:/Users/edwar/Downloads/ECE 552/ECE552Project/Shifter.v
+!i122 217
+R10
+R6
+r1
+!s85 0
+31
+R7
 !s107 C:/Users/edwar/Downloads/ECE 552/ECE552Project/Shifter.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/edwar/Downloads/ECE 552/ECE552Project/Shifter.v|
 !i113 1
-o-work work
-tCvgOpt 0
+R8
+R9
 n@shifter
