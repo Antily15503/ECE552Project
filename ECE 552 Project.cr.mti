@@ -103,6 +103,13 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 
 Top level modules:
 	control
 
+} {} {}} C:/Users/themi/ECE552Project/data_memory.v {1 {vlog -work work -stats=none C:/Users/themi/ECE552Project/data_memory.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module data_memory
+
+Top level modules:
+	data_memory
+
 } {} {}} C:/Users/themi/ECE552Project/ALU.v {1 {vlog -work work -stats=none C:/Users/themi/ECE552Project/ALU.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
 -- Compiling module ALU
@@ -110,19 +117,19 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 
 Top level modules:
 	ALU
 
-} {} {}} C:/Users/themi/ECE552Project/ReadDecoder_4_16.v {1 {vlog -work work -stats=none C:/Users/themi/ECE552Project/ReadDecoder_4_16.v
-Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module ReadDecoder_4_16
-
-Top level modules:
-	ReadDecoder_4_16
-
 } {} {}} C:/Users/themi/ECE552Project/project-phase1-testbench.v {1 {vlog -work work -stats=none C:/Users/themi/ECE552Project/project-phase1-testbench.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
 -- Compiling module cpu_tb
 
 Top level modules:
 	cpu_tb
+
+} {} {}} C:/Users/themi/ECE552Project/ReadDecoder_4_16.v {1 {vlog -work work -stats=none C:/Users/themi/ECE552Project/ReadDecoder_4_16.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module ReadDecoder_4_16
+
+Top level modules:
+	ReadDecoder_4_16
 
 } {} {}} C:/Users/themi/ECE552Project/RED.v {1 {vlog -work work -stats=none C:/Users/themi/ECE552Project/RED.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020

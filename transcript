@@ -52,3 +52,42 @@ vsim -gui work.cpu_tb
 run -all
 # Hello world...simulation starting
 # See verilogsim.log and verilogsim.trace for output
+# Compile of cpu.v was successful.
+# Compile of data_memory.v was successful.
+# Compile of project-phase1-testbench.v was successful.
+# 3 compiles, 0 failed with no errors.
+vsim -gui work.cpu_tb
+# End time: 18:36:11 on Mar 02,2025, Elapsed time: 0:14:40
+# Errors: 0, Warnings: 2
+# vsim -gui work.cpu_tb 
+# Start time: 18:36:11 on Mar 02,2025
+# Loading work.cpu_tb
+# Loading work.cpu
+# Loading work.inst_memory
+# Loading work.branch
+# Loading work.add_16bit
+# Loading work.control
+# Loading work.RegisterFile
+# Loading work.ReadDecoder_4_16
+# Loading work.Shifter
+# Loading work.WriteDecoder_4_16
+# Loading work.ALU
+# Loading work.addsub_16bit
+# Loading work.psa_16bit
+# Loading work.addsub_4bit
+# Loading work.RED
+# Loading work.add_4bit
+# Loading work.add_8bit
+# Loading work.data_memory
+# Loading work.Register
+# Loading work.dff
+# Loading work.BitCell
+run -all
+# Hello world...simulation starting
+# See verilogsim.log and verilogsim.trace for output
+# Break key hit
+
+
+quit
+# End time: 18:37:20 on Mar 02,2025, Elapsed time: 0:01:09
+# Errors: 0, Warnings: 1

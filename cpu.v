@@ -16,13 +16,14 @@ module cpu(
 
 // Program Counter incrementer
     wire [15:0] pcInc;
-    add_16bit pcIncr(
+    /*add_16bit pcIncr(
         .A(pc),
         .B(16'h0002),
         .Cin(1'b0),
         .Sum(pcInc),
         .Cout()
-    );
+    );*/
+    assign pcInc = pc + 2;
 
 //Instruction Memory Accessing DONE
     wire [15:0] instr;
