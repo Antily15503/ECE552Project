@@ -110,6 +110,7 @@ module cpu(
         .DstData(wrData)
     );
 
+
 //Arithmetic Logic Unit DONE
     wire [15:0] immEx;
     
@@ -118,7 +119,7 @@ module cpu(
     assign immEx = lwhalf ? {8'h00, instr[7:0]} : {{12{secC[3]}}, secC}; //NOTE: this is logical shifting, not arithmetic shifting
 
     ALU alu(
-        .ALU_In1(lwhalf ? regAData : regBData),
+        .ALU_In1(regAData),
         .ALU_In2(AluSrc ? regBData : immEx), //CONTROL SIGNAL FOR ALUSRC: 1 for R instructions, 0 for I instructions
         .Opcode(opcode), //8 possible operations represented by [2:0] of Opcode Signal
         .ALU_Out(aluOut),
