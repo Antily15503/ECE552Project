@@ -41,7 +41,6 @@ module cpu_tb();
       inst_count = 0;
       trace_file = $fopen("verilogsim.trace");
       sim_log_file = $fopen("verilogsim.log");
-      reg_file = $fopen("verilogreg.log");
    end
 
 
@@ -70,23 +69,18 @@ module cpu_tb();
 		$display("hmm....more than 100000 cycles of simulation...error?\n");
 		$finish;
 	end
-    end
+   end
 
 
 
 
 
-
-integer i;
 
   /* Stats */
    always @ (posedge clk) begin
       if (rst_n) begin
          if (Halt || RegWrite || MemWrite) begin
             inst_count = inst_count + 1;
-         end
-         for (i=0; i<16; i=i+1) begin
-            $fdisplay(reg_file, "REG: %d %8x", i, DUT.reg_file.reg[i]);
          end
          $fdisplay(sim_log_file, "SIMLOG:: Cycle %d PC: %8x I: %8x R: %d %3d %8x M: %d %d %8x %8x",
                   cycle_count,

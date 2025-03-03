@@ -149,3 +149,5 @@ run -all
 # Compile of project-phase1-testbench.v failed with 3 errors.
 # Compile of project-phase1-testbench.v failed with 5 errors.
 # Compile of project-phase1-testbench.v failed with 2 errors.
+restart
+# Compile of project-phase1-testbench.v failed with 1 errors.

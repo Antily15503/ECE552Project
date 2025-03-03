@@ -568,29 +568,6 @@ R14
 R7
 R8
 n@r@e@d
-vregister
-R20
-!i10b 1
-!s100 FVgeW9dVeJjCYC4<gV]b62
-R1
-IMfLb<bZ3EjI4cX3oP35F?1
-R2
-R3
-R13
-8C:/Users/themi/ECE552Project/register.v
-FC:/Users/themi/ECE552Project/register.v
-!i122 244
-L0 1 25
-R5
-r1
-!s85 0
-31
-R21
-!s107 C:/Users/themi/ECE552Project/register.v|
-!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/themi/ECE552Project/register.v|
-!i113 1
-R7
-R8
 vRegister
 !s110 1740977738
 !i10b 1
@@ -615,6 +592,29 @@ r1
 R7
 R8
 n@register
+vregister
+R20
+!i10b 1
+!s100 FVgeW9dVeJjCYC4<gV]b62
+R1
+IMfLb<bZ3EjI4cX3oP35F?1
+R2
+R3
+R13
+8C:/Users/themi/ECE552Project/register.v
+FC:/Users/themi/ECE552Project/register.v
+!i122 244
+L0 1 25
+R5
+r1
+!s85 0
+31
+R21
+!s107 C:/Users/themi/ECE552Project/register.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/themi/ECE552Project/register.v|
+!i113 1
+R7
+R8
 vregister_file
 R20
 !i10b 1
