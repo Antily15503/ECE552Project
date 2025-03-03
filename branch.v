@@ -15,15 +15,15 @@ module branch(
     reg b;
     always @(*) begin
         case (condition)
-            3'b000: assign b = ~zero; //not equal
-            3'b001: assign b = zero; //equal
-            3'b010: assign b = ~|{negative, zero}; //greater than
-            3'b011: assign b = negative; //less than
-            3'b100: assign b = |{zero, ~|{negative, zero}}; //greater than or equal to
-            3'b101: assign b = !(negative | zero); //less than or equal to
-            3'b110: assign b = overflow; //overflow
-            3'b111: assign b = 1'b1; //unconditional branch (jump)
-            default: assign b = 1'b0;
+            3'b000: b = ~zero; //not equal
+            3'b001: b = zero; //equal
+            3'b010: b = ~|{negative, zero}; //greater than
+            3'b011: b = negative; //less than
+            3'b100: b = |{zero, ~|{negative, zero}}; //greater than or equal to
+            3'b101: b = !(negative | zero); //less than or equal to
+            3'b110: b = overflow; //overflow
+            3'b111: b = 1'b1; //unconditional branch (jump)
+            default: b = 1'b0;
         endcase
     end
     
@@ -32,7 +32,9 @@ module branch(
     add_16bit adder(
         .A(pcIn),
         .B({{6{I[8]}},I, 1'b0}),
-        .S(pcBranch)
+        .Sum(pcBranch),
+        .Cin(),
+        .Cout()
     );
     assign pcOutRaw = b ? pcBranch : pcIn;
 endmodule

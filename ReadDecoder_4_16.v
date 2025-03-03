@@ -7,6 +7,6 @@ module ReadDecoder_4_16(
 
 wire [15:0] zeros;
 assign zeros[15] = 16'h0001;
-Shifter shift(.Shift_In(zeros), .Shift_val(RegId), .Mode(1'b0), .Shift_Out(Wordline));
+Shifter shift(.Shift_In(zeros), .Shift_val(RegId), .Mode(2'b00), .Shift_Out(Wordline));
 
 endmodule

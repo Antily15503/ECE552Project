@@ -26,7 +26,7 @@ module cpu_tb();
 
      
 
-   cpu DUT(.clk(clk), .rst_n(rst_n), .pc_out(PC), .hlt(Halt)); /* Instantiate your processor */
+   cpu DUT(.clk(clk), .rst_n(rst_n), .pc(PC), .hlt(Halt)); /* Instantiate your processor */
    
 
 
@@ -154,24 +154,24 @@ module cpu_tb();
    // names on the right hand side
     
 //   assign PC = DUT.fetch0.pcCurrent; //You won't need this because it's part of the main cpu interface
-   assign Inst = DUT.instruction_mem.instr;
+   assign Inst = DUT.instruction_mem.data_out;
    
-   assign RegWrite = DUT.reg_file.RegWrite;
+   assign RegWrite = DUT.reg_file.writeReg;
    // Is memory being read, one bit signal (1 means yes, 0 means no)
    
-   assign WriteRegister = DUT.reg_file.regA;
+   assign WriteRegister = DUT.reg_file.dstReg;
    // The name of the register being written to. (4 bit signal)
 
-   assign WriteData = DUT.reg_file.wrData;
+   assign WriteData = DUT.reg_file.dstData;
    // Data being written to the register. (16 bits)
    
-   assign MemRead =  DUT.datamem.MemRead;
+   assign MemRead =  DUT.datamem.enable;
    // Is memory being read, one bit signal (1 means yes, 0 means no)
    
-   assign MemWrite = (DUT.control.MemtoReg & DUT.datamem.MemWrite);
+   assign MemWrite = (DUT.controlUnit.MemtoReg & DUT.datamem.wr);
    //??? Is memory being written to (1 bit signal)
    
-   assign MemAddress = DUT.datamem.aluOut;
+   assign MemAddress = DUT.datamem.addr;
    // Address to access memory with (for both reads and writes to memory, 16 bits)
    
    assign MemData = DUT.datamem.data_out;

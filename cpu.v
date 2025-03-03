@@ -19,7 +19,7 @@ module cpu(
     add_16bit pcIncr(
         .A(pc),
         .B(16'h0002),
-        .cin(1'b0),
+        .Cin(1'b0),
         .Sum(pcInc),
         .Cout()
     );
@@ -66,12 +66,10 @@ module cpu(
 
 //Control Unit
     wire RegDst, AluSrc, MemtoReg, RegWrite, MemRead, MemWrite, pcswitch, lwhalf;
-    wire [2:0] AluOp;
     control controlUnit(
         //inputs
         .opcode(opcode),
         //outputs
-        .AluOp(AluOp),  //used
         .RegDst(RegDst),  //used
         .AluSrc(AluSrc),  //used
         .MemtoReg(MemtoReg),  //used
@@ -118,16 +116,16 @@ module cpu(
 
     assign wrData = wrDataIntermed;
 
-    register_file reg_file(
+    RegisterFile reg_file(
         .clk(clk),
         .rst(~rst_n),
-        .src_reg1(regB),
-        .src_reg2(regC),
-        .dst_reg(regA),
-        .src_data1(regAData),
-        .src_data2(regBData),
-        .write_reg(RegWrite), //CONTROL SIGNAL FOR REGWRITE: 1 for write, 0 for read
-        .wrData(wrData)
+        .srcReg1(regB),
+        .srcReg2(regC),
+        .dstReg(regA),
+        .srcData1(regAData),
+        .srcData2(regBData),
+        .writeReg(RegWrite), //CONTROL SIGNAL FOR REGWRITE: 1 for write, 0 for read
+        .dstData(wrData)
     );
 
 
@@ -142,9 +140,9 @@ module cpu(
 
     ALU alu(
         .ALU_In1(regAData),
-        .B(AluSrc ? regBData : immEx), //CONTROL SIGNAL FOR ALUSRC: 1 for R instructions, 0 for I instructions
-        .ALUOp(ALUOp), //8 possible operations represented by [2:0] ALUOp Signal
-        .ALUOut(aluOut),
+        .ALU_In2(AluSrc ? regBData : immEx), //CONTROL SIGNAL FOR ALUSRC: 1 for R instructions, 0 for I instructions
+        .Opcode(opcode[2:0]), //8 possible operations represented by [2:0] of Opcode Signal
+        .ALU_Out(aluOut),
         .Flags({Zero, Overflow, Neg})
     );
 

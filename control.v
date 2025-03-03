@@ -1,10 +1,10 @@
 module control(
     input [3:0] opcode,
-    output [2:0] AluOp,
-    output RegDst, Branch, BranchReg, MemRead, MemtoReg, ALUSrc, MemWrite, MemHalf, RegWrite, PC, Halt
+    output RegDst, Branch, BranchReg, MemRead, MemtoReg, AluSrc, MemWrite, MemHalf, RegWrite, PC, Halt
 );
 
 reg regd, branch, branchr, memr, memtr, memh, alus, memw, regw, pc, halt;
+reg [2:0] aluop;
 
 always @(*) begin
     case (opcode)
@@ -127,7 +127,6 @@ always @(*) begin
         end
     endcase
 end
-assign AluOp = alus;
 assign RegDst = regd;
 assign Branch = branch;
 assign BranchReg = branchr;

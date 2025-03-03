@@ -1,25 +1,16 @@
-module register (
-    input clk,
-    input rst,
-    input [15:0] d,
-    input write_reg,
-    input rden1,
-    input rden2,
-    inout [15:0] bitline1,
-    inout [15:0] bitline2
+module Register(
+    input clk, rst, writeReg, readEnable1, readEnable2,
+    input [15:0] D,
+    inout [15:0] Bitline1, Bitline2
 );
-    bit_cell iBits [15:0] (
-        .clk(clk),
-        .rst(rst),
-        .d(d),
-        .wren(write_reg),
-        .rden1(rden1),
-        .rden2(rden2),
-        .bitline1(bitline1),
-        .bitline2(bitline2)
-    );
-
-    assign bitline1 = (rden1) ? d : 16'hZZZZ;
-    assign bitline2 = (rden2) ? d : 16'hZZZZ;
+//basically 15 bitcells
+BitCell bits[15:0] (.clk({16{clk}}),
+                    .rst({16{rst}}),
+                    .D(D),
+                    .WriteEnable({16{writeReg}}),
+                    .ReadEnable1({16{readEnable1}}),
+                    .ReadEnable2({16{readEnable2}}),
+                    .Bitline1(Bitline1),
+                    .Bitline2(Bitline2));
 
 endmodule
