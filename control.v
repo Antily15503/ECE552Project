@@ -7,7 +7,7 @@ reg regd, branch, branchr, memr, memtr, memh, alus, memw, regw, pc, halt;
 reg [2:0] aluop;
 
 always @(*) begin
-    case (opcode)
+    casex (opcode)
         4'b0xxx: begin //ALL ALU INSTRUCTIONS
             regd = 1'b1;
             branch = 1'b0;
@@ -53,7 +53,7 @@ always @(*) begin
             branchr = 1'b0;
             memr = 1'b0;
             memtr = 1'b0;
-            memh = 1'b0;
+            memh = 1'b1;
             alus = 1'b0;
             memw = 1'b0;
             regw = 1'b1;
@@ -125,6 +125,19 @@ always @(*) begin
             pc = 1'b0;
             halt = 1'b1;
         end
+        default: begin
+            regd = 1'b0;
+            branch = 1'b0;
+            branchr = 1'b0;
+            memr = 1'b0;
+            memtr = 1'b0;
+            alus = 1'b0;
+            memh = 1'b0;
+            memw = 1'b0;
+            regw = 1'b0;
+            pc = 1'b0;
+            halt = 1'b0;
+        end
     endcase
 end
 assign RegDst = regd;
@@ -137,4 +150,5 @@ assign MemWrite = memw;
 assign RegWrite = regw;
 assign PC = pc;
 assign Halt = halt;
+assign MemHalf = memh;
 endmodule

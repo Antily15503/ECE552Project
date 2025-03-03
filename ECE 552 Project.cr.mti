@@ -40,12 +40,12 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 
 Top level modules:
 	Shifter
 
-} {} {}} C:/Users/themi/ECE552Project/register.v {1 {vlog -work work -stats=none C:/Users/themi/ECE552Project/register.v
+} {} {}} C:/Users/themi/ECE552Project/register.v {1 {vlog -work work -stats=none C:/Users/themi/ECE552Project/Register.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module register
+-- Compiling module Register
 
 Top level modules:
-	register
+	Register
 
 } {} {}} C:/Users/themi/ECE552Project/addsub_16bit_tb.v {1 {vlog -work work -stats=none C:/Users/themi/ECE552Project/addsub_16bit_tb.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
@@ -89,19 +89,19 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 
 Top level modules:
 	psa_16bit
 
-} {} {}} C:/Users/themi/ECE552Project/decoder_one_hot.v {1 {vlog -work work -stats=none C:/Users/themi/ECE552Project/decoder_one_hot.v
-Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module decoder_one_hot
-
-Top level modules:
-	decoder_one_hot
-
 } {} {}} C:/Users/themi/ECE552Project/control.v {1 {vlog -work work -stats=none C:/Users/themi/ECE552Project/control.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
 -- Compiling module control
 
 Top level modules:
 	control
+
+} {} {}} C:/Users/themi/ECE552Project/decoder_one_hot.v {1 {vlog -work work -stats=none C:/Users/themi/ECE552Project/decoder_one_hot.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module decoder_one_hot
+
+Top level modules:
+	decoder_one_hot
 
 } {} {}} C:/Users/themi/ECE552Project/data_memory.v {1 {vlog -work work -stats=none C:/Users/themi/ECE552Project/data_memory.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
@@ -117,12 +117,12 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 
 Top level modules:
 	ALU
 
-} {} {}} C:/Users/themi/ECE552Project/project-phase1-testbench.v {1 {vlog -work work -stats=none C:/Users/themi/ECE552Project/project-phase1-testbench.v
+} {} {}} C:/Users/themi/ECE552Project/branch_tb.v {1 {vlog -work work -stats=none C:/Users/themi/ECE552Project/branch_tb.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module cpu_tb
+-- Compiling module branch_tb
 
 Top level modules:
-	cpu_tb
+	branch_tb
 
 } {} {}} C:/Users/themi/ECE552Project/ReadDecoder_4_16.v {1 {vlog -work work -stats=none C:/Users/themi/ECE552Project/ReadDecoder_4_16.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020

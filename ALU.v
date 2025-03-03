@@ -1,6 +1,6 @@
 module ALU (
     input [15:0] ALU_In1, ALU_In2,
-    input [2:0] Opcode,
+    input [3:0] Opcode,
     output reg [15:0] ALU_Out,
     output [2:0] Flags // Zero(Z) = bit2, Overflow (V) = bit1, and Sign (N) = bit0
 );
@@ -11,7 +11,6 @@ module ALU (
     wire [15:0] paddsub_out;
     wire overflow;
     wire overflow_paddsb; //might need for V flag
-
 
     //adder/subtractor
     addsub_16bit adder_sub(
@@ -49,21 +48,24 @@ module ALU (
     );
 
     always @(*) begin
-        case(Opcode)
-            3'b000: ALU_Out = adder_out;   // ADD
-            3'b001: ALU_Out = adder_out;   // SUB
-            3'b010: ALU_Out = xor_out;     // XOR
-            3'b011: ALU_Out = red_out;     // RED
-            3'b100: ALU_Out = shift_out;   // SLL
-            3'b101: ALU_Out = shift_out;   // SRA
-            3'b110: ALU_Out = shift_out;   // ROR
-            3'b111: ALU_Out = paddsub_out; // PADDSB
+        casex(Opcode)
+            4'b0000: ALU_Out = adder_out;   // ADD
+            4'b0001: ALU_Out = adder_out;   // SUB
+            4'b0010: ALU_Out = xor_out;     // XOR
+            4'b0011: ALU_Out = red_out;     // RED
+            4'b0100: ALU_Out = shift_out;   // SLL
+            4'b0101: ALU_Out = shift_out;   // SRA
+            4'b0110: ALU_Out = shift_out;   // ROR
+            4'b0111: ALU_Out = paddsub_out; // PADDSB
+            4'b100x: ALU_Out = adder_out;   // MOV
+            4'b1010: ALU_Out = ((ALU_In1 & 16'hFF00) | ALU_In2[7:0]); //LLB
+            4'b1011: ALU_Out = ((ALU_In1 & 16'h00FF) | ALU_In2[7:0]<<8); //LHB
             default: ALU_Out = 16'h0000;
         endcase
     end
 
     assign Flags[2] = (ALU_Out == 16'h0000);                                    //Z flag
-    assign Flags[1] = (Opcode == 3'b000 | Opcode == 3'b001) ? overflow : 1'b0;  //V flag
-    assign Flags[0] = (Opcode == 3'b000 | Opcode == 3'b001) ? ALU_Out[15] : 1'b0; //N flag                                              //N flag
+    assign Flags[1] = (Opcode == 4'b0000 | Opcode == 4'b0001) ? overflow : 1'b0;  //V flag
+    assign Flags[0] = (Opcode == 4'b0000 | Opcode == 4'b0001) ? ALU_Out[15] : 1'b0; //N flag                                              //N flag
 
 endmodule

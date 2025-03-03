@@ -156,13 +156,13 @@ module cpu_tb();
 //   assign PC = DUT.fetch0.pcCurrent; //You won't need this because it's part of the main cpu interface
    assign Inst = DUT.instruction_mem.data_out;
    
-   assign RegWrite = DUT.reg_file.writeReg;
+   assign RegWrite = DUT.reg_file.WriteReg;
    // Is memory being read, one bit signal (1 means yes, 0 means no)
    
-   assign WriteRegister = DUT.reg_file.dstReg;
+   assign WriteRegister = DUT.reg_file.DstReg;
    // The name of the register being written to. (4 bit signal)
 
-   assign WriteData = DUT.reg_file.dstData;
+   assign WriteData = DUT.reg_file.DstData;
    // Data being written to the register. (16 bits)
    
    assign MemRead =  DUT.datamem.enable;
