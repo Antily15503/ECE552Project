@@ -1,429 +1,54 @@
-# Compile of Shifter.v was successful.
-# Compile of addsub_16bit.v was successful.
-# Compile of ALU.v was successful.
-# Compile of RED.v was successful.
-# Compile of psa_16bit.v was successful.
-# Compile of addsub_4bit.v was successful.
-# Compile of add_4bit.v was successful.
-# Compile of add_8bit.v was successful.
-# Compile of add_16bit.v was successful.
-# Compile of ALU_tb.v was successful.
-# 10 compiles, 0 failed with no errors.
-# Compile of Shifter.v was successful.
-# Compile of addsub_16bit.v was successful.
-# Compile of ALU.v was successful.
-# Compile of RED.v was successful.
-# Compile of psa_16bit.v was successful.
-# Compile of addsub_4bit.v was successful.
-# Compile of add_4bit.v was successful.
-# Compile of add_8bit.v was successful.
-# Compile of add_16bit.v was successful.
-# Compile of ALU_tb.v was successful.
-# 10 compiles, 0 failed with no errors.
-# Compile of Shifter.v was successful.
-# Compile of addsub_16bit.v was successful.
-# Compile of ALU.v was successful.
-# Compile of RED.v was successful.
-# Compile of psa_16bit.v was successful.
-# Compile of addsub_4bit.v was successful.
-# Compile of add_4bit.v was successful.
-# Compile of add_8bit.v was successful.
-# Compile of add_16bit.v was successful.
-# Compile of ALU_tb.v was successful.
-# 10 compiles, 0 failed with no errors.
-vsim work.ALU_tb
-# vsim work.ALU_tb 
-# Start time: 01:58:03 on Mar 02,2025
-# Loading work.ALU_tb
+vsim -gui work.cpu_tb
+# vsim -gui work.cpu_tb 
+# Start time: 18:21:05 on Mar 02,2025
+# Loading work.cpu_tb
+# Loading work.cpu
+# Loading work.add_16bit
+# Loading work.inst_memory
+# Loading work.branch
+# Loading work.control
+# Loading work.RegisterFile
+# Loading work.ReadDecoder_4_16
+# Loading work.Shifter
+# Loading work.WriteDecoder_4_16
 # Loading work.ALU
 # Loading work.addsub_16bit
-# Loading work.Shifter
 # Loading work.psa_16bit
 # Loading work.addsub_4bit
 # Loading work.RED
 # Loading work.add_4bit
 # Loading work.add_8bit
-run -all
-# Starting ALU Tests
-# 
-# Testing ADD operation (Opcode = 000)
-# PASS: itive + Positive - Out: 0x0579, Flags: 000
-# PASS: ative + Negative - Out: 0xe579, Flags: 001
-# PASS:  with saturation - Out: 0x7fff, Flags: 010
-# PASS:  with saturation - Out: 0x8000, Flags: 011
-# PASS: ADD: Zero result - Out: 0x0000, Flags: 100
-# 
-# Testing SUB operation (Opcode = 001)
-# PASS: Smaller Positive - Out: 0x0333, Flags: 000
-# PASS:  Larger Positive - Out: 0xfccd, Flags: 001
-# PASS:  with saturation - Out: 0x7fff, Flags: 010
-# PASS:  with saturation - Out: 0x8000, Flags: 011
-# PASS: SUB: Zero result - Out: 0x0000, Flags: 100
-# 
-# Testing XOR operation (Opcode = 010)
-# PASS:  Non-zero result - Out: 0xffff, Flags: 000
-# PASS: XOR: Zero result - Out: 0x0000, Flags: 100
-# 
-# Testing RED operation (Opcode = 011)
-# PASS:   RED: All zeros - Out: 0x0000, Flags: 100
-# PASS:  Simple addition - Out: 0x0008, Flags: 000
-# FAIL: ED: Mixed values
-#   Expected: Out=0x0034, Flags=000
-#   Got:      Out=0x002e, Flags=000
-# 
-# Testing SLL operation (Opcode = 100)
-# PASS:  SLL: Shift by 4 - Out: 0x2340, Flags: 000
-# PASS:  SLL: Shift by 8 - Out: 0x3400, Flags: 000
-# 
-# Testing SRA operation (Opcode = 101)
-# PASS: umber shift by 4 - Out: 0x0123, Flags: 000
-# PASS: umber shift by 4 - Out: 0xf823, Flags: 000
-# PASS: ntil small value - Out: 0x0001, Flags: 000
-# PASS: Shift until zero - Out: 0x0000, Flags: 100
-# 
-# Testing ROR operation (Opcode = 110)
-# PASS: ROR: Rotate by 4 - Out: 0x4123, Flags: 000
-# PASS: ROR: Rotate by 8 - Out: 0x3412, Flags: 000
-# PASS: OR: Rotate by 16 - Out: 0x1234, Flags: 000
-# 
-# Testing PADDSB operation (Opcode = 111)
-# PASS:  Simple addition - Out: 0x2345, Flags: 000
-# PASS: itive saturation - Out: 0x7777, Flags: 000
-# PASS: ative saturation - Out: 0x8888, Flags: 000
-# FAIL: SB: Mixed values
-#   Expected: Out=0x92f7, Flags=000
-#   Got:      Out=0x72f8, Flags=000
-# 
-# ALL ALU TESTS COMPLETED
-# ** Note: $stop    : C:/Users/edwar/Downloads/ECE 552/ECE552Project/ALU_tb.v(300)
-#    Time: 280 ps  Iteration: 0  Instance: /ALU_tb
-# Break in Module ALU_tb at C:/Users/edwar/Downloads/ECE 552/ECE552Project/ALU_tb.v line 300
-# Compile of Shifter.v was successful.
-# Compile of addsub_16bit.v was successful.
-# Compile of ALU.v was successful.
-# Compile of RED.v was successful.
-# Compile of psa_16bit.v was successful.
-# Compile of addsub_4bit.v was successful.
-# Compile of add_4bit.v was successful.
-# Compile of add_8bit.v was successful.
-# Compile of add_16bit.v was successful.
-# Compile of ALU_tb.v was successful.
-# 10 compiles, 0 failed with no errors.
-restart
-# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
-# Loading work.ALU_tb
+# Loading work.data_memory
+# Loading work.Register
+# Loading work.dff
+# Loading work.BitCell
+# Compile of data_memory.v was successful.
+vsim -gui work.cpu_tb
+# End time: 18:21:31 on Mar 02,2025, Elapsed time: 0:00:26
+# Errors: 0, Warnings: 2
+# vsim -gui work.cpu_tb 
+# Start time: 18:21:31 on Mar 02,2025
+# Loading work.cpu_tb
+# Loading work.cpu
+# Loading work.add_16bit
+# Loading work.inst_memory
+# Loading work.branch
+# Loading work.control
+# Loading work.RegisterFile
+# Loading work.ReadDecoder_4_16
+# Loading work.Shifter
+# Loading work.WriteDecoder_4_16
 # Loading work.ALU
 # Loading work.addsub_16bit
-# Loading work.Shifter
 # Loading work.psa_16bit
 # Loading work.addsub_4bit
 # Loading work.RED
 # Loading work.add_4bit
 # Loading work.add_8bit
+# Loading work.data_memory
+# Loading work.Register
+# Loading work.dff
+# Loading work.BitCell
 run -all
-# GetModuleFileName: The specified module could not be found.
-# 
-# 
-# Starting ALU Tests
-# 
-# Testing ADD operation (Opcode = 000)
-# PASS: itive + Positive - Out: 0x0579, Flags: 000
-# PASS: ative + Negative - Out: 0xe579, Flags: 001
-# PASS:  with saturation - Out: 0x7fff, Flags: 010
-# PASS:  with saturation - Out: 0x8000, Flags: 011
-# PASS: ADD: Zero result - Out: 0x0000, Flags: 100
-# 
-# Testing SUB operation (Opcode = 001)
-# PASS: Smaller Positive - Out: 0x0333, Flags: 000
-# PASS:  Larger Positive - Out: 0xfccd, Flags: 001
-# PASS:  with saturation - Out: 0x7fff, Flags: 010
-# PASS:  with saturation - Out: 0x8000, Flags: 011
-# PASS: SUB: Zero result - Out: 0x0000, Flags: 100
-# 
-# Testing XOR operation (Opcode = 010)
-# PASS:  Non-zero result - Out: 0xffff, Flags: 000
-# PASS: XOR: Zero result - Out: 0x0000, Flags: 100
-# 
-# Testing RED operation (Opcode = 011)
-# PASS:   RED: All zeros - Out: 0x0000, Flags: 100
-# PASS:  Simple addition - Out: 0x0008, Flags: 000
-# FAIL: ED: Mixed values
-#   Expected: Out=0x0034, Flags=000
-#   Got:      Out=0x002e, Flags=000
-# 
-# Testing SLL operation (Opcode = 100)
-# PASS:  SLL: Shift by 4 - Out: 0x2340, Flags: 000
-# PASS:  SLL: Shift by 8 - Out: 0x3400, Flags: 000
-# 
-# Testing SRA operation (Opcode = 101)
-# PASS: umber shift by 4 - Out: 0x0123, Flags: 000
-# PASS: umber shift by 4 - Out: 0xf823, Flags: 000
-# PASS: ntil small value - Out: 0x0001, Flags: 000
-# PASS: Shift until zero - Out: 0x0000, Flags: 100
-# 
-# Testing ROR operation (Opcode = 110)
-# PASS: ROR: Rotate by 4 - Out: 0x4123, Flags: 000
-# PASS: ROR: Rotate by 8 - Out: 0x3412, Flags: 000
-# PASS: OR: Rotate by 16 - Out: 0x1234, Flags: 000
-# 
-# Testing PADDSB operation (Opcode = 111)
-# PASS:  Simple addition - Out: 0x2345, Flags: 000
-# PASS: itive saturation - Out: 0x7777, Flags: 000
-# PASS: ative saturation - Out: 0x8888, Flags: 000
-# FAIL: SB: Mixed values
-#   Expected: Out=0x92f7, Flags=000
-#   Got:      Out=0x72f8, Flags=000
-# 
-# ALL ALU TESTS COMPLETED
-# ** Note: $stop    : C:/Users/edwar/Downloads/ECE 552/ECE552Project/ALU_tb.v(300)
-#    Time: 280 ps  Iteration: 0  Instance: /ALU_tb
-# Break in Module ALU_tb at C:/Users/edwar/Downloads/ECE 552/ECE552Project/ALU_tb.v line 300
-# Compile of Shifter.v was successful.
-# Compile of addsub_16bit.v was successful.
-# Compile of ALU.v was successful.
-# Compile of RED.v was successful.
-# Compile of psa_16bit.v was successful.
-# Compile of addsub_4bit.v was successful.
-# Compile of add_4bit.v was successful.
-# Compile of add_8bit.v was successful.
-# Compile of add_16bit.v was successful.
-# Compile of ALU_tb.v was successful with warnings.
-# 10 compiles, 0 failed with no errors.
-vsim work.ALU_tb
-# End time: 02:00:28 on Mar 02,2025, Elapsed time: 0:02:25
-# Errors: 0, Warnings: 4
-# vsim work.ALU_tb 
-# Start time: 02:00:28 on Mar 02,2025
-# Loading work.ALU_tb
-# Loading work.ALU
-# Loading work.addsub_16bit
-# Loading work.Shifter
-# Loading work.psa_16bit
-# Loading work.addsub_4bit
-# Loading work.RED
-# Loading work.add_4bit
-# Loading work.add_8bit
-run -all
-# Starting ALU Tests
-# 
-# Testing ADD operation (Opcode = 000)
-# PASS: itive + Positive - Out: 0x0579, Flags: 000
-# PASS: ative + Negative - Out: 0xe579, Flags: 001
-# PASS:  with saturation - Out: 0x7fff, Flags: 010
-# PASS:  with saturation - Out: 0x8000, Flags: 011
-# PASS: ADD: Zero result - Out: 0x0000, Flags: 100
-# 
-# Testing SUB operation (Opcode = 001)
-# PASS: Smaller Positive - Out: 0x0333, Flags: 000
-# PASS:  Larger Positive - Out: 0xfccd, Flags: 001
-# PASS:  with saturation - Out: 0x7fff, Flags: 010
-# PASS:  with saturation - Out: 0x8000, Flags: 011
-# PASS: SUB: Zero result - Out: 0x0000, Flags: 100
-# 
-# Testing XOR operation (Opcode = 010)
-# PASS:  Non-zero result - Out: 0xffff, Flags: 000
-# PASS: XOR: Zero result - Out: 0x0000, Flags: 100
-# 
-# Testing RED operation (Opcode = 011)
-# PASS:   RED: All zeros - Out: 0x0000, Flags: 100
-# PASS:  Simple addition - Out: 0x0008, Flags: 000
-# FAIL: ED: Mixed values
-#   Expected: Out=0x0034, Flags=000
-#   Got:      Out=0x002e, Flags=000
-# 
-# Testing SLL operation (Opcode = 100)
-# PASS:  SLL: Shift by 4 - Out: 0x2340, Flags: 000
-# PASS:  SLL: Shift by 8 - Out: 0x3400, Flags: 000
-# 
-# Testing SRA operation (Opcode = 101)
-# PASS: umber shift by 4 - Out: 0x0123, Flags: 000
-# PASS: umber shift by 4 - Out: 0xf823, Flags: 000
-# PASS: ntil small value - Out: 0x0001, Flags: 000
-# PASS: Shift until zero - Out: 0x0000, Flags: 100
-# 
-# Testing ROR operation (Opcode = 110)
-# PASS: ROR: Rotate by 4 - Out: 0x4123, Flags: 000
-# PASS: ROR: Rotate by 8 - Out: 0x3412, Flags: 000
-# PASS: OR: Rotate by 16 - Out: 0x1234, Flags: 000
-# 
-# Testing PADDSB operation (Opcode = 111)
-# PASS:  Simple addition - Out: 0x2345, Flags: 000
-# PASS: itive saturation - Out: 0x7777, Flags: 000
-# PASS: ative saturation - Out: 0x8888, Flags: 000
-# FAIL: SB: Mixed values
-#   Expected: Out=0x2f78, Flags=000
-#   Got:      Out=0x72f8, Flags=000
-# 
-# ALL ALU TESTS COMPLETED
-# ** Note: $stop    : C:/Users/edwar/Downloads/ECE 552/ECE552Project/test/ALU_tb.v(300)
-#    Time: 280 ps  Iteration: 0  Instance: /ALU_tb
-# Break in Module ALU_tb at C:/Users/edwar/Downloads/ECE 552/ECE552Project/test/ALU_tb.v line 300
-#  Trace back: window ".srcobjdlg" was deleted before its visibility changed
-#     while executing
-# "tkwait visibility $w"
-#     (procedure "tk_dialog" line 119)
-#     invoked from within
-# "tk_dialog .srcobjdlg "Warning!" "$msg" "" 1 Overwrite Reload Ignore"
-#     (object "::.main_pane.source1.interior.cs.body.srcobj" method "::vsimwidgets::Srcobj::CheckModification" body line 18)
-#     invoked from within
-# "::.main_pane.source1.interior.cs.body.srcobj CheckModification"
-#     (in namespace inscope "::vsimwidgets::Srcobj" script line 1)
-#     invoked from within
-# "namespace inscope ::vsimwidgets::Srcobj {::.main_pane.source1.interior.cs.body.srcobj CheckModification}"
-#     (command bound to event)
-#    <2:C:/intelFPGA/20.1/modelsim_ase/win32aloem/tk8.6/bgerror.tcl:106: ::tkerror {window ".srcobjdlg" was deleted before its visibility changed}
-#    <1:eval:1: ::tk::dialog::error::bgerror {window ".srcobjdlg" was deleted before its visibility changed}
-# Compile of Shifter.v was successful.
-# Compile of addsub_16bit.v was successful.
-# Compile of ALU.v was successful.
-# Compile of RED.v was successful.
-# Compile of psa_16bit.v was successful.
-# Compile of addsub_4bit.v was successful.
-# Compile of add_4bit.v was successful.
-# Compile of add_8bit.v was successful.
-# Compile of add_16bit.v was successful.
-# Compile of ALU_tb.v was successful.
-# 10 compiles, 0 failed with no errors.
-restart
-# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
-# Loading work.ALU_tb
-# Loading work.ALU
-# Loading work.addsub_16bit
-# Loading work.Shifter
-# Loading work.psa_16bit
-# Loading work.addsub_4bit
-# Loading work.RED
-# Loading work.add_4bit
-# Loading work.add_8bit
-run -all
-# GetModuleFileName: The specified module could not be found.
-# 
-# 
-# Starting ALU Tests
-# 
-# Testing ADD operation (Opcode = 000)
-# PASS: itive + Positive - Out: 0x0579, Flags: 000
-# PASS: ative + Negative - Out: 0xe579, Flags: 001
-# PASS:  with saturation - Out: 0x7fff, Flags: 010
-# PASS:  with saturation - Out: 0x8000, Flags: 011
-# PASS: ADD: Zero result - Out: 0x0000, Flags: 100
-# 
-# Testing SUB operation (Opcode = 001)
-# PASS: Smaller Positive - Out: 0x0333, Flags: 000
-# PASS:  Larger Positive - Out: 0xfccd, Flags: 001
-# PASS:  with saturation - Out: 0x7fff, Flags: 010
-# PASS:  with saturation - Out: 0x8000, Flags: 011
-# PASS: SUB: Zero result - Out: 0x0000, Flags: 100
-# 
-# Testing XOR operation (Opcode = 010)
-# PASS:  Non-zero result - Out: 0xffff, Flags: 000
-# PASS: XOR: Zero result - Out: 0x0000, Flags: 100
-# 
-# Testing RED operation (Opcode = 011)
-# PASS:   RED: All zeros - Out: 0x0000, Flags: 100
-# PASS:  Simple addition - Out: 0x0008, Flags: 000
-# FAIL: ED: Mixed values
-#   Expected: Out=0x0034, Flags=000
-#   Got:      Out=0x002e, Flags=000
-# 
-# Testing SLL operation (Opcode = 100)
-# PASS:  SLL: Shift by 4 - Out: 0x2340, Flags: 000
-# PASS:  SLL: Shift by 8 - Out: 0x3400, Flags: 000
-# 
-# Testing SRA operation (Opcode = 101)
-# PASS: umber shift by 4 - Out: 0x0123, Flags: 000
-# PASS: umber shift by 4 - Out: 0xf823, Flags: 000
-# PASS: ntil small value - Out: 0x0001, Flags: 000
-# PASS: Shift until zero - Out: 0x0000, Flags: 100
-# 
-# Testing ROR operation (Opcode = 110)
-# PASS: ROR: Rotate by 4 - Out: 0x4123, Flags: 000
-# PASS: ROR: Rotate by 8 - Out: 0x3412, Flags: 000
-# PASS: OR: Rotate by 16 - Out: 0x1234, Flags: 000
-# 
-# Testing PADDSB operation (Opcode = 111)
-# PASS:  Simple addition - Out: 0x2345, Flags: 000
-# PASS: itive saturation - Out: 0x7777, Flags: 000
-# PASS: ative saturation - Out: 0x8888, Flags: 000
-# PASS: SB: Mixed values - Out: 0x72f8, Flags: 000
-# 
-# ALL ALU TESTS COMPLETED
-# ** Note: $stop    : C:/Users/edwar/Downloads/ECE 552/ECE552Project/test/ALU_tb.v(300)
-#    Time: 280 ps  Iteration: 0  Instance: /ALU_tb
-# Break in Module ALU_tb at C:/Users/edwar/Downloads/ECE 552/ECE552Project/test/ALU_tb.v line 300
-# Compile of Shifter.v was successful.
-# Compile of addsub_16bit.v was successful.
-# Compile of ALU.v was successful.
-# Compile of RED.v was successful.
-# Compile of psa_16bit.v was successful.
-# Compile of addsub_4bit.v was successful.
-# Compile of add_4bit.v was successful.
-# Compile of add_8bit.v was successful.
-# Compile of add_16bit.v was successful.
-# Compile of ALU_tb.v was successful.
-# 10 compiles, 0 failed with no errors.
-vsim work.ALU_tb
-# End time: 02:12:05 on Mar 02,2025, Elapsed time: 0:11:37
-# Errors: 0, Warnings: 4
-# vsim work.ALU_tb 
-# Start time: 02:12:05 on Mar 02,2025
-# Loading work.ALU_tb
-# Loading work.ALU
-# Loading work.addsub_16bit
-# Loading work.Shifter
-# Loading work.psa_16bit
-# Loading work.addsub_4bit
-# Loading work.RED
-# Loading work.add_4bit
-# Loading work.add_8bit
-run -all
-# Starting ALU Tests
-# 
-# Testing ADD operation (Opcode = 000)
-# PASS: itive + Positive - Out: 0x0579, Flags: 000
-# PASS: ative + Negative - Out: 0xe579, Flags: 001
-# PASS:  with saturation - Out: 0x7fff, Flags: 010
-# PASS:  with saturation - Out: 0x8000, Flags: 011
-# PASS: ADD: Zero result - Out: 0x0000, Flags: 100
-# 
-# Testing SUB operation (Opcode = 001)
-# PASS: Smaller Positive - Out: 0x0333, Flags: 000
-# PASS:  Larger Positive - Out: 0xfccd, Flags: 001
-# PASS:  with saturation - Out: 0x7fff, Flags: 010
-# PASS:  with saturation - Out: 0x8000, Flags: 011
-# PASS: SUB: Zero result - Out: 0x0000, Flags: 100
-# 
-# Testing XOR operation (Opcode = 010)
-# PASS:  Non-zero result - Out: 0xffff, Flags: 000
-# PASS: XOR: Zero result - Out: 0x0000, Flags: 100
-# 
-# Testing RED operation (Opcode = 011)
-# PASS:   RED: All zeros - Out: 0x0000, Flags: 100
-# PASS:  Simple addition - Out: 0x0008, Flags: 000
-# PASS: ED: Mixed values - Out: 0x002e, Flags: 000
-# 
-# Testing SLL operation (Opcode = 100)
-# PASS:  SLL: Shift by 4 - Out: 0x2340, Flags: 000
-# PASS:  SLL: Shift by 8 - Out: 0x3400, Flags: 000
-# 
-# Testing SRA operation (Opcode = 101)
-# PASS: umber shift by 4 - Out: 0x0123, Flags: 000
-# PASS: umber shift by 4 - Out: 0xf823, Flags: 000
-# PASS: ntil small value - Out: 0x0001, Flags: 000
-# PASS: Shift until zero - Out: 0x0000, Flags: 100
-# 
-# Testing ROR operation (Opcode = 110)
-# PASS: ROR: Rotate by 4 - Out: 0x4123, Flags: 000
-# PASS: ROR: Rotate by 8 - Out: 0x3412, Flags: 000
-# PASS: OR: Rotate by 16 - Out: 0x1234, Flags: 000
-# 
-# Testing PADDSB operation (Opcode = 111)
-# PASS:  Simple addition - Out: 0x2345, Flags: 000
-# PASS: itive saturation - Out: 0x7777, Flags: 000
-# PASS: ative saturation - Out: 0x8888, Flags: 000
-# PASS: SB: Mixed values - Out: 0x72f8, Flags: 000
-# 
-# ALL ALU TESTS COMPLETED
-# ** Note: $stop    : C:/Users/edwar/Downloads/ECE 552/ECE552Project/test/ALU_tb.v(300)
-#    Time: 280 ps  Iteration: 0  Instance: /ALU_tb
-# Break in Module ALU_tb at C:/Users/edwar/Downloads/ECE 552/ECE552Project/test/ALU_tb.v line 300
+# Hello world...simulation starting
+# See verilogsim.log and verilogsim.trace for output
