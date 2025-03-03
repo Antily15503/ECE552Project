@@ -29,7 +29,6 @@ module cpu(
 //Instruction Decoding DONE
     wire [3:0] opcode;
     wire [3:0] secA, secB, secC;
-    wire [15:0] imm;
 
     assign opcode = instr[15:12];
     assign secA = instr[11:8];
@@ -54,6 +53,7 @@ module cpu(
 
 //Control Unit
     wire RegDst, AluSrc, MemtoReg, RegWrite, MemRead, MemWrite, pcswitch, lwhalf;
+    wire alusss;
     control controlUnit(
         //inputs
         .opcode(opcode),
@@ -109,8 +109,6 @@ module cpu(
         .WriteReg(RegWrite), //CONTROL SIGNAL FOR REGWRITE: 1 for write, 0 for read
         .DstData(wrData)
     );
-
-
 
 //Arithmetic Logic Unit DONE
     wire [15:0] immEx;

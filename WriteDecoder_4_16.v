@@ -7,6 +7,6 @@ module WriteDecoder_4_16(
 //Depending on WriteReg, either only one bit should be set to a 1 for a given input address or none.
 
 wire [15:0] zeros;
-assign zeros[15] = WriteReg;
+assign zeros = WriteReg;
 Shifter shift(.Shift_In(zeros), .Shift_val(RegId), .Mode(2'b00), .Shift_Out(Wordline));
 endmodule

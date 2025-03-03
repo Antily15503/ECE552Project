@@ -4,7 +4,7 @@ module addsub_16bit_tb();
     wire [15:0] Sum;
     wire overflow;
    
-    addsub_16bit iDUT(.A(A),.B(B),.sub(sub),.Sum(Sum),.overflow(overflow));
+    add_16bit iDUT(.A(A),.B(B),.sub(sub),.Sum(Sum),.overflow(overflow));
 
     reg [15:0] testSum;
     integer i;

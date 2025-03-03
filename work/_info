@@ -32,6 +32,31 @@ Z6 !s108 1740971738.000000
 !i113 1
 Z7 o-work work
 Z8 tCvgOpt 0
+vadd_16bit_tb
+DXx6 sv_std 3 std 0 22 VYECXdT12H8WgbUP_5Y6:3
+!s110 1741019459
+!i10b 1
+!s100 ?QVF@e1>>HRe1X<O19ohc3
+R1
+ICA4RgnU9_5i<Mmi5Nh;XR3
+R2
+S1
+R3
+w1741019454
+8C:/Users/themi/ECE552Project/add_16bit_tb.sv
+FC:/Users/themi/ECE552Project/add_16bit_tb.sv
+!i122 393
+L0 1 37
+R5
+r1
+!s85 0
+31
+!s108 1741019458.000000
+!s107 C:/Users/themi/ECE552Project/add_16bit_tb.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/themi/ECE552Project/add_16bit_tb.sv|
+!i113 1
+o-work work -sv
+R8
 vadd_4bit
 !s110 1740971737
 !i10b 1
@@ -79,46 +104,46 @@ R10
 R7
 R8
 vaddsub_16bit
-R0
+!s110 1741019186
 !i10b 1
-!s100 BgE3`FXDQJFkRaVE8D1093
+!s100 M2o@ZT;K3c?LLNKmCQn8R1
 R1
-IMFDYEd>]MQ@7B[5U^`E5`1
+Iifl?HHnEBm>GM?]IFELZ[1
 R2
 R3
-w1740892295
+w1740985837
 8C:/Users/themi/ECE552Project/addsub_16bit.v
 FC:/Users/themi/ECE552Project/addsub_16bit.v
-!i122 345
-L0 1 52
+!i122 391
+L0 1 55
 R5
 r1
 !s85 0
 31
-R6
+!s108 1741019186.000000
 !s107 C:/Users/themi/ECE552Project/addsub_16bit.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/themi/ECE552Project/addsub_16bit.v|
 !i113 1
 R7
 R8
 vaddsub_16bit_tb
-R0
+!s110 1741019187
 !i10b 1
-!s100 F6;UWGEbz<m^nf`E=?o=80
+!s100 IVknKkM3H80U=<Ff1NZRC2
 R1
-IlJQHa98]eaP;?^<bgOL4V2
+Id7;D<<:bUB4>zm7n`gKWW2
 R2
 R3
-w1740952065
+w1741019117
 8C:/Users/themi/ECE552Project/addsub_16bit_tb.v
 FC:/Users/themi/ECE552Project/addsub_16bit_tb.v
-!i122 346
+!i122 392
 L0 1 42
 R5
 r1
 !s85 0
 31
-R6
+!s108 1741019187.000000
 !s107 C:/Users/themi/ECE552Project/addsub_16bit_tb.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/themi/ECE552Project/addsub_16bit_tb.v|
 !i113 1
@@ -219,7 +244,7 @@ r1
 R7
 R8
 vBitCell
-Z14 !s110 1740971744
+!s110 1740971744
 !i10b 1
 !s100 UdK0?PZ`0`ZfnEfTRfR[c0
 R1
@@ -235,7 +260,7 @@ R5
 r1
 !s85 0
 31
-Z15 !s108 1740971743.000000
+Z14 !s108 1740971743.000000
 !s107 C:/Users/themi/ECE552Project/BitCell.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/themi/ECE552Project/BitCell.v|
 !i113 1
@@ -243,7 +268,7 @@ R7
 R8
 n@bit@cell
 vbranch
-Z16 !s110 1740971739
+Z15 !s110 1740971739
 !i10b 1
 !s100 HOF5=_I:Zk;iE7bz@dDEK2
 R1
@@ -254,7 +279,7 @@ w1740970982
 8C:/Users/themi/ECE552Project/branch.v
 FC:/Users/themi/ECE552Project/branch.v
 !i122 348
-Z17 L0 1 49
+Z16 L0 1 49
 R5
 r1
 !s85 0
@@ -282,83 +307,83 @@ R5
 r1
 !s85 0
 31
-Z18 !s108 1740971744.000000
+!s108 1740971744.000000
 !s107 C:/Users/themi/ECE552Project/branch_tb.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/themi/ECE552Project/branch_tb.v|
 !i113 1
 R7
 R8
 vcontrol
-R16
+!s110 1740983005
 !i10b 1
-!s100 m;AB1n_WZ;j9HI_dgDjh]1
+!s100 1IZ>EJ4@]PH2>DD2600iQ1
 R1
-I4g7:B`Xjh9SN]88k<keHS0
+I@@3=_]:ea`Q3XP;EWVei;0
 R2
 R3
-w1740967978
+w1740982987
 8C:/Users/themi/ECE552Project/control.v
 FC:/Users/themi/ECE552Project/control.v
-!i122 349
-L0 1 154
+!i122 386
+L0 1 153
 R5
 r1
 !s85 0
 31
-Z19 !s108 1740971739.000000
+!s108 1740983004.000000
 !s107 C:/Users/themi/ECE552Project/control.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/themi/ECE552Project/control.v|
 !i113 1
 R7
 R8
 vcpu
-!s110 1740971964
+Z17 !s110 1740984071
 !i10b 1
-!s100 eE2GC?D0kEeV4M>XWo[e60
+!s100 O<6hZ8ZL7SHlzAAPz4SkI2
 R1
-Io<bHI6Y`_R3oITPQ^j6G@0
+IAP89ZIcgC>^[@1E0h8AA^1
 R2
 R3
-w1740971962
+w1740983505
 8C:/Users/themi/ECE552Project/cpu.v
 FC:/Users/themi/ECE552Project/cpu.v
-!i122 367
-L0 1 143
+!i122 388
+L0 1 141
 R5
 r1
 !s85 0
 31
-!s108 1740971964.000000
+Z18 !s108 1740984071.000000
 !s107 C:/Users/themi/ECE552Project/cpu.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/themi/ECE552Project/cpu.v|
 !i113 1
 R7
 R8
 vcpu_tb
-Z20 !s110 1740971743
+R17
 !i10b 1
-!s100 N]Y5czgTKSodR`OF4jZlU2
+!s100 VB_R0VfXEcBQT?DCOJTGD3
 R1
-IUb7hETgB`GEf1X<;HAbSM2
+Izm7e5?4@D^[cB301NUC>X1
 R2
 R3
-w1740961855
+w1740984065
 8C:/Users/themi/ECE552Project/project-phase1-testbench.v
 FC:/Users/themi/ECE552Project/project-phase1-testbench.v
-!i122 359
+!i122 389
 L0 1 186
 R5
 r1
 !s85 0
 31
-R15
+R18
 !s107 C:/Users/themi/ECE552Project/project-phase1-testbench.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/themi/ECE552Project/project-phase1-testbench.v|
 !i113 1
 R7
 R8
 vdata_memory
-R16
+R15
 !i10b 1
 !s100 Z2IX3]OnGkHGh`=B6[K_f3
 R1
@@ -369,19 +394,19 @@ w1740962055
 8C:/Users/themi/ECE552Project/data_memory.v
 FC:/Users/themi/ECE552Project/data_memory.v
 !i122 351
-Z21 L0 31 38
+Z19 L0 31 38
 R5
 r1
 !s85 0
 31
-R19
+Z20 !s108 1740971739.000000
 !s107 C:/Users/themi/ECE552Project/data_memory.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/themi/ECE552Project/data_memory.v|
 !i113 1
 R7
 R8
 vdecoder_one_hot
-R16
+R15
 !i10b 1
 !s100 >EL5PKh@EJIDOR;4ffN333
 R1
@@ -397,14 +422,14 @@ R5
 r1
 !s85 0
 31
-R19
+R20
 !s107 C:/Users/themi/ECE552Project/decoder_one_hot.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/themi/ECE552Project/decoder_one_hot.v|
 !i113 1
 R7
 R8
 vdff
-R16
+R15
 !i10b 1
 !s100 Z9V@F2c50oH6kZfdURZd60
 R1
@@ -420,7 +445,7 @@ R5
 r1
 !s85 0
 31
-R19
+R20
 !s107 C:/Users/themi/ECE552Project/D-Flip-Flop.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/themi/ECE552Project/D-Flip-Flop.v|
 !i113 1
@@ -438,19 +463,19 @@ w1740962558
 8C:/Users/themi/ECE552Project/inst_memory.v
 FC:/Users/themi/ECE552Project/inst_memory.v
 !i122 354
-R21
+R19
 R5
 r1
 !s85 0
 31
-R19
+R20
 !s107 C:/Users/themi/ECE552Project/inst_memory.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/themi/ECE552Project/inst_memory.v|
 !i113 1
 R7
 R8
 vpsa_16bit
-R20
+Z21 !s110 1740971743
 !i10b 1
 !s100 5DZc<8BK@X9S7DM4jDmaY3
 R1
@@ -466,7 +491,7 @@ R5
 r1
 !s85 0
 31
-R15
+R14
 !s107 C:/Users/themi/ECE552Project/psa_16bit.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/themi/ECE552Project/psa_16bit.v|
 !i113 1
@@ -496,23 +521,23 @@ Z23 !s108 1740952114.000000
 R7
 R8
 vReadDecoder_4_16
-R14
+!s110 1740981700
 !i10b 1
-!s100 ;Z:`C3LK861bP?<HMYCP82
+!s100 ^9zIchSmMYSLS^TfD;G:H0
 R1
-IYEU]<cF9MihQMMQojWFZC2
+IjfOdR<ANk83KZg3XF[<>U2
 R2
 R3
-w1740958613
+w1740981325
 8C:/Users/themi/ECE552Project/ReadDecoder_4_16.v
 FC:/Users/themi/ECE552Project/ReadDecoder_4_16.v
-!i122 363
+!i122 378
 Z24 L0 1 12
 R5
 r1
 !s85 0
 31
-R18
+!s108 1740981699.000000
 !s107 C:/Users/themi/ECE552Project/ReadDecoder_4_16.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/themi/ECE552Project/ReadDecoder_4_16.v|
 !i113 1
@@ -520,7 +545,7 @@ R7
 R8
 n@read@decoder_4_16
 vRED
-R20
+R21
 !i10b 1
 !s100 Jh^Y[oLBO8fV^<g0]hc=;0
 R1
@@ -536,7 +561,7 @@ R5
 r1
 !s85 0
 31
-R15
+R14
 !s107 C:/Users/themi/ECE552Project/RED.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/themi/ECE552Project/RED.v|
 !i113 1
@@ -544,23 +569,23 @@ R7
 R8
 n@r@e@d
 vRegister
-R14
+!s110 1740977738
 !i10b 1
-!s100 `RVRaz2Kz]27@TFE6SM990
+!s100 dT0@SH0OgJNBjhzb]b6>e3
 R1
-IYSBJ2eg<iKj9<86VmlSB12
+I=MjAKTjgS5ER0UN95cGb03
 R2
 R3
-w1740631325
+w1740972415
 8C:/Users/themi/ECE552Project/Register.v
 FC:/Users/themi/ECE552Project/Register.v
-!i122 361
-L0 1 16
+!i122 370
+L0 1 20
 R5
 r1
 !s85 0
 31
-R18
+!s108 1740977738.000000
 !s107 C:/Users/themi/ECE552Project/Register.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/themi/ECE552Project/Register.v|
 !i113 1
@@ -602,7 +627,7 @@ R13
 8C:/Users/themi/ECE552Project/register_file.v
 FC:/Users/themi/ECE552Project/register_file.v
 !i122 245
-R17
+R16
 R5
 r1
 !s85 0
@@ -614,23 +639,23 @@ R23
 R7
 R8
 vRegisterFile
-!s110 1740971903
+!s110 1740979835
 !i10b 1
-!s100 ]5@mj1=dFBAEB4eP>lL_g3
+!s100 `Ko6d9?lY=m9G4IRNH@[T2
 R1
-INF=G]I>2U;@n^di6]5C2Q3
+I9XlW?]7<0TWb97:Ufj^?71
 R2
 R3
-w1740971900
+w1740979792
 8C:/Users/themi/ECE552Project/RegisterFile.v
 FC:/Users/themi/ECE552Project/RegisterFile.v
-!i122 366
-L0 1 27
+!i122 373
+L0 1 31
 R5
 r1
 !s85 0
 31
-!s108 1740971903.000000
+!s108 1740979835.000000
 !s107 C:/Users/themi/ECE552Project/RegisterFile.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/themi/ECE552Project/RegisterFile.v|
 !i113 1
@@ -638,7 +663,7 @@ R7
 R8
 n@register@file
 vShifter
-R20
+R21
 !i10b 1
 !s100 Eg1;<[JDPEaR04H9lX93:3
 R1
@@ -654,7 +679,7 @@ R5
 r1
 !s85 0
 31
-R15
+R14
 !s107 C:/Users/themi/ECE552Project/Shifter.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/themi/ECE552Project/Shifter.v|
 !i113 1
@@ -685,23 +710,23 @@ r1
 R7
 R8
 vWriteDecoder_4_16
-R14
+!s110 1740981132
 !i10b 1
-!s100 @[_4>6QG8QQRKYl<2oAXT0
+!s100 39Tnn@JDm8o]LFFUUdImD0
 R1
-IzUbGW]V4A@VGckTQHZ];[0
+IP^1hBga1o:2mJ4FJU=lTi2
 R2
 R3
-w1740958641
+w1740981122
 8C:/Users/themi/ECE552Project/WriteDecoder_4_16.v
 FC:/Users/themi/ECE552Project/WriteDecoder_4_16.v
-!i122 364
+!i122 376
 R24
 R5
 r1
 !s85 0
 31
-R18
+!s108 1740981132.000000
 !s107 C:/Users/themi/ECE552Project/WriteDecoder_4_16.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/themi/ECE552Project/WriteDecoder_4_16.v|
 !i113 1

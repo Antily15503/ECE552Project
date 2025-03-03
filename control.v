@@ -3,8 +3,7 @@ module control(
     output RegDst, Branch, BranchReg, MemRead, MemtoReg, AluSrc, MemWrite, MemHalf, RegWrite, PC, Halt
 );
 
-reg regd, branch, branchr, memr, memtr, memh, alus, memw, regw, pc, halt;
-reg [2:0] aluop;
+reg regd, branch, branchr, memr, memtr, memh, alusrc, memw, regw, pc, halt;
 
 always @(*) begin
     casex (opcode)
@@ -15,7 +14,7 @@ always @(*) begin
             memr = 1'b0;
             memtr = 1'b0;
             memh = 1'b0;
-            alus = 1'b1;
+            alusrc = 1'b1;
             memw = 1'b0;
             regw = 1'b1;
             pc = 1'b0;
@@ -28,7 +27,7 @@ always @(*) begin
             memr = 1'b1;
             memtr = 1'b1;
             memh = 1'b0;
-            alus = 1'b0;
+            alusrc = 1'b0;
             memw = 1'b0;
             regw = 1'b1;
             pc = 1'b0;
@@ -41,7 +40,7 @@ always @(*) begin
             memr = 1'b0;
             memtr = 1'b0;
             memh = 1'b0;
-            alus = 1'b0;
+            alusrc = 1'b0;
             memw = 1'b1;
             regw = 1'b0;
             pc = 1'b0;
@@ -54,7 +53,7 @@ always @(*) begin
             memr = 1'b0;
             memtr = 1'b0;
             memh = 1'b1;
-            alus = 1'b0;
+            alusrc = 1'b0;
             memw = 1'b0;
             regw = 1'b1;
             pc = 1'b0;
@@ -67,7 +66,7 @@ always @(*) begin
             memr = 1'b0;
             memtr = 1'b0;
             memh = 1'b1;
-            alus = 1'b0;
+            alusrc = 1'b0;
             memw = 1'b0;
             regw = 1'b1;
             pc = 1'b0;
@@ -79,7 +78,7 @@ always @(*) begin
             branchr = 1'b0;
             memr = 1'b0;
             memtr = 1'b0;
-            alus = 1'b0;
+            alusrc = 1'b0;
             memh = 1'b0;
             memw = 1'b0;
             regw = 1'b0;
@@ -92,7 +91,7 @@ always @(*) begin
             branchr = 1'b1;
             memr = 1'b0;
             memtr = 1'b0;
-            alus = 1'b0;
+            alusrc = 1'b0;
             memh = 1'b0;
             memw = 1'b0;
             regw = 1'b0;
@@ -105,7 +104,7 @@ always @(*) begin
             branchr = 1'b0;
             memr = 1'b0;
             memtr = 1'b0;
-            alus = 1'b0;
+            alusrc = 1'b0;
             memh = 1'b0;
             memw = 1'b0;
             regw = 1'b0;
@@ -118,7 +117,7 @@ always @(*) begin
             branchr = 1'b0;
             memr = 1'b0;
             memtr = 1'b0;
-            alus = 1'b0;
+            alusrc = 1'b0;
             memh = 1'b0;
             memw = 1'b0;
             regw = 1'b0;
@@ -131,7 +130,7 @@ always @(*) begin
             branchr = 1'b0;
             memr = 1'b0;
             memtr = 1'b0;
-            alus = 1'b0;
+            alusrc = 1'b0;
             memh = 1'b0;
             memw = 1'b0;
             regw = 1'b0;
@@ -145,7 +144,7 @@ assign Branch = branch;
 assign BranchReg = branchr;
 assign MemRead = memr;
 assign MemtoReg = memtr;
-assign ALUSrc = alus;
+assign AluSrc = alusrc;
 assign MemWrite = memw;
 assign RegWrite = regw;
 assign PC = pc;
