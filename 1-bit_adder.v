@@ -1,4 +1,4 @@
-`ifndef FULL_ADDER_1BIT_V
+`ifndef FULL_ADDER_1BIT_V // Dupli. avoiding
 `define FULL_ADDER_1BIT_V
 
 // Full Adder 1-bit module declaration
