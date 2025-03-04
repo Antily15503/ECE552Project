@@ -1,3 +1,6 @@
+// This testbench does not debug instruction execution, memory, or register behavior
+// Only checks whether your CPU runs and halts properly--- IMPORTANT NOTE
+
 `timescale 1ns/1ps
 
 module cpu_tb();
