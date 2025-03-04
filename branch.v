@@ -43,7 +43,8 @@ module branch(
         .Cin(1'b0),
         .Cout()
     );
+    
     wire [15:0] pcOutInternal;
-    assign pcOutInternal = branch ? pcBranch : pcInc;
+    assign pcOutInternal = (branch & b) ? pcBranch : pcInc;
     assign pcOut = branchRegMux ? branchReg : pcOutInternal;
 endmodule

@@ -77,7 +77,7 @@ module cpu(
     wire [3:0] regA, regB, regC;
     assign regA = secA;
     //CONTROL SIGNAL FOR REGDST: 1 for R instructions, 0 for I instructions
-    assign regC = RegDst ? (secC) : (secB);
+    assign regC = MemWrite ? (secA) : (RegDst ? (secC) : (secB));
 
     //Comb Logic for Register Immediate Value Updating
     assign  regB = lwhalf ? secA : secB;
@@ -116,9 +116,11 @@ module cpu(
     
 
     //sign extending immediate value (if applicable)
-    assign immEx = lwhalf ? {8'h00, instr[7:0]} : {{12{secC[3]}}, secC}; //NOTE: this is logical shifting, not arithmetic shifting
+    assign immEx = (MemRead | MemWrite) ? ({{11{secC[3]}}, secC, 1'b0}) : (lwhalf ? {8'h00, instr[7:0]} : {{12{secC[3]}}, secC}); //NOTE: this is logical shifting, not arithmetic shifting
 
     ALU alu(
+        .clk(clk),
+        .rst(~rst_n),
         .ALU_In1(regAData),
         .ALU_In2(AluSrc ? regBData : immEx), //CONTROL SIGNAL FOR ALUSRC: 1 for R instructions, 0 for I instructions
         .Opcode(opcode), //8 possible operations represented by [2:0] of Opcode Signal

@@ -1,13 +1,13 @@
 module control(
     input [3:0] opcode,
-    output RegDst, Branch, BranchReg, MemRead, MemtoReg, AluSrc, MemWrite, MemHalf, RegWrite, PC, Halt
+    output RegDst, Branch, BranchReg, MemtoReg, MemRead, AluSrc, MemWrite, MemHalf, RegWrite, PC, Halt
 );
 
 reg regd, branch, branchr, memr, memtr, memh, alusrc, memw, regw, pc, halt;
 
 always @(*) begin
     casex (opcode)
-        4'b0xxx: begin //ALL ALU INSTRUCTIONS
+        4'b00xx: begin //ALL ALU INSTRUCTIONS
             regd = 1'b1;
             branch = 1'b0;
             branchr = 1'b0;
@@ -20,6 +20,33 @@ always @(*) begin
             pc = 1'b0;
             halt = 1'b0;
         end
+        4'b0111: begin //PADDSB
+            regd = 1'b1;
+            branch = 1'b0;
+            branchr = 1'b0;
+            memr = 1'b0;
+            memtr = 1'b0;
+            memh = 1'b0;
+            alusrc = 1'b1;
+            memw = 1'b0;
+            regw = 1'b1;
+            pc = 1'b0;
+            halt = 1'b0;
+        end
+        4'b01??: begin
+            regd = 1'b1;
+            branch = 1'b0;
+            branchr = 1'b0;
+            memr = 1'b0;
+            memtr = 1'b0;
+            memh = 1'b0;
+            alusrc = 1'b0;
+            memw = 1'b0;
+            regw = 1'b1;
+            pc = 1'b0;
+            halt = 1'b0;
+        end
+        
         4'b1000: begin //Mem Load
             regd = 1'b0;
             branch = 1'b0;
@@ -37,7 +64,7 @@ always @(*) begin
             regd = 1'b0;
             branch = 1'b0;
             branchr = 1'b0;
-            memr = 1'b0;
+            memr = 1'b1;
             memtr = 1'b0;
             memh = 1'b0;
             alusrc = 1'b0;
