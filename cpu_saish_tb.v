@@ -1,5 +1,6 @@
 // This testbench does not debug instruction execution, memory, or register behavior
 // Only checks whether your CPU runs and halts properly--- IMPORTANT NOTE
+// This only for ref. purpose and main testbench is different one
 
 `timescale 1ns/1ps
 
