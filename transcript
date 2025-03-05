@@ -24299,3 +24299,5 @@ run -all
 #    Time: 2100 ps  Iteration: 1  Instance: /cpu_tb
 # 1
 # Break in Module cpu_tb at C:/Users/themi/ECE552Project/project-phase1-testbench.v line 123
+# End time: 20:50:34 on Mar 03,2025, Elapsed time: 0:14:16
+# Errors: 0, Warnings: 1
