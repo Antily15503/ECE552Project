@@ -26,7 +26,7 @@ module cpu(
             .enable(1'b1)
         );
 
-//Instruction Decoding DONE
+//Instruction Decoding
     wire [3:0] opcode;
     wire [3:0] secA, secB, secC;
 
@@ -38,13 +38,13 @@ module cpu(
 //Branch Handling DONE
     //branch module
     wire [15:0] pcBranch, regBData;
-    wire BranchReg, Branch, halt;
-    wire Zero, Neg, Overflow;
+    wire branchControl, branchTake, halt;
+    wire zero, neg, overflow;
     branch branchSelect(
         .condition(secA[3:1]),
-        .Flags({Zero, Overflow, Neg}),
-        .branchRegMux(BranchReg),
-        .branch(Branch),
+        .Flags({zero, overflow, neg}),
+        .branchRegMux(branchControl),
+        .branch(branchTake),
         .I(instr[8:0]),
         .branchReg(regBData),
         .pcIn(pc),
@@ -52,21 +52,21 @@ module cpu(
     );
 
 //Control Unit
-    wire RegDst, AluSrc, MemtoReg, RegWrite, MemRead, MemWrite, pcswitch, lwhalf;
+    wire regDst, aluSrc, memToReg, regWrite, memRead, memRead, pcswitch, lwhalf;
     wire alusss;
     control controlUnit(
         //inputs
         .opcode(opcode),
         //outputs
-        .RegDst(RegDst),  //used
-        .AluSrc(AluSrc),  //used
-        .MemtoReg(MemtoReg),  //used
-        .RegWrite(RegWrite),  //used
-        .MemRead(MemRead),  //used
-        .MemWrite(MemWrite),  //used
+        .RegDst(regDst),  //used
+        .AluSrc(aluSrc),  //used
+        .MemtoReg(memToReg),  //used
+        .RegWrite(regWrite),  //used
+        .MemRead(memRead),  //used
+        .MemWrite(memRead),  //used
         .MemHalf(lwhalf), //used
-        .Branch(Branch), //used
-        .BranchReg(BranchReg), //used
+        .Branch(branchTake), //used
+        .BranchReg(branchControl), //used
         .PC(pcswitch), //used
         .Halt(halt) //used
     );
@@ -76,10 +76,12 @@ module cpu(
     wire [15:0] aluOut;
     wire [3:0] regA, regB, regC;
     assign regA = secA;
-    //CONTROL SIGNAL FOR REGDST: 1 for R instructions, 0 for I instructions
-    assign regC = MemWrite ? (secA) : (RegDst ? (secC) : (secB));
+    //CONTROL SIGNAL FOR REGDST
+    //1 for R instructions, 0 for I instructions
+    assign regC = memRead ? (secA) : (regDst ? (secC) : (secB));
 
     //Comb Logic for Register Immediate Value Updating
+    //1 to assign regB to instr[11:8] (only in load half), 0 to assign regB to instr[7:4]
     assign  regB = lwhalf ? secA : secB;
     
     //TWO 2-1 MUXES FOR SELECTING REGISTER WRITE DATA (PC, ALUOUT, or MEMOUT)
@@ -89,7 +91,7 @@ module cpu(
     wire [15:0] wrData;
     wire [15:0] data_out;
     always @(*) begin
-        casex({pcswitch, MemtoReg})
+        casex({pcswitch, memToReg})
             2'b1?: wrDataIntermed = pcD;
             2'b01: wrDataIntermed = data_out;
             2'b00: wrDataIntermed = aluOut;
@@ -106,7 +108,7 @@ module cpu(
         .DstReg(regA),
         .SrcData1(regAData),
         .SrcData2(regBData),
-        .WriteReg(RegWrite), //CONTROL SIGNAL FOR REGWRITE: 1 for write, 0 for read
+        .WriteReg(regWrite), //CONTROL SIGNAL FOR REGWRITE: 1 for write, 0 for read
         .DstData(wrData)
     );
 
@@ -116,16 +118,16 @@ module cpu(
     
 
     //sign extending immediate value (if applicable)
-    assign immEx = (MemRead | MemWrite) ? ({{11{secC[3]}}, secC, 1'b0}) : (lwhalf ? {8'h00, instr[7:0]} : {{12{secC[3]}}, secC}); //NOTE: this is logical shifting, not arithmetic shifting
+    assign immEx = (memRead | memRead) ? ({{11{secC[3]}}, secC, 1'b0}) : (lwhalf ? {8'h00, instr[7:0]} : {{12{secC[3]}}, secC}); //NOTE: this is logical shifting, not arithmetic shifting
 
     ALU alu(
         .clk(clk),
         .rst(~rst_n),
         .ALU_In1(regAData),
-        .ALU_In2(AluSrc ? regBData : immEx), //CONTROL SIGNAL FOR ALUSRC: 1 for R instructions, 0 for I instructions
+        .ALU_In2(aluSrc ? regBData : immEx), //CONTROL SIGNAL FOR ALUSRC: 1 for R instructions, 0 for I instructions
         .Opcode(opcode), //8 possible operations represented by [2:0] of Opcode Signal
         .ALU_Out(aluOut),
-        .Flags({Zero, Overflow, Neg})
+        .Flags({zero, overflow, neg})
     );
 
 //Data Memory Access
@@ -135,8 +137,8 @@ module cpu(
         .addr(aluOut),
         .data_out(data_out),
         .data_in(regBData),
-        .wr(MemWrite), //CONTROL SIGNAL FOR MEMWRITE: 1 for write, 0 for read
-        .enable(MemRead) //CONTROL SIGNAL FOR MEMREAD: 1 for read, 0 for write
+        .wr(memRead), //CONTROL SIGNAL FOR MEMWRITE: 1 for write, 0 for read
+        .enable(memRead) //CONTROL SIGNAL FOR MEMREAD: 1 for read, 0 for write
     );
 
 assign hlt = halt;
