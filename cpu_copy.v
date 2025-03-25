@@ -52,7 +52,7 @@ module cpu_copy(
     );
 
 //Control Unit
-    wire regDst, aluSrc, memToReg, regWrite, memRead, memRead, pcswitch, lwhalf;
+    wire regDst, aluSrc, memToReg, regWrite, memRead, memWrite, pcswitch, lwhalf;
     wire alusss;
     control controlUnit(
         //inputs
@@ -63,7 +63,7 @@ module cpu_copy(
         .MemtoReg(memToReg),  //used
         .RegWrite(regWrite),  //used
         .MemRead(memRead),  //used
-        .MemWrite(memRead),  //used
+        .MemWrite(memWrite),  //used
         .MemHalf(lwhalf), //used
         .Branch(branchTake), //used
         .BranchReg(branchControl), //used
@@ -78,7 +78,7 @@ module cpu_copy(
     assign regA = secA;
     //CONTROL SIGNAL FOR REGDST
     //1 for R instructions, 0 for I instructions
-    assign regC = memRead ? (secA) : (regDst ? (secC) : (secB));
+    assign regC = memWrite ? (secA) : (regDst ? (secC) : (secB));
 
     //Comb Logic for Register Immediate Value Updating
     //1 to assign regB to instr[11:8] (only in load half), 0 to assign regB to instr[7:4]
@@ -118,7 +118,7 @@ module cpu_copy(
     
 
     //sign extending immediate value (if applicable)
-    assign immEx = (memRead | memRead) ? ({{11{secC[3]}}, secC, 1'b0}) : (lwhalf ? {8'h00, instr[7:0]} : {{12{secC[3]}}, secC}); //NOTE: this is logical shifting, not arithmetic shifting
+    assign immEx = (memRead | memWrite) ? ({{11{secC[3]}}, secC, 1'b0}) : (lwhalf ? {8'h00, instr[7:0]} : {{12{secC[3]}}, secC}); //NOTE: this is logical shifting, not arithmetic shifting
 
     ALU alu(
         .clk(clk),
@@ -137,7 +137,7 @@ module cpu_copy(
         .addr(aluOut),
         .data_out(data_out),
         .data_in(regBData),
-        .wr(memRead), //CONTROL SIGNAL FOR MEMWRITE: 1 for write, 0 for read
+        .wr(memWrite), //CONTROL SIGNAL FOR MEMWRITE: 1 for write, 0 for read
         .enable(memRead) //CONTROL SIGNAL FOR MEMREAD: 1 for read, 0 for write
     );
 
