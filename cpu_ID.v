@@ -1,9 +1,11 @@
 module cpu_ID(
     input clk, rst_n,
     input [15:0] wrData,
+    input [3:0] regWriteAddress,
     input regWrite,
     input [15:0] instr,
     input [15:0] pc,
+    input zero, overflow, neg,
     output [15:0] pcD,
     output [15:0] regAData, regBData,
     output [15:0] immEx,
@@ -21,7 +23,7 @@ module cpu_ID(
     assign secB = instr[7:4];
     assign secC = instr[3:0];
 
-//Branch Handling DONE
+//Branch Handling
     //branch module
     wire [15:0] pcBranch, regBData;
     wire branchControl, branchTake, halt;
@@ -67,7 +69,8 @@ module cpu_ID(
     assign regA = secA;
     //CONTROL SIGNAL FOR REGDST
     //1 for R instructions, 0 for I instructions
-    assign regC = memWrite ? (secA) : (regDst ? (secC) : (secB));
+    
+    //assign regW = memWrite ? (secA) : (regDst ? (secC) : (secB));
 
     //Comb Logic for Register Immediate Value Updating
     //1 to assign regB to instr[11:8] (only in load half), 0 to assign regB to instr[7:4]
@@ -91,8 +94,8 @@ RegisterFile reg_file(
     );
 
 //Control signal bundles
-    wire [6:0] EXcontrols = {aluSrc, regDst, memRead, opcode};
-    wire [2:0] MEMcontrols = {memRead, memWrite, lwHalf};
+    wire [5:0] EXcontrols = {aluSrc, regDst, opcode};
+    wire [1:0] MEMcontrols = {memRead, memWrite};
     wire [1:0] WBcontrols = {memToReg, regWrite};
 
 endmodule
