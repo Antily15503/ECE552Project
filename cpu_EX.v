@@ -2,7 +2,7 @@ module cpu_EX(
     input clk, rst_n,
     input [15:0] pc_ID, instr,
     input [15:0] regAData, regBData, immEx,
-    input [6:0] EXcontrols,
+    input [5:0] EXcontrols,
     output [15:0] aluOut,
     output [3:0] regW
 );
