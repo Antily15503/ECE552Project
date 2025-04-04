@@ -168,8 +168,10 @@ cpu_MEM(
     .clk(clk),
     .rst_n(rst_n),
     .MEMcontrols(MEMcontrols_MEM),
-    //ALU out??
-    //regBData??
+    .aluOut(aluOut_MEM),
+    .regBData(regBData_MEM),
+    .ForwardC(ForwardC),
+    
     //Outputs =======
     .dataOut(dataOut),
 );
@@ -219,6 +221,7 @@ forwarding_unit funit(
     .IFID_MemWrite(),   // IF/ID.MemWrite
     .ForwardA(ForwardA),        //Output to forwarding mux
     .ForwardB(ForwardB),        //Output to forwarding mux
+    .ForwardC(ForwardC),        //Output to forwarding mux
     .load_stall(load_stall),      //Enable load-to-use stall signal: 1 stall, 0 don't stal
 );
 
