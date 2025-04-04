@@ -6,10 +6,15 @@ module cpu(
 
 /****************************     Instruction Fetch Stage (IF)   *********************************/
 //IF stage signals
+/* [15:0] pcD = program counter value coming into the PC register
+   [15:0] pc = program counter value coming out of the PC register
+   NOTE: pcD is determined by branch logic in cpu_ID.v. Instruction Fetch Stage does not modify either signals.*/
+
     wire [15:0] pcD, instr;
     wire [15:0] pc_ID, instr_ID;
     wire flush;
-//Instruction Fetch Pipeline Module
+
+//Instruction Fetch Pipeline Module (located in cpu_IF.v)
     cpu_IF IF(
         .clk(clk),
         .rst_n(rst_n),
@@ -19,8 +24,10 @@ module cpu(
     );
 
 /****************************     IF/ID Pipeline Registers   *********************************/
-
-
+/* NOTE: _ID signals represent signals coming out of the IF/ID Pipeline Registers
+   IF/ID register gets ASSERTED either when rst_n is set (active low) or when flush is set (active high).
+   Otherwise, register simply passes the pcD and instr singlals to the next stage.
+*/
     //program counter register
     dff IF_ID_pc [15:0] (.q(pc_ID), .d(pcD), .wen(1'b1), .clk(clk), .rst(~rst_n | flush));
     //instruction register
@@ -28,6 +35,9 @@ module cpu(
 
 /****************************     Instruction Decode Stage (ID)   *********************************/
 //ID stage signals
+/* [15:-S]
+
+*/
     wire [15:0] regAData, regBData, immEx, writeData_WB;        //Register 1 Data, Register 2 Data, Sign Extended Immediate, Data from WB
     // wire [3:0] secA, secB, secC, 
     wire [3:0] writeAddress_WB;                                 //WB Register

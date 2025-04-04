@@ -6,6 +6,9 @@ module cpu_IF(
 );
 
 // Program Counter signals
+/* [15:0] pcD = program counter value coming into the PC register
+   [15:0] pc = program counter value coming out of the PC register
+   NOTE: pcD is determined by branch logic in cpu_ID.v. Instruction Fetch Stage does not modify either signals.*/
     dff pcFlops [15:0] (
         .q(pc),
         .d(pcD),
@@ -14,7 +17,11 @@ module cpu_IF(
         .rst(~rst_n)
     );
 
-//Instruction Memory Accessing DONE
+//Instruction Memory Accessing
+/* [15:0] instr = instruction fetched from instruction memory based on program counter value
+   [15:0] pc = program counter value coming out of the PC register
+   data_in, wr, and enable are not used in this module. They are hard wired to constants.
+*/
     wire [15:0] instr;
     inst_memory instruction_mem(
             .clk(clk),
@@ -25,17 +32,5 @@ module cpu_IF(
             .wr(1'b0),
             .enable(1'b1)
         );
-
-RegisterFile reg_file(
-        .clk(clk),
-        .rst(~rst_n),
-        .SrcReg1(regB),
-        .SrcReg2(regC),
-        .DstReg(regA),
-        .SrcData1(regAData),
-        .SrcData2(regBData),
-        .WriteReg(regWrite_WB), //CONTROL SIGNAL FOR REGWRITE: 1 for write, 0 for read
-        .DstData(wrData_WB)
-    );
 
 endmodule
