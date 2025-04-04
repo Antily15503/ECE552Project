@@ -9,9 +9,9 @@ module cpu_ID(
     output [15:0] pcD,
     output [15:0] regAData, regBData,
     output [15:0] immEx,
-    output reg [6:0] EXcontrols,
-    output reg [2:0] MEMcontrols,
-    output reg [1:0] WBcontrols
+    output reg [5:0] EXcontrols,
+    output reg [1:0] MEMcontrols,
+    output reg [2:0] WBcontrols
 );
 
 //Instruction Decoding
@@ -43,8 +43,8 @@ module cpu_ID(
     wire regDst, aluSrc, memToReg, regWrite, memRead, memWrite, pcSwitch, lwHalf;
     //signals used in IF: pcSwitch, branchTake, branchControl, lwHalf
     //signals used in EX: aluSrc, regDst, opcode
-    //signals used in MEM: memRead, memWrite, lwHalf
-    //signals used in WB: memToReg, regWrite
+    //signals used in MEM: memRead, memWrite
+    //signals used in WB: memToReg, regWrite, lcSwitch
     control controlUnit(
         //inputs
         .opcode(opcode),
@@ -96,6 +96,6 @@ RegisterFile reg_file(
 //Control signal bundles
     wire [5:0] EXcontrols = {aluSrc, regDst, opcode};
     wire [1:0] MEMcontrols = {memRead, memWrite};
-    wire [1:0] WBcontrols = {memToReg, regWrite};
+    wire [2:0] WBcontrols = {memToReg, regWrite, pcSwitch};
 
 endmodule
