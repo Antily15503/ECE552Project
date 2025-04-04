@@ -13,9 +13,9 @@ module cpu(
     cpu_IF IF(
         .clk(clk),
         .rst_n(rst_n),
-        .pcD(pcD),
-        .pc(pc),
-        .instr(instr)
+        .pcD(pcD),          //Input PC
+        .pc(pc),            //Output PC
+        .instr(instr)       //Instruction from inst memory
     );
 
 /****************************     IF/ID Pipeline Registers   *********************************/
@@ -28,8 +28,9 @@ module cpu(
 
 /****************************     Instruction Decode Stage (ID)   *********************************/
 //ID stage signals
-    wire [15:0] regAData, regBData, immEx, writeData_WB;
-    wire [3:0] secA, secB, secC, writeAddress_WB;
+    wire [15:0] regAData, regBData, immEx, writeData_WB;        //Register 1 Data, Register 2 Data, Sign Extended Immediate, Data from WB
+    // wire [3:0] secA, secB, secC, 
+    wire [3:0] writeAddress_WB;                                 //WB Register
     wire [5:0] EXcontrols;
     wire [1:0] MEMcontrols;
     wire [1:0] WBcontrols;
@@ -117,6 +118,12 @@ cpu_EX EX(
     .EXcontrols(EXcontrols_EX),
     .instr(instr_EX),
 
+    //Forwarding Inputs
+    .MEM_faddress(aluOut_MEM),  //Address from EX to EX forwarding
+    .WB_fdata(writeData_WB),    //Data from MEM to EX forwarding
+    .ForwardA(ForwardA),
+    .ForwardB(ForwardB),
+
     //Outputs =======
     .aluOut(aluOut),
     .regW(regW),
@@ -151,7 +158,8 @@ cpu_MEM(
     .clk(clk),
     .rst_n(rst_n),
     .MEMcontrols(MEMcontrols_MEM),
-
+    //ALU out??
+    //regBData??
     //Outputs =======
     .dataOut(dataOut),
 );
@@ -182,7 +190,27 @@ assign writeData_WB = memToReg ? dataOut_WB : aluOut_WB; //write data to registe
 
 hazard_detection hdu(
     .
-)
+);
+
+//DOUBLE CHECK CONNECTIONS
+forwarding_unit funit(
+    .MemWB_RegWrite(regWrite_WB)
+    .EXMem_RegWrite(WBcontrols_MEM[1]),  // EX/MEM.RegWrite 
+    .EXMem_Rd(),        // EX/MEM.RegisterRd
+    .IDEX_Rs(),         // ID/EX.RegisterRs
+    .IDEX_Rt(),         // ID/EX.RegisterRt
+    .EXMem_Rt(),        // EX/MEM.RegisterRt
+
+    //load to use signals
+    .IDEX_MemRead(),    // ID/EX.MemRead
+    .IDEX_Rd(),         // ID/EX.RegisterRd 
+    .IFID_Rs(),         // IF/ID.RegisterRs
+    .IFID_Rt(),         // IF/ID.RegisterRt
+    .IFID_MemWrite(),   // IF/ID.MemWrite
+    .ForwardA(ForwardA),        //Output to forwarding mux
+    .ForwardB(ForwardB),        //Output to forwarding mux
+    .load_stall(load_stall),      //Enable load-to-use stall signal: 1 stall, 0 don't stal
+);
 
 
 

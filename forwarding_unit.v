@@ -6,7 +6,16 @@ module forwarding_unit(
     input IDEX_Rs,          // ID/EX.RegisterRs
     input IDEX_Rt,          // ID/EX.RegisterRt
     input EXMem_Rt,         // EX/MEM.RegisterRt
+
+    //load to use signals
+    input IDEX_MemRead,     // ID/EX.MemRead
+    input IDEX_Rd,          // ID/EX.RegisterRd 
+    input IFID_Rs           // IF/ID.RegisterRs
+    input IFID_Rt           // IF/ID.RegisterRt
+    input IFID_MemWrite     // IF/ID.MemWrite
     output [1:0] ForwardA, ForwardB
+    output ForwardC,
+    output load_stall,      //enable load-to-use stall signal: 1 stall, 0 don't stall
 );
 
 //MEM to EX forwarding
@@ -31,8 +40,6 @@ assign ForwardA = (EXMem_RegWrite & (EXMem_Rd != 4'h0) &    //EX-to-EX forwardin
                     !(EXMem_RegWrite & (EXMem_Rd != 4'h0) &
                     (EXMem_Rd != IDEX_Rs)) &
                     (MemWB_RegWrite == IDEX_Rs)) ? 2'b01:
-                  (MemWB_RegWrite & (MemWB_RD != 4'h0) &    //MEM-to-MEM forwarding logic
-                    (MemWB_RD) == EXMem_Rt)? 2'b11:         //enable load-to-use stall?
                   2'b00;                                    //No Forwarding
 
 assign ForwardB = (EXMem_RegWrite & (EXMem_Rd != 4'h0) &    //EX-to-EX forwarding logic
@@ -41,8 +48,13 @@ assign ForwardB = (EXMem_RegWrite & (EXMem_Rd != 4'h0) &    //EX-to-EX forwardin
                     !(EXMem_RegWrite & (EXMem_Rd != 4'h0) &
                     (EXMem_Rd != IDEX_Rs)) &
                     (MemWB_RegWrite == IDEX_Rs)) ? 2'b01:
-                  (MemWB_RegWrite & (MemWB_RD != 4'h0) &    //MEM-to-MEM forwarding logic
-                    (MemWB_RD) == EXMem_Rt)? 2'b11:
                   2'b00;                                    //No Forwarding
+
+//MEM-to-MEM forwarding logic
+assign ForwardC = (MemWB_RegWrite & (MemWB_RD != 4'h0) & (MemWB_RD) == EXMem_Rt);
+
+//enable oad-to-use stalls now that MEM-to-MEM forwarding is supported
+assign load_stall = (IDEX_MemRead & (IDEX_Rd != 0) & (IDEX_Rd = IFID_Rs) | ((IDEX_Rd = IFID_Rt)) & !(IFID_MemWrite));
+
 endmodule
 
