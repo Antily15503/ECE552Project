@@ -51,13 +51,13 @@ module cpu(
    [15:0] pc_ID = current program counter passed from IF stage
 */
 
-    wire [15:0] regAData, regBData, immEx, writeData_WB, pcBranch;        
+    wire [15:0] regAData, regBData, immEx, writeData_WB;// pcBranch; (1)       
     // wire [3:0] secA, secB, secC, 
     wire [3:0] writeAddress_WB;                                 //WB Register
     wire [5:0] EXcontrols;
     wire [1:0] MEMcontrols;
     wire [2:0] WBcontrols;
-    wire regWrite_WB, 
+    wire regWrite_WB;
 
 // Signals used in the ID stage:
 /* Used By Registers:
@@ -106,7 +106,7 @@ module cpu(
     //TWO 2-1 MUXES FOR SELECTING REGISTER WRITE DATA (PC, ALUOUT, or MEMOUT)
     //CONTROL SIGNAL FOR PC: 1 for PC, 0 for everything else
     //CONTROL SIGNAL FOR ALUOUT: 1 for memory output, 0 for ALU output
-    reg [15:0] wrDataIntermed;
+    // reg [15:0] wrDataIntermed; (1)
     wire [15:0] wrData;
     wire [15:0] data_out;
     
@@ -191,7 +191,7 @@ cpu_EX EX(
     .regW(regW),
     .zero(zero),         //ALU zero flag
     .overflow(overflow), //ALU overflow flag
-    .neg(neg),           //ALU negative flag
+    .neg(neg)         //ALU negative flag
 );
 
 //Signals for next stage
@@ -242,13 +242,13 @@ cpu_MEM(
     .ForwardC(ForwardC),
     
     //Outputs =======
-    .dataOut(dataOut),
+    .dataOut(dataOut)
 );
 
 //Signals for next stage
 wire [15:0] dataOut_WB;
 wire [2:0] WBcontrols_WB;
-wire [15:0] aluOut_WB, dataOut_WB;
+wire [15:0] aluOut_WB;// dataOut_WB;(1)
 
 /****************************     MEM/WB Pipeline Registers   *********************************/
 /* NOTE: _WB signals represent signals coming out of the MEM/WB Pipeline Registers
@@ -269,7 +269,7 @@ wire [15:0] aluOut_WB, dataOut_WB;
 
 /****************************     Writeback Stage (WB)   *********************************/
 wire memToReg, pcSwitch;
-wire [15:0] wrDataIntermed;
+reg [15:0] wrDataIntermed;
 assign pcSwitch = WBcontrols_WB[0]; //CONTROL SIGNAL FOR PC: 1 for PC, 0 for everything else
 assign regWrite_WB = WBcontrols_WB[2]; //CONTROL SIGNAL FOR REGWRITE: 1 for write, 0 for read
 assign memToReg = WBcontrols_WB[1]; //CONTROL SIGNAL FOR MEMTOREG: 1 for memory output, 0 for ALU output
@@ -293,12 +293,12 @@ hazard_detection hdu( //NEED TO ADD LFUSHING STILL
     .IFID_Rt(regBData),                 // IF/ID.RegisterRt
     .IFID_MemWrite(MEMcontrols[0]),     // IF/ID.MemWrite
 
-    .stall(stall);
+    .stall(stall)
 );
 
 //DOUBLE CHECK CONNECTIONS
 forwarding_unit funit(
-    .MemWB_RegWrite(regWrite_WB)
+    .MemWB_RegWrite(regWrite_WB),
     .EXMem_RegWrite(WBcontrols_MEM[1]), // EX/MEM.RegWrite 
     .EXMem_Rd(regW_MEM),                // EX/MEM.RegisterRd
     .IDEX_Rs(regAData_EX),              // ID/EX.RegisterRs

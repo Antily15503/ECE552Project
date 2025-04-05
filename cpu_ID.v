@@ -6,12 +6,13 @@ module cpu_ID(
     input [15:0] instr,
     input [15:0] pc,
     input zero, overflow, neg,
-    output [15:0] pcD,
+    output [15:0] pcD, pcBranch,
     output [15:0] regAData, regBData,
     output [15:0] immEx,
     output reg [5:0] EXcontrols,
     output reg [1:0] MEMcontrols,
-    output reg [2:0] WBcontrols
+    output reg [2:0] WBcontrols,
+    output branchTake
 );
 
 //Instruction Decoding
@@ -25,21 +26,22 @@ module cpu_ID(
 
 //Branch Handling
     //branch module
-    wire [15:0] pcBranch;//, regBData;(1)
-    wire branchControl, branchTake, halt;
+    //wire [15:0] pcBranch; regBData;(1)
+    wire branchControl, branch; //branchTake(1)
     //wire zero, neg, overflow;(1)
     branch branchSelect(
         //inputs
         .condition(secA[3:1]),
         .Flags({zero, overflow, neg}),
         .branchRegMux(branchControl),
-        .branch(branchTake),
+        .branch(branch),
         .I(instr[8:0]),
         .branchRegData(regBData),
+        .pcIn(pc),
 
         //outputs
-        .pc(pc),
-        .pcBranch(pcBranch)
+        .pcOut(pcBranch),
+        .branchTake(branchTake)
     );
 
 //Control Unit
@@ -47,7 +49,7 @@ module cpu_ID(
     //signals used in IF: pcSwitch, branchTake, branchControl, lwHalf
     //signals used in EX: aluSrc, regDst, opcode
     //signals used in MEM: memRead, memWrite
-    //signals used in WB: memToReg, regWrite, lcSwitch
+    //signals used in WB: memToReg, regWrite, pcSwitch
     control controlUnit(
         //inputs
         .opcode(opcode),
@@ -59,10 +61,9 @@ module cpu_ID(
         .MemRead(memRead),  //used
         .MemWrite(memWrite),  //used
         .MemHalf(lwHalf), //used
-        .Branch(branchTake), //used
+        .Branch(branch), //used
         .BranchReg(branchControl), //used
-        .PC(pcSwitch), //used
-        .Halt(halt) //used
+        .PC(pcSwitch) //used
     );
 
 //Register Reading

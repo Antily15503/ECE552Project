@@ -12,7 +12,7 @@ assign memRead = MEMcontrols[1]; //CONTROL SIGNAL FOR MEMREAD: 1 for read, 0 for
 assign memWrite = MEMcontrols[0]; //CONTROL SIGNAL FOR MEMWRITE: 1 for write, 0 for read
 
 wire [15:0] forward_regBData; //register data after fowarding mux
-assign forward_regBData = (ForwardC) WB_fdata : regBData;
+assign forward_regBData = (ForwardC) ? WB_fdata : regBData;
 
 //Data Memory Access
     data_memory datamem(

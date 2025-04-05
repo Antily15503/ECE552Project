@@ -1,9 +1,9 @@
 module control(
     input [3:0] opcode,
-    output RegDst, Branch, BranchReg, MemtoReg, MemRead, AluSrc, MemWrite, MemHalf, RegWrite, PC, Halt
+    output RegDst, Branch, BranchReg, MemtoReg, MemRead, AluSrc, MemWrite, MemHalf, RegWrite, PC
 );
 
-reg regd, branch, branchr, memr, memtr, memh, alusrc, memw, regw, pc, halt;
+reg regd, branch, branchr, memr, memtr, memh, alusrc, memw, regw, pc;
 
 always @(*) begin
     casex (opcode)
@@ -18,7 +18,6 @@ always @(*) begin
             memw = 1'b0;
             regw = 1'b1;
             pc = 1'b0;
-            halt = 1'b0;
         end
         4'b0111: begin //PADDSB
             regd = 1'b1;
@@ -31,7 +30,6 @@ always @(*) begin
             memw = 1'b0;
             regw = 1'b1;
             pc = 1'b0;
-            halt = 1'b0;
         end
         4'b01??: begin
             regd = 1'b1;
@@ -44,7 +42,7 @@ always @(*) begin
             memw = 1'b0;
             regw = 1'b1;
             pc = 1'b0;
-            halt = 1'b0;
+            
         end
         
         4'b1000: begin //Mem Load
@@ -58,7 +56,7 @@ always @(*) begin
             memw = 1'b0;
             regw = 1'b1;
             pc = 1'b0;
-            halt = 1'b0;
+            
         end
         4'b1001: begin //Mem Store
             regd = 1'b0;
@@ -71,7 +69,7 @@ always @(*) begin
             memw = 1'b1;
             regw = 1'b0;
             pc = 1'b0;
-            halt = 1'b0;
+            
         end
         4'b1010: begin //Register Update Lower Byte
             regd = 1'b0;
@@ -84,7 +82,7 @@ always @(*) begin
             memw = 1'b0;
             regw = 1'b1;
             pc = 1'b0;
-            halt = 1'b0;
+            
         end
         4'b1011: begin //Register Update Upper Byte
             regd = 1'b0;
@@ -96,8 +94,7 @@ always @(*) begin
             alusrc = 1'b0;
             memw = 1'b0;
             regw = 1'b1;
-            pc = 1'b0;
-            halt = 1'b0;
+            pc = 1'b0;`
         end
         4'b1100: begin //Branch Relative (B)
             regd = 1'b0;
@@ -110,7 +107,6 @@ always @(*) begin
             memw = 1'b0;
             regw = 1'b0;
             pc = 1'b0;
-            halt = 1'b0;
         end
         4'b1101: begin //Branch through Register (BR)
             regd = 1'b0;
@@ -123,7 +119,6 @@ always @(*) begin
             memw = 1'b0;
             regw = 1'b0;
             pc = 1'b0;
-            halt = 1'b0;
         end
         4'b1110: begin //Save Program Counter (PCS)
             regd = 1'b0;
@@ -136,20 +131,7 @@ always @(*) begin
             memw = 1'b0;
             regw = 1'b0;
             pc = 1'b1;
-            halt = 1'b0;
-        end
-        4'b1111: begin //Halt
-            regd = 1'b0;
-            branch = 1'b0;
-            branchr = 1'b0;
-            memr = 1'b0;
-            memtr = 1'b0;
-            alusrc = 1'b0;
-            memh = 1'b0;
-            memw = 1'b0;
-            regw = 1'b0;
-            pc = 1'b0;
-            halt = 1'b1;
+            
         end
         default: begin
             regd = 1'b0;
@@ -162,7 +144,6 @@ always @(*) begin
             memw = 1'b0;
             regw = 1'b0;
             pc = 1'b0;
-            halt = 1'b0;
         end
     endcase
 end
@@ -175,6 +156,5 @@ assign AluSrc = alusrc;
 assign MemWrite = memw;
 assign RegWrite = regw;
 assign PC = pc;
-assign Halt = halt;
 assign MemHalf = memh;
 endmodule

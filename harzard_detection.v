@@ -8,6 +8,6 @@ module hazard_detection( //
 );
     
     //REQUIRES FLUSHING//
-    assign stall = MemRead & ((IDEX_Rd == IFID_Rs) | (IDEX_Rd == IFID_Rt)) & (IDEX_Rd != 0);
+    assign stall = IDEX_MemRead & ((IDEX_Rd == IFID_Rs) | (IDEX_Rd == IFID_Rt)) & (IDEX_Rd != 0);
 
 endmodule

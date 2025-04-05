@@ -15,7 +15,8 @@ module cpu_IF(
    [15:0] pcNext = program counter value strictly going into the PC register, either pcD or pcBranch (if there is branching)
 
    NOTE: pcInc -> pc_ID is what gets used in subsequent stages, and pcD is what gets stored at the execution of the next instruction*/
-    [15:0] pcInc, pcD, pcNext;
+    // wire [15:0] pcInc, pcD, pcNext; (1)
+    wire [15:0] pcD; //(1)
     wire halt;
     pc_logic pcCombinationalLogic(
         .pcIn(pc),
@@ -24,7 +25,7 @@ module cpu_IF(
         .halt(halt),
         .pc_ID(pc_ID),
         .pcInc(pcInc)
-    )
+    );
 // Program Branch Logic
     assign pcNext = branch ? pcBranch : pcD; // If branch is true, use the branch address, otherwise use the incremented address
 
@@ -42,7 +43,7 @@ module cpu_IF(
    [15:0] pc = program counter value coming out of the PC register
    data_in, wr, and enable are not used in this module. They are hard wired to constants.
 */
-    wire [15:0] instr;
+    //wire [15:0] instr; (1)
     inst_memory instruction_mem(
             .clk(clk),
             .rst(~rst_n),

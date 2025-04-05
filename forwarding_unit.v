@@ -10,7 +10,7 @@ module forwarding_unit(
     input EXMem_MemWrite,
 
     output [1:0] ForwardA, ForwardB,
-    output ForwardC,
+    output ForwardC
 );
 
 //MEM to EX forwarding
