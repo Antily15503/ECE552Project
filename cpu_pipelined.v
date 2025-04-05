@@ -8,11 +8,22 @@ module cpu(
 //IF stage signals
 /* [15:0] pcD = program counter value coming into the PC register
    [15:0] pc = program counter value coming out of the PC register
-   NOTE: pcD is determined by branch logic in cpu_ID.v. Instruction Fetch Stage does not modify either signals.*/
+   NOTE: pcD is determined by branch logic in cpu_ID.v. Instruction Fetch Stage does not modify either signals.
+   
+    Flush and stall signals from hazard detection unit*/
+
+    
 
     wire [15:0] pcD, instr;
     wire [15:0] pc_ID, instr_ID;
     wire flush;
+    wire stall;
+
+    //Pause instruction by looping
+    assign instr = stall ? insr_ID : instr;
+
+    //Pause pc by looping
+    assign pcD = stall ? pc_ID : pcD;
 
 //Instruction Fetch Pipeline Module (located in cpu_IF.v)
     cpu_IF IF(
@@ -23,15 +34,17 @@ module cpu(
         .instr(instr)       //Instruction from inst memory
     );
 
+
+
 /****************************     IF/ID Pipeline Registers   *********************************/
 /* NOTE: _ID signals represent signals coming out of the IF/ID Pipeline Registers
    IF/ID register gets ASSERTED either when rst_n is set (active low) or when flush is set (active high).
    Otherwise, register simply passes the pcD and instr singlals to the next stage.
 */
     //program counter register
-    dff IF_ID_pc [15:0] (.q(pc_ID), .d(pcD), .wen(1'b1), .clk(clk), .rst(~rst_n | flush));
+    dff IF_ID_pc [15:0] (.q(pc_ID), .d(pcD), .wen(1'b1), .clk(clk), .rst(~rst_n));
     //instruction register
-    dff IF_ID_instr [15:0] (.q(instr_ID), .d(instr), .wen(1'b1), .clk(clk), .rst(~rst_n | flush));
+    dff IF_ID_instr [15:0] (.q(instr_ID), .d(instr), .wen(!(stall & 1'b1)), .clk(clk), .rst(~rst_n));
 
 /****************************     Instruction Decode Stage (ID)   *********************************/
 //From IF/ID stage signals
@@ -165,6 +178,7 @@ cpu_EX EX(
     .regBData(regBData_EX),
     .immEx(imm_EX),
     .EXcontrols(EXcontrols_EX),
+    .MEMcontrols(MEMcontrols_EX),
     .instr(instr_EX),
 
     //Forwarding Inputs
@@ -269,29 +283,29 @@ always @(*) begin
 
 /****************************     Outside Pipeline Modules   *********************************/
 
-hazard_detection hdu(
-    .
+hazard_detection hdu( //NEED TO ADD LFUSHING STILL
+    //load to use signals
+    .IDEX_MemRead(MEMcontrols_EX[1]),   // ID/EX.MemRead
+    .IDEX_Rd(EXcontrols_EX[1]),         // ID/EX.RegisterRd 
+    .IFID_Rs(regAData),                 // IF/ID.RegisterRs - READ from inside decode stage instead of pipeline
+    .IFID_Rt(regBData),                 // IF/ID.RegisterRt
+    .IFID_MemWrite(MEMcontrols[0]),     // IF/ID.MemWrite
+
+    .stall(stall);
 );
 
 //DOUBLE CHECK CONNECTIONS
 forwarding_unit funit(
     .MemWB_RegWrite(regWrite_WB)
     .EXMem_RegWrite(WBcontrols_MEM[1]),  // EX/MEM.RegWrite 
-    .EXMem_Rd(),        // EX/MEM.RegisterRd
-    .IDEX_Rs(),         // ID/EX.RegisterRs
-    .IDEX_Rt(),         // ID/EX.RegisterRt
-    .EXMem_Rt(),        // EX/MEM.RegisterRt
+    .EXMem_Rd(regW_MEM),        // EX/MEM.RegisterRd
+    .IDEX_Rs(regAData_EX),         // ID/EX.RegisterRs
+    .IDEX_Rt(regBData_EX),         // ID/EX.RegisterRt
+    .EXMem_Rt(regBData_MEM),        // EX/MEM.RegisterRt
 
-    //load to use signals
-    .IDEX_MemRead(),    // ID/EX.MemRead
-    .IDEX_Rd(),         // ID/EX.RegisterRd 
-    .IFID_Rs(),         // IF/ID.RegisterRs
-    .IFID_Rt(),         // IF/ID.RegisterRt
-    .IFID_MemWrite(),   // IF/ID.MemWrite
     .ForwardA(ForwardA),        //Output to forwarding mux
     .ForwardB(ForwardB),        //Output to forwarding mux
-    .ForwardC(ForwardC),        //Output to forwarding mux
-    .load_stall(load_stall),      //Enable load-to-use stall signal: 1 stall, 0 don't stal
+    .ForwardC(ForwardC),        //Output to forwarding mux 
 );
 
 
