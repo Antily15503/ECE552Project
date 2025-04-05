@@ -297,11 +297,11 @@ hazard_detection hdu( //NEED TO ADD LFUSHING STILL
 //DOUBLE CHECK CONNECTIONS
 forwarding_unit funit(
     .MemWB_RegWrite(regWrite_WB)
-    .EXMem_RegWrite(WBcontrols_MEM[1]),  // EX/MEM.RegWrite 
-    .EXMem_Rd(regW_MEM),        // EX/MEM.RegisterRd
-    .IDEX_Rs(regAData_EX),         // ID/EX.RegisterRs
-    .IDEX_Rt(regBData_EX),         // ID/EX.RegisterRt
-    .EXMem_Rt(regBData_MEM),        // EX/MEM.RegisterRt
+    .EXMem_RegWrite(WBcontrols_MEM[1]), // EX/MEM.RegWrite 
+    .EXMem_Rd(regW_MEM),                // EX/MEM.RegisterRd
+    .IDEX_Rs(regAData_EX),              // ID/EX.RegisterRs
+    .IDEX_Rt(regBData_EX),              // ID/EX.RegisterRt
+    .EXMem_Rt(regBData_MEM),            // EX/MEM.RegisterRt
 
     .ForwardA(ForwardA),        //Output to forwarding mux
     .ForwardB(ForwardB),        //Output to forwarding mux
