@@ -3,12 +3,13 @@ module cpu_EX(
     input [15:0] pc_ID, instr, //??
     input [15:0] regAData, regBData, immEx,
     input [5:0] EXcontrols,
-    input [1:0] MEMcontrols,
+    input memWrite,
     input [15:0] MEM_faddress,       //Address from EX to EX forwarding
     input [15:0] WB_fdata,          //Data from MEM to EX forwarding
     input [1:0] ForwardA, ForwardB, //Forwarding unit mux control signals
     output [15:0] aluOut,
     output [3:0] regW
+    output zero, overflow, neg
 );
 wire [2:0] opcode;
 wire aluSrc, regDst;
@@ -22,7 +23,6 @@ assign forward_regBData = (ForwardB == 2'b10) ? MEM_faddress :
                           (ForwardB == 2'b01) ? WB_fdata :
                           regBData;
 
-assign memWrite = MEMcontrols[0];
 assign opcode = EXcontrols[3:0];
 assign aluSrc = EXcontrols[4]; //CONTROL SIGNAL FOR ALUSRC: 1 for R instructions, 0 for I instructions
 assign regDst = EXcontrols[5]; //CONTROL SIGNAL FOR REGDST: 1 for R instructions, 0 for I instructions

@@ -7,30 +7,28 @@ module cpu(
 /****************************     Instruction Fetch Stage (IF)   *********************************/
 //IF stage signals
 /* [15:0] pcD = program counter value coming into the PC register
-   [15:0] pc = program counter value coming out of the PC register
+   [15:0] pc = program counter value being reported out of the PC combinational logic
    NOTE: pcD is determined by branch logic in cpu_ID.v. Instruction Fetch Stage does not modify either signals.
-   
-    Flush and stall signals from hazard detection unit*/
+*/
 
-    
-
-    wire [15:0] pcD, instr;
+    wire [15:0] pcInc, instr;
     wire [15:0] pc_ID, instr_ID;
     wire flush;
     wire stall;
 
-    //Pause instruction by looping
-    assign instr = stall ? insr_ID : instr;
-
-    //Pause pc by looping
-    assign pcD = stall ? pc_ID : pcD;
-
 //Instruction Fetch Pipeline Module (located in cpu_IF.v)
     cpu_IF IF(
+        //Inputs ========
         .clk(clk),
         .rst_n(rst_n),
-        .pcD(pcD),          //Input PC
-        .pc(pc),            //Output PC
+        .stall(stall),
+        .branch(??),
+        .pc_ID(pc_ID),
+        .pcBranch(??),
+
+        //Outputs =======
+        .pcNext(pc),            //Output PC
+        .pcInc(pcInc),         //??
         .instr(instr)       //Instruction from inst memory
     );
 
@@ -39,10 +37,10 @@ module cpu(
 /****************************     IF/ID Pipeline Registers   *********************************/
 /* NOTE: _ID signals represent signals coming out of the IF/ID Pipeline Registers
    IF/ID register gets ASSERTED either when rst_n is set (active low) or when flush is set (active high).
-   Otherwise, register simply passes the pcD and instr singlals to the next stage.
+   Otherwise, register simply passes the pcD and instr signals to the next stage.
 */
     //program counter register
-    dff IF_ID_pc [15:0] (.q(pc_ID), .d(pcD), .wen(1'b1), .clk(clk), .rst(~rst_n));
+    dff IF_ID_pc [15:0] (.q(pc_ID), .d(pcInc), .wen(1'b1), .clk(clk), .rst(~rst_n));
     //instruction register
     dff IF_ID_instr [15:0] (.q(instr_ID), .d(instr), .wen(!(stall & 1'b1)), .clk(clk), .rst(~rst_n));
 
@@ -178,7 +176,7 @@ cpu_EX EX(
     .regBData(regBData_EX),
     .immEx(imm_EX),
     .EXcontrols(EXcontrols_EX),
-    .MEMcontrols(MEMcontrols_EX),
+    .memWrite(MEMcontrols_EX[0]), //MEMcontrols[0] = memWrite
     .instr(instr_EX),
 
     //Forwarding Inputs
@@ -190,6 +188,9 @@ cpu_EX EX(
     //Outputs =======
     .aluOut(aluOut),
     .regW(regW),
+    .zero(zero),         //ALU zero flag
+    .overflow(overflow), //ALU overflow flag
+    .neg(neg),           //ALU negative flag
 );
 
 //Signals for next stage
@@ -302,6 +303,9 @@ forwarding_unit funit(
     .IDEX_Rs(regAData_EX),              // ID/EX.RegisterRs
     .IDEX_Rt(regBData_EX),              // ID/EX.RegisterRt
     .EXMem_Rt(regBData_MEM),            // EX/MEM.RegisterRt
+    .MemWB_MemToReg(memToReg),
+    .EXMem_MemWrite(MEMcontrols_MEM[0]),
+
 
     .ForwardA(ForwardA),        //Output to forwarding mux
     .ForwardB(ForwardB),        //Output to forwarding mux

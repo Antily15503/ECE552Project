@@ -1,13 +1,15 @@
 module forwarding_unit(
     input MemWB_RegWrite,
-    input MemWB_RD,
+    input MemWB_Rd,
     input EXMem_RegWrite,   // EX/MEM.RegWrite 
     input EXMem_Rd,         // EX/MEM.RegisterRd
     input IDEX_Rs,          // ID/EX.RegisterRs
     input IDEX_Rt,          // ID/EX.RegisterRt
     input EXMem_Rt,         // EX/MEM.RegisterRt
+    input MemWB_MemToReg,
+    input EXMem_MemWrite,
 
-    output [1:0] ForwardA, ForwardB
+    output [1:0] ForwardA, ForwardB,
     output ForwardC,
 );
 
@@ -29,22 +31,22 @@ module forwarding_unit(
 
 assign ForwardA = (EXMem_RegWrite & (EXMem_Rd != 4'h0) &    //EX-to-EX forwarding logic
                     (EXMem_Rd) == IDEX_Rs) ? 2'b10:
-                  (MemWB_RegWrite & (MemWB_RD != 4'h0) &    //MEM-to-EX forwarding logic
+                  (MemWB_RegWrite & (MemWB_Rd != 4'h0) &    //MEM-to-EX forwarding logic
                     !(EXMem_RegWrite & (EXMem_Rd != 4'h0) &
                     (EXMem_Rd != IDEX_Rs)) &
-                    (MemWB_RegWrite == IDEX_Rs)) ? 2'b01:
+                    (MemWB_Rd == IDEX_Rs)) ? 2'b01:
                   2'b00;                                    //No Forwarding
 
 assign ForwardB = (EXMem_RegWrite & (EXMem_Rd != 4'h0) &    //EX-to-EX forwarding logic
-                    (EXMem_Rd) == IDEX_Rs) ? 2'b10:
-                  (MemWB_RegWrite & (MemWB_RD != 4'h0) &    //MEM-to-EX forwarding logic
+                    (EXMem_Rd) == IDEX_Rt) ? 2'b10:
+                  (MemWB_RegWrite & (MemWB_Rd != 4'h0) &    //MEM-to-EX forwarding logic
                     !(EXMem_RegWrite & (EXMem_Rd != 4'h0) &
                     (EXMem_Rd != IDEX_Rs)) &
-                    (MemWB_RegWrite == IDEX_Rs)) ? 2'b01:
+                    (MemWB_Rd == IDEX_Rt)) ? 2'b01:
                   2'b00;                                    //No Forwarding
 
 //MEM-to-MEM forwarding logic
-assign ForwardC = (MemWB_RegWrite & (MemWB_RD != 4'h0) & (MemWB_RD) == EXMem_Rt);
+assign ForwardC = (MemWB_MemToReg & EXMem_MemWrite & (MemWB_Rd != 4'h0) & (MemWB_Rd) == EXMem_Rt);
 
 endmodule
 
