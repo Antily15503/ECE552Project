@@ -173,25 +173,25 @@ R6
 R7
 R8
 vALU
-!s110 1741054180
+Z11 !s110 1743893715
 !i10b 1
 !s100 g1MN8[lHK5LdIjlgB:M0H3
 R1
-ILDkTnIZRbVO536bogaKHg1
+ITe`HdLBETXaVn3C3mW;Ym3
 R2
-R3
-w1741054177
-8C:/Users/themi/ECE552Project/ALU.v
-FC:/Users/themi/ECE552Project/ALU.v
-!i122 434
+Z12 dC:/Users/DanielJL/Documents/GitHub/ECE552Project
+Z13 w1743089072
+8C:/Users/DanielJL/Documents/GitHub/ECE552Project/ALU.v
+FC:/Users/DanielJL/Documents/GitHub/ECE552Project/ALU.v
+!i122 449
 L0 1 88
 R5
 r1
 !s85 0
 31
-!s108 1741054180.000000
-!s107 C:/Users/themi/ECE552Project/ALU.v|
-!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/themi/ECE552Project/ALU.v|
+Z14 !s108 1743893715.000000
+!s107 C:/Users/DanielJL/Documents/GitHub/ECE552Project/ALU.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/DanielJL/Documents/GitHub/ECE552Project/ALU.v|
 !i113 1
 R7
 R8
@@ -252,7 +252,7 @@ R1
 I1SNM4EEBeKBJ@EVQnZFi92
 R2
 R3
-Z11 w1740755017
+Z15 w1740755017
 8C:/Users/themi/ECE552Project/bit_cell.v
 FC:/Users/themi/ECE552Project/bit_cell.v
 !i122 234
@@ -268,238 +268,261 @@ r1
 R7
 R8
 vBitCell
-!s110 1740971744
+R11
 !i10b 1
 !s100 UdK0?PZ`0`ZfnEfTRfR[c0
 R1
-I;BfIVEzBi0`;@oC0iD[:k2
+Ieo8nC24aWKiEF2NMjY[kG3
 R2
-R3
-w1740631242
-8C:/Users/themi/ECE552Project/BitCell.v
-FC:/Users/themi/ECE552Project/BitCell.v
-!i122 360
+R12
+w1740960464
+8C:/Users/DanielJL/Documents/GitHub/ECE552Project/BitCell.v
+FC:/Users/DanielJL/Documents/GitHub/ECE552Project/BitCell.v
+!i122 450
 L0 1 14
 R5
 r1
 !s85 0
 31
-Z12 !s108 1740971743.000000
-!s107 C:/Users/themi/ECE552Project/BitCell.v|
-!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/themi/ECE552Project/BitCell.v|
+R14
+!s107 C:/Users/DanielJL/Documents/GitHub/ECE552Project/BitCell.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/DanielJL/Documents/GitHub/ECE552Project/BitCell.v|
 !i113 1
 R7
 R8
 n@bit@cell
 vbranch
-!s110 1742937712
+Z16 !s110 1743893716
 !i10b 1
 !s100 gmfFmO?QZHd[@DXEUBngj1
 R1
-I[8GcD:2PezHE82zMF@9^<3
+I0i[cc7[cI7i_iGIf?NMeQ3
 R2
-R3
-w1741136273
-8C:/Users/themi/ECE552Project/branch.v
-FC:/Users/themi/ECE552Project/branch.v
-!i122 447
+R12
+R13
+8C:/Users/DanielJL/Documents/GitHub/ECE552Project/branch.v
+FC:/Users/DanielJL/Documents/GitHub/ECE552Project/branch.v
+!i122 451
 L0 1 50
 R5
 r1
 !s85 0
 31
-!s108 1742937712.000000
-!s107 C:/Users/themi/ECE552Project/branch.v|
-!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/themi/ECE552Project/branch.v|
+R14
+!s107 C:/Users/DanielJL/Documents/GitHub/ECE552Project/branch.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/DanielJL/Documents/GitHub/ECE552Project/branch.v|
 !i113 1
 R7
 R8
 vbranch_tb
-!s110 1740971745
+R16
 !i10b 1
 !s100 oD;S7DnY][0z4T3MbK<cR1
 R1
-I1E1kU42jL0f7BXd88Y:2D0
+IB6@l:Za7EYk6D?9NnM4LM0
 R2
-R3
-w1740965699
-8C:/Users/themi/ECE552Project/branch_tb.v
-FC:/Users/themi/ECE552Project/branch_tb.v
-!i122 365
+R12
+w1740972296
+8C:/Users/DanielJL/Documents/GitHub/ECE552Project/branch_tb.v
+FC:/Users/DanielJL/Documents/GitHub/ECE552Project/branch_tb.v
+!i122 452
 L0 1 30
 R5
 r1
 !s85 0
 31
-!s108 1740971744.000000
-!s107 C:/Users/themi/ECE552Project/branch_tb.v|
-!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/themi/ECE552Project/branch_tb.v|
+Z17 !s108 1743893716.000000
+!s107 C:/Users/DanielJL/Documents/GitHub/ECE552Project/branch_tb.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/DanielJL/Documents/GitHub/ECE552Project/branch_tb.v|
 !i113 1
 R7
 R8
 vcontrol
-!s110 1741055936
+R16
 !i10b 1
 !s100 VIV3RdG<^2kK:PjSTHL^92
 R1
-I>_Ro5SAUCH4K;HBAC<9M82
+IAgKmiS2142LGEFb:[RAlB1
 R2
-R3
-w1741055834
-8C:/Users/themi/ECE552Project/control.v
-FC:/Users/themi/ECE552Project/control.v
-!i122 441
+R12
+R13
+8C:/Users/DanielJL/Documents/GitHub/ECE552Project/control.v
+FC:/Users/DanielJL/Documents/GitHub/ECE552Project/control.v
+!i122 453
 L0 1 180
 R5
 r1
 !s85 0
 31
-!s108 1741055936.000000
-!s107 C:/Users/themi/ECE552Project/control.v|
-!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/themi/ECE552Project/control.v|
+R17
+!s107 C:/Users/DanielJL/Documents/GitHub/ECE552Project/control.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/DanielJL/Documents/GitHub/ECE552Project/control.v|
 !i113 1
 R7
 R8
 vcpu
-!s110 1742937881
+R16
 !i10b 1
-!s100 __23l@S<oOFYC7^jggck^1
+!s100 oKzm8Sa:Tja4<:3ZHO_`d1
 R1
-IVE][BZ10ZH4gUHYTnS4Ld0
+I]hJID`7J]ZnceMK_=WaCm0
 R2
-R3
-w1742937811
-8C:/Users/themi/ECE552Project/cpu.v
-FC:/Users/themi/ECE552Project/cpu.v
-!i122 448
-L0 1 146
+R12
+w1743632898
+8C:/Users/DanielJL/Documents/GitHub/ECE552Project/cpu.v
+FC:/Users/DanielJL/Documents/GitHub/ECE552Project/cpu.v
+!i122 454
+L0 1 144
 R5
 r1
 !s85 0
 31
-!s108 1742937881.000000
-!s107 C:/Users/themi/ECE552Project/cpu.v|
-!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/themi/ECE552Project/cpu.v|
+R17
+!s107 C:/Users/DanielJL/Documents/GitHub/ECE552Project/cpu.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/DanielJL/Documents/GitHub/ECE552Project/cpu.v|
+!i113 1
+R7
+R8
+vcpu_ptb
+Z18 !s110 1743893719
+!i10b 1
+!s100 nEN6Q4F:S[MaN;d<IKCW02
+R1
+IM<d_mX@gPXg7cAT:i=PJC3
+R2
+R12
+w1743892562
+8C:/Users/DanielJL/Documents/GitHub/ECE552Project/project-phase2-testbench.v
+FC:/Users/DanielJL/Documents/GitHub/ECE552Project/project-phase2-testbench.v
+!i122 460
+L0 1 173
+R5
+r1
+!s85 0
+31
+Z19 !s108 1743893719.000000
+!s107 C:/Users/DanielJL/Documents/GitHub/ECE552Project/project-phase2-testbench.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/DanielJL/Documents/GitHub/ECE552Project/project-phase2-testbench.v|
 !i113 1
 R7
 R8
 vcpu_tb
-!s110 1741040077
+R18
 !i10b 1
 !s100 RmF2D]U@bmMM[S[MEMF_Q1
 R1
-Iz`;[]PGl1LYlkeY@iFAoC0
+IigE>B@dObzG4O3KWdoVPQ2
 R2
-R3
-w1741039796
-8C:/Users/themi/ECE552Project/project-phase1-testbench.v
-FC:/Users/themi/ECE552Project/project-phase1-testbench.v
-!i122 400
+R12
+w1741039815
+8C:/Users/DanielJL/Documents/GitHub/ECE552Project/project-phase1-testbench.v
+FC:/Users/DanielJL/Documents/GitHub/ECE552Project/project-phase1-testbench.v
+!i122 459
 L0 1 183
 R5
 r1
 !s85 0
 31
-!s108 1741040076.000000
-!s107 C:/Users/themi/ECE552Project/project-phase1-testbench.v|
-!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/themi/ECE552Project/project-phase1-testbench.v|
+R19
+!s107 C:/Users/DanielJL/Documents/GitHub/ECE552Project/project-phase1-testbench.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/DanielJL/Documents/GitHub/ECE552Project/project-phase1-testbench.v|
 !i113 1
 R7
 R8
 vdata_memory
-Z13 !s110 1740971739
+Z20 !s110 1743893717
 !i10b 1
 !s100 Z2IX3]OnGkHGh`=B6[K_f3
 R1
-I8cREi1JSG;_Qn9D9l7i^Y3
+IKlz9j:O^Ym2kXcS;]U=4j3
 R2
-R3
-w1740962055
-8C:/Users/themi/ECE552Project/data_memory.v
-FC:/Users/themi/ECE552Project/data_memory.v
-!i122 351
-Z14 L0 31 38
+R12
+w1740962378
+8C:/Users/DanielJL/Documents/GitHub/ECE552Project/data_memory.v
+FC:/Users/DanielJL/Documents/GitHub/ECE552Project/data_memory.v
+!i122 455
+Z21 L0 31 38
 R5
 r1
 !s85 0
 31
-Z15 !s108 1740971739.000000
-!s107 C:/Users/themi/ECE552Project/data_memory.v|
-!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/themi/ECE552Project/data_memory.v|
+Z22 !s108 1743893717.000000
+!s107 C:/Users/DanielJL/Documents/GitHub/ECE552Project/data_memory.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/DanielJL/Documents/GitHub/ECE552Project/data_memory.v|
 !i113 1
 R7
 R8
 vdecoder_one_hot
-R13
+R20
 !i10b 1
 !s100 >EL5PKh@EJIDOR;4ffN333
 R1
-I7`3PYCnPZNNK<?YAn0a:i1
+IgK@9TPC]MczkjQU3dgg7o3
 R2
-R3
-R11
-8C:/Users/themi/ECE552Project/decoder_one_hot.v
-FC:/Users/themi/ECE552Project/decoder_one_hot.v
-!i122 352
+R12
+w1740755024
+8C:/Users/DanielJL/Documents/GitHub/ECE552Project/decoder_one_hot.v
+FC:/Users/DanielJL/Documents/GitHub/ECE552Project/decoder_one_hot.v
+!i122 456
 L0 1 17
 R5
 r1
 !s85 0
 31
-R15
-!s107 C:/Users/themi/ECE552Project/decoder_one_hot.v|
-!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/themi/ECE552Project/decoder_one_hot.v|
+R22
+!s107 C:/Users/DanielJL/Documents/GitHub/ECE552Project/decoder_one_hot.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/DanielJL/Documents/GitHub/ECE552Project/decoder_one_hot.v|
 !i113 1
 R7
 R8
 vdff
-R13
+Z23 !s110 1743893718
 !i10b 1
 !s100 Z9V@F2c50oH6kZfdURZd60
 R1
-Ik8GN3gPg8Ig9XNAh[IKmT1
+I0JJAcQY1Z8GL?KI=j<eco3
 R2
-R3
-w1740757982
-8C:/Users/themi/ECE552Project/D-Flip-Flop.v
-FC:/Users/themi/ECE552Project/D-Flip-Flop.v
-!i122 353
+R12
+w1740794443
+8C:/Users/DanielJL/Documents/GitHub/ECE552Project/D-Flip-Flop.v
+FC:/Users/DanielJL/Documents/GitHub/ECE552Project/D-Flip-Flop.v
+!i122 457
 L0 3 17
 R5
 r1
 !s85 0
 31
-R15
-!s107 C:/Users/themi/ECE552Project/D-Flip-Flop.v|
-!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/themi/ECE552Project/D-Flip-Flop.v|
+Z24 !s108 1743893718.000000
+!s107 C:/Users/DanielJL/Documents/GitHub/ECE552Project/D-Flip-Flop.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/DanielJL/Documents/GitHub/ECE552Project/D-Flip-Flop.v|
 !i113 1
 R7
 R8
 vinst_memory
-!s110 1741056377
+R23
 !i10b 1
 !s100 N=hPCoPB^zVf>iS>^nS<`1
 R1
-Ij?S?4^8A@Fbc52:dSG7<m2
+IbL7>Kbchf]dh`OPbl5j8h2
 R2
-R3
-w1741056373
-8C:/Users/themi/ECE552Project/inst_memory.v
-FC:/Users/themi/ECE552Project/inst_memory.v
-!i122 446
-R14
+R12
+R13
+8C:/Users/DanielJL/Documents/GitHub/ECE552Project/inst_memory.v
+FC:/Users/DanielJL/Documents/GitHub/ECE552Project/inst_memory.v
+!i122 458
+R21
 R5
 r1
 !s85 0
 31
-!s108 1741056377.000000
-!s107 C:/Users/themi/ECE552Project/inst_memory.v|
-!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/themi/ECE552Project/inst_memory.v|
+R24
+!s107 C:/Users/DanielJL/Documents/GitHub/ECE552Project/inst_memory.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/DanielJL/Documents/GitHub/ECE552Project/inst_memory.v|
 !i113 1
 R7
 R8
 vpsa_16bit
-Z16 !s110 1740971743
+Z25 !s110 1740971743
 !i10b 1
 !s100 5DZc<8BK@X9S7DM4jDmaY3
 R1
@@ -515,21 +538,21 @@ R5
 r1
 !s85 0
 31
-R12
+Z26 !s108 1740971743.000000
 !s107 C:/Users/themi/ECE552Project/psa_16bit.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/themi/ECE552Project/psa_16bit.v|
 !i113 1
 R7
 R8
 vread_decoder_4_16
-Z17 !s110 1740952114
+Z27 !s110 1740952114
 !i10b 1
 !s100 ^0SbOOnCOg<>=om=@`OX62
 R1
 IGVzl<>jAFdMF`No8zDL>N2
 R2
 R3
-R11
+R15
 8C:/Users/themi/ECE552Project/read_decoder_4_16.v
 FC:/Users/themi/ECE552Project/read_decoder_4_16.v
 !i122 242
@@ -538,32 +561,32 @@ R5
 r1
 !s85 0
 31
-Z18 !s108 1740952114.000000
+Z28 !s108 1740952114.000000
 !s107 C:/Users/themi/ECE552Project/read_decoder_4_16.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/themi/ECE552Project/read_decoder_4_16.v|
 !i113 1
 R7
 R8
 vReadDecoder_4_16
-!s110 1740981700
+R18
 !i10b 1
 !s100 ^9zIchSmMYSLS^TfD;G:H0
 R1
-IjfOdR<ANk83KZg3XF[<>U2
+IR[oQ;Gf`3QQ?Z2aEmi>_`1
 R2
-R3
-w1740981325
-8C:/Users/themi/ECE552Project/ReadDecoder_4_16.v
-FC:/Users/themi/ECE552Project/ReadDecoder_4_16.v
-!i122 378
-Z19 L0 1 12
+R12
+Z29 w1741039603
+8C:/Users/DanielJL/Documents/GitHub/ECE552Project/ReadDecoder_4_16.v
+FC:/Users/DanielJL/Documents/GitHub/ECE552Project/ReadDecoder_4_16.v
+!i122 461
+Z30 L0 1 12
 R5
 r1
 !s85 0
 31
-!s108 1740981699.000000
-!s107 C:/Users/themi/ECE552Project/ReadDecoder_4_16.v|
-!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/themi/ECE552Project/ReadDecoder_4_16.v|
+R19
+!s107 C:/Users/DanielJL/Documents/GitHub/ECE552Project/ReadDecoder_4_16.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/DanielJL/Documents/GitHub/ECE552Project/ReadDecoder_4_16.v|
 !i113 1
 R7
 R8
@@ -593,38 +616,62 @@ R7
 R8
 n@r@e@d
 vRED_tb
-!s110 1741048861
+R18
 !i10b 1
 !s100 >Y8Q=R18dUZfoaZh21JQm2
 R1
-I4ekLY?jz6WJkVGkWV:h<93
+ITM>MbGmo[3R@k5Ea06g1J2
 R2
-R3
-w1740894990
-8C:/Users/themi/ECE552Project/RED_tb.v
-FC:/Users/themi/ECE552Project/RED_tb.v
-!i122 415
+R12
+R13
+8C:/Users/DanielJL/Documents/GitHub/ECE552Project/RED_tb.v
+FC:/Users/DanielJL/Documents/GitHub/ECE552Project/RED_tb.v
+!i122 462
 L0 1 51
 R5
 r1
 !s85 0
 31
-!s108 1741048861.000000
-!s107 C:/Users/themi/ECE552Project/RED_tb.v|
-!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/themi/ECE552Project/RED_tb.v|
+R19
+!s107 C:/Users/DanielJL/Documents/GitHub/ECE552Project/RED_tb.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/DanielJL/Documents/GitHub/ECE552Project/RED_tb.v|
 !i113 1
 R7
 R8
 n@r@e@d_tb
+vRegister
+Z31 !s110 1743893720
+!i10b 1
+!s100 dT0@SH0OgJNBjhzb]b6>e3
+R1
+IQHV=^@jR@llgn2Ym_>=OZ1
+R2
+R12
+R29
+8C:/Users/DanielJL/Documents/GitHub/ECE552Project/register.v
+FC:/Users/DanielJL/Documents/GitHub/ECE552Project/register.v
+!i122 463
+L0 1 20
+R5
+r1
+!s85 0
+31
+R19
+!s107 C:/Users/DanielJL/Documents/GitHub/ECE552Project/register.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/DanielJL/Documents/GitHub/ECE552Project/register.v|
+!i113 1
+R7
+R8
+n@register
 vregister
-R17
+R27
 !i10b 1
 !s100 FVgeW9dVeJjCYC4<gV]b62
 R1
 IMfLb<bZ3EjI4cX3oP35F?1
 R2
 R3
-R11
+R15
 8C:/Users/themi/ECE552Project/register.v
 FC:/Users/themi/ECE552Project/register.v
 !i122 244
@@ -633,45 +680,21 @@ R5
 r1
 !s85 0
 31
-R18
+R28
 !s107 C:/Users/themi/ECE552Project/register.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/themi/ECE552Project/register.v|
 !i113 1
 R7
 R8
-vRegister
-!s110 1740977738
-!i10b 1
-!s100 dT0@SH0OgJNBjhzb]b6>e3
-R1
-I=MjAKTjgS5ER0UN95cGb03
-R2
-R3
-w1740972415
-8C:/Users/themi/ECE552Project/Register.v
-FC:/Users/themi/ECE552Project/Register.v
-!i122 370
-L0 1 20
-R5
-r1
-!s85 0
-31
-!s108 1740977738.000000
-!s107 C:/Users/themi/ECE552Project/Register.v|
-!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/themi/ECE552Project/Register.v|
-!i113 1
-R7
-R8
-n@register
 vregister_file
-R17
+R27
 !i10b 1
 !s100 aA=kM2EgDAPeUHJM;lK2`3
 R1
 IN`>2QI9NgkoW=?Y<Fkb=h3
 R2
 R3
-R11
+R15
 8C:/Users/themi/ECE552Project/register_file.v
 FC:/Users/themi/ECE552Project/register_file.v
 !i122 245
@@ -680,38 +703,38 @@ R5
 r1
 !s85 0
 31
-R18
+R28
 !s107 C:/Users/themi/ECE552Project/register_file.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/themi/ECE552Project/register_file.v|
 !i113 1
 R7
 R8
 vRegisterFile
-!s110 1740979835
+R31
 !i10b 1
 !s100 `Ko6d9?lY=m9G4IRNH@[T2
 R1
-I9XlW?]7<0TWb97:Ufj^?71
+I=Bi?1>7<809bkaARjM8[f1
 R2
-R3
-w1740979792
-8C:/Users/themi/ECE552Project/RegisterFile.v
-FC:/Users/themi/ECE552Project/RegisterFile.v
-!i122 373
+R12
+R29
+8C:/Users/DanielJL/Documents/GitHub/ECE552Project/RegisterFile.v
+FC:/Users/DanielJL/Documents/GitHub/ECE552Project/RegisterFile.v
+!i122 464
 L0 1 31
 R5
 r1
 !s85 0
 31
-!s108 1740979835.000000
-!s107 C:/Users/themi/ECE552Project/RegisterFile.v|
-!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/themi/ECE552Project/RegisterFile.v|
+Z32 !s108 1743893720.000000
+!s107 C:/Users/DanielJL/Documents/GitHub/ECE552Project/RegisterFile.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/DanielJL/Documents/GitHub/ECE552Project/RegisterFile.v|
 !i113 1
 R7
 R8
 n@register@file
 vShifter
-R16
+R25
 !i10b 1
 !s100 Eg1;<[JDPEaR04H9lX93:3
 R1
@@ -727,7 +750,7 @@ R5
 r1
 !s85 0
 31
-R12
+R26
 !s107 C:/Users/themi/ECE552Project/Shifter.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/themi/ECE552Project/Shifter.v|
 !i113 1
@@ -742,7 +765,7 @@ R1
 ILR84oed4NBz^c9PzdVM1<0
 R2
 R3
-R11
+R15
 8C:/Users/themi/ECE552Project/write_decoder_4_16.v
 FC:/Users/themi/ECE552Project/write_decoder_4_16.v
 !i122 247
@@ -758,25 +781,25 @@ r1
 R7
 R8
 vWriteDecoder_4_16
-!s110 1740981132
+R31
 !i10b 1
 !s100 39Tnn@JDm8o]LFFUUdImD0
 R1
-IP^1hBga1o:2mJ4FJU=lTi2
+IMV]1_C]C1eUP0O6VeGXFc0
 R2
-R3
-w1740981122
-8C:/Users/themi/ECE552Project/WriteDecoder_4_16.v
-FC:/Users/themi/ECE552Project/WriteDecoder_4_16.v
-!i122 376
-R19
+R12
+R29
+8C:/Users/DanielJL/Documents/GitHub/ECE552Project/WriteDecoder_4_16.v
+FC:/Users/DanielJL/Documents/GitHub/ECE552Project/WriteDecoder_4_16.v
+!i122 465
+R30
 R5
 r1
 !s85 0
 31
-!s108 1740981132.000000
-!s107 C:/Users/themi/ECE552Project/WriteDecoder_4_16.v|
-!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/themi/ECE552Project/WriteDecoder_4_16.v|
+R32
+!s107 C:/Users/DanielJL/Documents/GitHub/ECE552Project/WriteDecoder_4_16.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/DanielJL/Documents/GitHub/ECE552Project/WriteDecoder_4_16.v|
 !i113 1
 R7
 R8

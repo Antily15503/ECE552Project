@@ -8,7 +8,7 @@ module cpu_EX(
     input [15:0] WB_fdata,          //Data from MEM to EX forwarding
     input [1:0] ForwardA, ForwardB, //Forwarding unit mux control signals
     output [15:0] aluOut,
-    output [3:0] regW
+    output [3:0] regW,
     output zero, overflow, neg
 );
 wire [2:0] opcode;

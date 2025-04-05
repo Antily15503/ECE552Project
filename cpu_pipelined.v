@@ -13,6 +13,7 @@ module cpu(
 
     wire [15:0] pcInc, instr;
     wire [15:0] pc_ID, instr_ID;
+    wire [15:0] pcBranch; //Branch address from ID stage, from ID stage
     wire flush;
     wire stall;
 
@@ -24,7 +25,7 @@ module cpu(
         .stall(stall),
         .branch(??),
         .pc_ID(pc_ID),
-        .pcBranch(??),
+        .pcBranch(pcBranch),
 
         //Outputs =======
         .pcNext(pc),            //Output PC
@@ -50,7 +51,7 @@ module cpu(
    [15:0] pc_ID = current program counter passed from IF stage
 */
 
-    wire [15:0] regAData, regBData, immEx, writeData_WB;        
+    wire [15:0] regAData, regBData, immEx, writeData_WB, pcBranch;        
     // wire [3:0] secA, secB, secC, 
     wire [3:0] writeAddress_WB;                                 //WB Register
     wire [5:0] EXcontrols;
@@ -94,7 +95,7 @@ module cpu(
         .regAData(regAData),
         .regBData(regBData),
         .immEx(immEx),
-        .pcD(pcD),
+        .pcBranch(pcBranch),
         .EXcontrols(EXcontrols),
         .MEMcontrols(MEMcontrols),
         .WBcontrols(WBcontrols),

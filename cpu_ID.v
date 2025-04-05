@@ -25,22 +25,25 @@ module cpu_ID(
 
 //Branch Handling
     //branch module
-    wire [15:0] pcBranch, regBData;
+    wire [15:0] pcBranch;//, regBData;(1)
     wire branchControl, branchTake, halt;
-    wire zero, neg, overflow;
+    //wire zero, neg, overflow;(1)
     branch branchSelect(
+        //inputs
         .condition(secA[3:1]),
         .Flags({zero, overflow, neg}),
         .branchRegMux(branchControl),
         .branch(branchTake),
         .I(instr[8:0]),
-        .branchReg(regBData),
-        .pcIn(pc),
-        .pcOut(pcD)
+        .branchRegData(regBData),
+
+        //outputs
+        .pc(pc),
+        .pcBranch(pcBranch)
     );
 
 //Control Unit
-    wire regDst, aluSrc, memToReg, regWrite, memRead, memWrite, pcSwitch, lwHalf;
+    wire regDst, aluSrc, memToReg, memRead, memWrite, pcSwitch, lwHalf; //regwrite(1)
     //signals used in IF: pcSwitch, branchTake, branchControl, lwHalf
     //signals used in EX: aluSrc, regDst, opcode
     //signals used in MEM: memRead, memWrite
@@ -63,7 +66,7 @@ module cpu_ID(
     );
 
 //Register Reading
-    wire [15:0] regAData;
+    //wire [15:0] regAData;(1)
     wire [15:0] aluOut;
     wire [3:0] regA, regB, regC;
     assign regA = secA;
@@ -77,7 +80,7 @@ module cpu_ID(
     assign  regB = lwHalf ? secA : secB;
 
     //sign extending immediate value (if applicable)
-    wire [15:0] immEx;
+    //wire [15:0] immEx; (1)
     assign immEx = (memRead | memWrite) ? ({{11{secC[3]}}, secC, 1'b0}) : (
         lwHalf ? {8'h00, instr[7:0]} : {{12{secC[3]}}, secC}
     ); //NOTE: this is logical shifting, not arithmetic shifting
@@ -93,9 +96,12 @@ RegisterFile reg_file(
         .DstData(wrData_WB)
     );
 
-//Control signal bundles
-    wire [5:0] EXcontrols = {aluSrc, regDst, opcode};
-    wire [1:0] MEMcontrols = {memRead, memWrite};
-    wire [2:0] WBcontrols = {memToReg, regWrite, pcSwitch};
+//Control signal bundles (1)
+    // wire [5:0] EXcontrols = {aluSrc, regDst, opcode};
+    // wire [1:0] MEMcontrols = {memRead, memWrite};
+    // wire [2:0] WBcontrols = {memToReg, regWrite, pcSwitch};
+    assign EXcontrols = {aluSrc, regDst, opcode};
+    assign MEMcontrols = {memRead, memWrite};
+    assign WBcontrols = {memToReg, regWrite, pcSwitch};
 
 endmodule

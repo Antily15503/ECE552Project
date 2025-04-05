@@ -3,10 +3,11 @@ module branch(
     input [2:0] Flags, // format: Flags = {zero, overflow, neg}
     input [8:0] I, // instruction immediate value
     input [15:0] pcIn, // current pc value
-    input [15:0] branchReg, 
+    input [15:0] branchRegData, // data from register file for relative branching
     input branchRegMux,
     input branch,
-    output [15:0] pcOut
+    output [15:0] pcOut,
+    output branchTake
 );
     wire zero, overflow, negative;
     assign zero = Flags[2];
@@ -31,14 +32,14 @@ module branch(
 
     //adder to calculate hypothetical branch address
     add_16bit adder2(
-        .A(pcInc),
+        .A(pcIn),
         .B({{6{I[8]}},I, 1'b0}),
         .Sum(pcBranch),
         .Cin(1'b0),
         .Cout()
     );
-    
-    wire [15:0] pcOutInternal;
-    assign pcOutInternal = (branch & b) ? pcBranch : pcInc;
-    assign pcOut = branchRegMux ? branchReg : pcOutInternal;
+    //logic to determine if a branch instruction exists and if branch is taken
+    assign branchTake = branch & b;
+    //mux to select between branch address and register data
+    assign pcOut = branchRegMux ? branchRegData : pcBranch; 
 endmodule

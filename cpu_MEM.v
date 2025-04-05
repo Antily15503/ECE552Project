@@ -3,7 +3,7 @@ module cpu_MEM(
     input [15:0] aluOut, regBData,
     input [1:0] MEMcontrols,
     input ForwardC, //Forwarding unit mux control signal for MEM to MEM
-    input [15:0] WB_fdata           //Data from MEM to MEM forwarding
+    input [15:0] WB_fdata,           //Data from MEM to MEM forwarding
     output [15:0] dataOut
 );
 
