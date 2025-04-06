@@ -26,9 +26,7 @@ module cpu_ID(
 
 //Branch Handling
     //branch module
-    //wire [15:0] pcBranch; regBData;(1)
-    wire branchControl, branch; //branchTake(1)
-    //wire zero, neg, overflow;(1)
+    wire branchControl, branch;
     branch branchSelect(
         //inputs
         .condition(secA[3:1]),
@@ -45,7 +43,7 @@ module cpu_ID(
     );
 
 //Control Unit
-    wire regDst, aluSrc, memToReg, memRead, memWrite, pcSwitch, lwHalf; //regwrite(1)
+    wire regDst, aluSrc, memToReg, memRead, memWrite, pcSwitch, lwHalf;
     //signals used in IF: pcSwitch, branchTake, branchControl, lwHalf
     //signals used in EX: aluSrc, regDst, opcode
     //signals used in MEM: memRead, memWrite
@@ -67,7 +65,6 @@ module cpu_ID(
     );
 
 //Register Reading
-    //wire [15:0] regAData;(1)
     wire [15:0] aluOut;
     wire [3:0] regA, regB, regC;
     assign regA = secA;
@@ -81,7 +78,6 @@ module cpu_ID(
     assign  regB = lwHalf ? secA : secB;
 
     //sign extending immediate value (if applicable)
-    //wire [15:0] immEx; (1)
     assign immEx = (memRead | memWrite) ? ({{11{secC[3]}}, secC, 1'b0}) : (
         lwHalf ? {8'h00, instr[7:0]} : {{12{secC[3]}}, secC}
     ); //NOTE: this is logical shifting, not arithmetic shifting
@@ -97,10 +93,7 @@ RegisterFile reg_file(
         .DstData(wrData_WB)
     );
 
-//Control signal bundles (1)
-    // wire [5:0] EXcontrols = {aluSrc, regDst, opcode};
-    // wire [1:0] MEMcontrols = {memRead, memWrite};
-    // wire [2:0] WBcontrols = {memToReg, regWrite, pcSwitch};
+//Control signal bundles
     assign EXcontrols = {aluSrc, regDst, opcode};
     assign MEMcontrols = {memRead, memWrite};
     assign WBcontrols = {memToReg, regWrite, pcSwitch};

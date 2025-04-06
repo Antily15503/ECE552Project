@@ -9,13 +9,13 @@ module cpu(
 /* [15:0] pcD = program counter value coming into the PC register
    [15:0] pc = program counter value being reported out of the PC combinational logic
    NOTE: pcD is determined by branch logic in cpu_ID.v. Instruction Fetch Stage does not modify either signals.
+   NOTE2: flushing is simply the BranchTake signal, since we always assume branches are not taken
 */
 
     wire [15:0] pcInc, instr;
     wire [15:0] pc_ID, instr_ID;
-    wire [15:0] pcBranch; //Branch address from ID stage, from ID stage
-    wire flush;
-    wire stall;
+    wire [15:0] pcBranch; //Branch address from ID stage, from ID stage 
+    wire stall, branchTake;
 
 //Instruction Fetch Pipeline Module (located in cpu_IF.v)
     cpu_IF IF(
@@ -23,7 +23,7 @@ module cpu(
         .clk(clk),
         .rst_n(rst_n),
         .stall(stall),
-        .branch(??),
+        .branch(branchTake),
         .pc_ID(pc_ID),
         .pcBranch(pcBranch),
 
@@ -51,9 +51,8 @@ module cpu(
    [15:0] pc_ID = current program counter passed from IF stage
 */
 
-    wire [15:0] regAData, regBData, immEx, writeData_WB;// pcBranch; (1)       
-    // wire [3:0] secA, secB, secC, 
-    wire [3:0] writeAddress_WB;                                 //WB Register
+    wire [15:0] regAData, regBData, immEx, writeData_WB, pcBranch;    
+    wire [3:0] writeAddress_WB;     //from WB Register
     wire [5:0] EXcontrols;
     wire [1:0] MEMcontrols;
     wire [2:0] WBcontrols;
@@ -87,9 +86,9 @@ module cpu(
         .regWriteAddress(writeAddress_WB),
         .instr(instr_ID),
         .pc(pc_ID),
-        .zero(/*TODO: FILL THIS IN*/),
-        .overflow(/*TODO: FILL THIS IN*/),
-        .neg(/*TODO: FILL THIS IN*/),
+        .zero(zero),
+        .overflow(overflow),
+        .neg(neg),
 
         //Outputs =======
         .regAData(regAData),
@@ -99,18 +98,8 @@ module cpu(
         .EXcontrols(EXcontrols),
         .MEMcontrols(MEMcontrols),
         .WBcontrols(WBcontrols),
+        .branchTake(branchTake),
     );
-
-
-    ////////////////////////DEPRECATED: Move to another pipelining station///////////////////////
-    //TWO 2-1 MUXES FOR SELECTING REGISTER WRITE DATA (PC, ALUOUT, or MEMOUT)
-    //CONTROL SIGNAL FOR PC: 1 for PC, 0 for everything else
-    //CONTROL SIGNAL FOR ALUOUT: 1 for memory output, 0 for ALU output
-    // reg [15:0] wrDataIntermed; (1)
-    wire [15:0] wrData;
-    wire [15:0] data_out;
-    
-    //////////////////////////////////////////////////////////
 
     //Signals for next stage
     wire [5:0] EXcontrols_EX;
@@ -246,9 +235,8 @@ cpu_MEM(
 );
 
 //Signals for next stage
-wire [15:0] dataOut_WB;
+wire [15:0] dataOut_WB, aluOut_WB;
 wire [2:0] WBcontrols_WB;
-wire [15:0] aluOut_WB;// dataOut_WB;(1)
 
 /****************************     MEM/WB Pipeline Registers   *********************************/
 /* NOTE: _WB signals represent signals coming out of the MEM/WB Pipeline Registers
@@ -276,7 +264,7 @@ assign memToReg = WBcontrols_WB[1]; //CONTROL SIGNAL FOR MEMTOREG: 1 for memory 
 always @(*) begin
         casex({pcSwitch, memToReg})
             2'b1?: wrDataIntermed = pcD;
-            2'b01: wrDataIntermed = data_out;
+            2'b01: wrDataIntermed = dataOut_WB;
             2'b00: wrDataIntermed = aluOut;
             default: wrDataIntermed = 16'h0000;
         endcase

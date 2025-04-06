@@ -14,7 +14,6 @@ module branch(
     assign overflow = Flags[1];
     assign negative = Flags[0];
 
-
     reg b;
     always @(*) begin
         case (condition)
