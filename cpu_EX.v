@@ -10,7 +10,7 @@ module cpu_EX(
     output [15:0] aluOut,
     output zero, overflow, neg
 );
-wire [2:0] opcode;
+wire [3:0] opcode;
 wire pcSwitch, aluSrc, regDst;
 wire [15:0] forward_regAData, forward_regBData; //register data after fowarding muxs
 

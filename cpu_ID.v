@@ -6,7 +6,7 @@ module cpu_ID(
     input [15:0] instr,
     input [15:0] pc,
     input zero, overflow, neg,
-    output [15:0] pcD, pcBranch,
+    output [15:0] pcBranch,
     output [15:0] regAData, regBData,
     output [15:0] immEx,
     output [3:0] regWrite,
@@ -45,10 +45,10 @@ module cpu_ID(
 
 //Control Unit
     wire regDst, aluSrc, memToReg, memRead, memWrite, pcSwitch, lwHalf;
-    //signals used in IF: pcSwitch, branchTake, branchControl, lwHalf
-    //signals used in EX: aluSrc, regDst, opcode
-    //signals used in MEM: memRead, memWrite
-    //signals used in WB: memToReg, regWrite, pcSwitch
+    /*signals used in IF: pcSwitch, branchTake, branchControl, lwHalf
+      signals used in EX: aluSrc, regDst, opcode
+      signals used in MEM: memRead, memWrite
+      signals used in WB: memToReg, regWrite, pcSwitch*/
     control controlUnit(
         //inputs
         .opcode(opcode),
@@ -56,7 +56,7 @@ module cpu_ID(
         .RegDst(regDst),  //used
         .AluSrc(aluSrc),  //used
         .MemtoReg(memToReg),  //used
-        .RegWrite(regWrite),  //used
+        .RegWrite(regWriteControl),  //used
         .MemRead(memRead),  //used
         .MemWrite(memWrite),  //used
         .MemHalf(lwHalf), //used
@@ -88,11 +88,11 @@ RegisterFile reg_file(
         .rst(~rst_n),
         .SrcReg1(regB),
         .SrcReg2(regC),
-        .DstReg(regA),
+        .DstReg(regWRiteIncomingAddr),
         .SrcData1(regAData),
         .SrcData2(regBData),
-        .WriteReg(regWrite_WB), //CONTROL SIGNAL FOR REGWRITE: 1 for write, 0 for read
-        .DstData(wrData_WB)
+        .WriteReg(regWriteControl), //CONTROL SIGNAL FOR REGWRITE: 1 for write, 0 for read
+        .DstData(wrData)
     );
 
 //Control signal bundles

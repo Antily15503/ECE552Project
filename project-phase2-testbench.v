@@ -27,7 +27,7 @@ module cpu_ptb();
 
      
 
-   cpu_pipelined DUT(.clk(clk), .rst_n(rst_n), .pc(PC), .hlt(Halt)); /* Instantiate your processor */
+   cpu DUT(.clk(clk), .rst_n(rst_n), .pc(PC), .hlt(Halt)); /* Instantiate your processor */
    
 
 
@@ -144,16 +144,16 @@ module cpu_ptb();
    assign RegWrite = DUT.ID.WBcontrols[1];
    // Is register file being written to in this cycle, one bit signal (1 means yes, 0 means no)
   
-   assign WriteRegister = DUT.ID.regWriteAddress;
+   assign WriteRegister = DUT.ID.regWriteIncomingAddr;
    // If above is true, this should hold the name of the register being written to. (4 bit signal)
    
    assign WriteData = DUT.ID.wrData;
    // If above is true, this should hold the Data being written to the register. (16 bits)
    
-   assign MemRead =  (DUT.p0.memRxout & ~DUT.p0.notdonem);
+   assign MemRead =  (DUT.p0.memRxout);
    // Is memory being read from, in this cycle. one bit signal (1 means yes, 0 means no)
    
-   assign MemWrite = (DUT.pMEMcontrols_EX[0] & ~DUT.p0.notdonem);
+   assign MemWrite = (DUT.pMEMcontrols_EX[0]);
    // Is memory being written to, in this cycle (1 bit signal)
    
    assign MemAddress = DUT.aluOut_MEM;

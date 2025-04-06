@@ -6,16 +6,15 @@ module cpu_IF(
 );
 
 
-// Program Counter logic
 /* PROGRAM COUNTER SIGNALS:
+   [15:0] pc = program counter value strictly coming out of the PC register
    [15:0] pcD = program counter value going into the PC register, assuming there is no branching
    [15:0] pc_ID = program counter value coming from the ID stage, used in case a stall signal is asserted
    [15:0] pcInc = program counter value that's incremented by 2, 
-   [15:0] pc = program counter value strictly coming out of the PC register
    [15:0] pcNext = program counter value strictly going into the PC register, either pcD or pcBranch (if there is branching)
 
    NOTE: pcInc -> pc_ID is what gets used in subsequent stages, and pcD is what gets stored at the execution of the next instruction*/
-    wire [15:0] pcD;
+    wire [15:0] pc, pcD;
     wire halt;
     pc_logic pcCombinationalLogic(
         .pcIn(pc),

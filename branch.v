@@ -30,6 +30,7 @@ module branch(
     end
 
     //adder to calculate hypothetical branch address
+    wire [15:0] pcBranch;
     add_16bit adder2(
         .A(pcIn),
         .B({{6{I[8]}},I, 1'b0}),

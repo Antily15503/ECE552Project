@@ -54,9 +54,9 @@ module cpu(
     wire [15:0] regAData, regBData, immEx, writeData_WB;    
     wire [3:0] writeAddress_WB;     //address of register to write to for previous instruction (from WB stage)
     wire [3:0] regW;                //register value to be written into register file for current instruction
-    wire [5:0] EXcontrols;
+    wire [6:0] EXcontrols;
     wire [1:0] MEMcontrols;
-    wire [2:0] WBcontrols;
+    wire [1:0] WBcontrols;
     wire regWrite_WB;
 
 
@@ -225,7 +225,7 @@ wire [1:0] WBcontrols_MEM;
     wire [15:0] dataOut;
     wire memRead, memWrite, lwHalf, halt;
 
-cpu_MEM(
+cpu_MEM MEM(
     //Inputs ========
     .clk(clk),
     .rst_n(rst_n),
@@ -233,7 +233,7 @@ cpu_MEM(
     .aluOut(aluOut_MEM),
     .regBData(regBData_MEM),
     .ForwardC(ForwardC),
-    
+    .WB_fdata(writeData_WB), //Data from MEM to MEM forwarding (CHECK IF RIGHT)
     //Outputs =======
     .dataOut(dataOut)
 );

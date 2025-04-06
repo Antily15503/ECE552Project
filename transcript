@@ -58,3 +58,414 @@
 # Compile of pc_logic.v failed with 1 errors.
 # 2 compiles, 1 failed with 1 error.
 # Compile of pc_logic.v was successful.
+# Compile of project-phase2-testbench.v was successful.
+# Load canceled
+vsim -gui work.cpu
+# vsim -gui work.cpu 
+# Start time: 12:50:45 on Apr 06,2025
+# Loading work.cpu
+# Loading work.cpu_IF
+# Loading work.pc_logic
+# Loading work.add_16bit
+# Loading work.inst_memory
+# Loading work.cpu_ID
+# Loading work.branch
+# Loading work.control
+# Loading work.RegisterFile
+# Loading work.ReadDecoder_4_16
+# Loading work.Shifter
+# Loading work.WriteDecoder_4_16
+# Loading work.Register
+# Loading work.BitCell
+# Loading work.dff
+# Loading work.cpu_EX
+# Loading work.ALU
+# Loading work.addsub_16bit
+# Loading work.psa_16bit
+# Loading work.addsub_4bit
+# Loading work.RED
+# Loading work.add_4bit
+# Loading work.add_8bit
+# Loading work.ALUControl
+# ** Error: (vsim-3037) Missing instance name in instantiation of 'cpu_MEM'.
+#    Time: 0 ps  Iteration: 0  Instance: /cpu File: C:/Users/themi/ECE552Project/cpu.v Line: 239
+# Loading work.hazard_detection
+# Loading work.forwarding_unit
+# Error loading design
+# End time: 12:50:46 on Apr 06,2025, Elapsed time: 0:00:01
+# Errors: 1, Warnings: 19
+# Compile of cpu.v was successful.
+vsim -gui work.cpu_tb
+# vsim -gui work.cpu_tb 
+# Start time: 13:06:58 on Apr 06,2025
+# Loading work.cpu_tb
+# Loading work.cpu
+# Loading work.cpu_IF
+# Loading work.pc_logic
+# Loading work.add_16bit
+# Loading work.inst_memory
+# Loading work.cpu_ID
+# Loading work.branch
+# Loading work.control
+# Loading work.RegisterFile
+# Loading work.ReadDecoder_4_16
+# Loading work.Shifter
+# Loading work.WriteDecoder_4_16
+# Loading work.Register
+# Loading work.BitCell
+# Loading work.dff
+# Loading work.cpu_EX
+# Loading work.ALU
+# Loading work.addsub_16bit
+# Loading work.psa_16bit
+# Loading work.addsub_4bit
+# Loading work.RED
+# Loading work.add_4bit
+# Loading work.add_8bit
+# Loading work.ALUControl
+# Loading work.cpu_MEM
+# Loading work.data_memory
+# Loading work.hazard_detection
+# Loading work.forwarding_unit
+# ** Warning: (vsim-3008) [CNNODP] - Component name (controlUnit) is not on a downward path.
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_tb File: C:/Users/DanielJL/Documents/GitHub/ECE552Project/project-phase1-testbench.v Line: 168
+# ** Error: (vsim-3043) Unresolved reference to 'controlUnit' in DUT.controlUnit.
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_tb File: C:/Users/DanielJL/Documents/GitHub/ECE552Project/project-phase1-testbench.v Line: 168
+# ** Warning: (vsim-3008) [CNNODP] - Component name (datamem) is not on a downward path.
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_tb File: C:/Users/DanielJL/Documents/GitHub/ECE552Project/project-phase1-testbench.v Line: 165
+# ** Error: (vsim-3043) Unresolved reference to 'datamem' in DUT.datamem.
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_tb File: C:/Users/DanielJL/Documents/GitHub/ECE552Project/project-phase1-testbench.v Line: 165
+# ** Warning: (vsim-3008) [CNNODP] - Component name (instruction_mem) is not on a downward path.
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_tb File: C:/Users/DanielJL/Documents/GitHub/ECE552Project/project-phase1-testbench.v Line: 154
+# ** Error: (vsim-3043) Unresolved reference to 'instruction_mem' in DUT.instruction_mem.
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_tb File: C:/Users/DanielJL/Documents/GitHub/ECE552Project/project-phase1-testbench.v Line: 154
+# ** Warning: (vsim-3008) [CNNODP] - Component name (reg_file) is not on a downward path.
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_tb File: C:/Users/DanielJL/Documents/GitHub/ECE552Project/project-phase1-testbench.v Line: 156
+# ** Error: (vsim-3043) Unresolved reference to 'reg_file' in DUT.reg_file.
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_tb File: C:/Users/DanielJL/Documents/GitHub/ECE552Project/project-phase1-testbench.v Line: 156
+# ** Warning: (vsim-3015) [PCDPC] - Port size (16) does not match connection size (1) for port 'pcIn'. The port definition is at: C:/Users/themi/ECE552Project/pc_logic.v(2).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_tb/DUT/IF/pcCombinationalLogic File: C:/Users/themi/ECE552Project/cpu_IF.v Line: 20
+# ** Warning: (vsim-3015) [PCDPC] - Port size (16) does not match connection size (1) for port 'addr'. The port definition is at: C:/Users/themi/ECE552Project/inst_memory.v(31).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_tb/DUT/IF/instruction_mem File: C:/Users/themi/ECE552Project/cpu_IF.v Line: 45
+# ** Warning: (vsim-2685) [TFMPC] - Too few port connections for 'ID'.  Expected 20, found 19.
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_tb/DUT/ID File: C:/Users/themi/ECE552Project/cpu.v Line: 82
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (6) for port 'EXcontrols'. The port definition is at: C:/Users/themi/ECE552Project/cpu_ID.v(13).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_tb/DUT/ID File: C:/Users/themi/ECE552Project/cpu.v Line: 82
+# ** Warning: (vsim-3015) [PCDPC] - Port size (2) does not match connection size (3) for port 'WBcontrols'. The port definition is at: C:/Users/themi/ECE552Project/cpu_ID.v(15).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_tb/DUT/ID File: C:/Users/themi/ECE552Project/cpu.v Line: 82
+# ** Warning: (vsim-3722) C:/Users/themi/ECE552Project/cpu.v(82): [TFMPC] - Missing connection for port 'pcD'.
+# ** Warning: (vsim-3015) [PCDPC] - Port size (16) does not match connection size (1) for port 'Sum'. The port definition is at: C:/Users/themi/ECE552Project/ALU components/add_16bit.v(4).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_tb/DUT/ID/branchSelect/adder2 File: C:/Users/themi/ECE552Project/branch.v Line: 33
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (4) for port 'RegWrite'. The port definition is at: C:/Users/themi/ECE552Project/control.v(3).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_tb/DUT/ID/controlUnit File: C:/Users/themi/ECE552Project/cpu_ID.v Line: 52
+# ** Warning: (vsim-3015) [PCDPC] - Port size (16) does not match connection size (1) for port 'DstData'. The port definition is at: C:/Users/themi/ECE552Project/RegisterFile.v(1).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_tb/DUT/ID/reg_file File: C:/Users/themi/ECE552Project/cpu_ID.v Line: 86
+# ** Error (suppressible): (vsim-3054) Port connection object port 'd' must be 1 or 7-bit wide. The actual provided is 6-bit. The port definition is at: C:/Users/themi/ECE552Project/D-Flip-Flop.v(3).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_tb/DUT/ID_EX_EXcontrols[0] File: C:/Users/themi/ECE552Project/cpu.v Line: 124
+# ** Error (suppressible): (vsim-3054) Port connection object port 'd' must be 1 or 2-bit wide. The actual provided is 3-bit. The port definition is at: C:/Users/themi/ECE552Project/D-Flip-Flop.v(3).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_tb/DUT/ID_EX_WBcontrols[0] File: C:/Users/themi/ECE552Project/cpu.v Line: 128
+# ** Warning: (vsim-3015) [PCDPC] - Port size (2) does not match connection size (1) for port 'ForwardA'. The port definition is at: C:/Users/themi/ECE552Project/cpu_EX.v(9).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_tb/DUT/EX File: C:/Users/themi/ECE552Project/cpu.v Line: 166
+# ** Warning: (vsim-3015) [PCDPC] - Port size (2) does not match connection size (1) for port 'ForwardB'. The port definition is at: C:/Users/themi/ECE552Project/cpu_EX.v(9).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_tb/DUT/EX File: C:/Users/themi/ECE552Project/cpu.v Line: 166
+# ** Warning: (vsim-3015) [PCDPC] - Port size (4) does not match connection size (3) for port 'Opcode'. The port definition is at: C:/Users/themi/ECE552Project/ALU.v(4).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_tb/DUT/EX/alu File: C:/Users/themi/ECE552Project/cpu_EX.v Line: 34
+# ** Warning: (vsim-2685) [TFMPC] - Too few port connections for 'MEM'.  Expected 8, found 7.
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_tb/DUT/MEM File: C:/Users/themi/ECE552Project/cpu.v Line: 228
+# ** Warning: (vsim-3722) C:/Users/themi/ECE552Project/cpu.v(228): [TFMPC] - Missing connection for port 'WB_fdata'.
+# ** Error (suppressible): (vsim-3389) Port 'IFID_MemWrite' not found in the connected module (5th connection).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_tb/DUT/hdu File: C:/Users/themi/ECE552Project/cpu.v Line: 271
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (16) for port 'IFID_Rs'. The port definition is at: C:/Users/themi/ECE552Project/harzard_detection.v(5).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_tb/DUT/hdu File: C:/Users/themi/ECE552Project/cpu.v Line: 271
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (16) for port 'IFID_Rt'. The port definition is at: C:/Users/themi/ECE552Project/harzard_detection.v(6).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_tb/DUT/hdu File: C:/Users/themi/ECE552Project/cpu.v Line: 271
+# ** Warning: (vsim-2685) [TFMPC] - Too few port connections for 'funit'.  Expected 12, found 11.
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_tb/DUT/funit File: C:/Users/themi/ECE552Project/cpu.v Line: 283
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (4) for port 'EXMem_Rd'. The port definition is at: C:/Users/themi/ECE552Project/forwarding_unit.v(5).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_tb/DUT/funit File: C:/Users/themi/ECE552Project/cpu.v Line: 283
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (16) for port 'IDEX_Rs'. The port definition is at: C:/Users/themi/ECE552Project/forwarding_unit.v(6).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_tb/DUT/funit File: C:/Users/themi/ECE552Project/cpu.v Line: 283
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (16) for port 'IDEX_Rt'. The port definition is at: C:/Users/themi/ECE552Project/forwarding_unit.v(7).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_tb/DUT/funit File: C:/Users/themi/ECE552Project/cpu.v Line: 283
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (16) for port 'EXMem_Rt'. The port definition is at: C:/Users/themi/ECE552Project/forwarding_unit.v(8).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_tb/DUT/funit File: C:/Users/themi/ECE552Project/cpu.v Line: 283
+# ** Warning: (vsim-3015) [PCDPC] - Port size (2) does not match connection size (1) for port 'ForwardA'. The port definition is at: C:/Users/themi/ECE552Project/forwarding_unit.v(12).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_tb/DUT/funit File: C:/Users/themi/ECE552Project/cpu.v Line: 283
+# ** Warning: (vsim-3015) [PCDPC] - Port size (2) does not match connection size (1) for port 'ForwardB'. The port definition is at: C:/Users/themi/ECE552Project/forwarding_unit.v(12).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_tb/DUT/funit File: C:/Users/themi/ECE552Project/cpu.v Line: 283
+# ** Warning: (vsim-3722) C:/Users/themi/ECE552Project/cpu.v(283): [TFMPC] - Missing connection for port 'MemWB_Rd'.
+# Error loading design
+# End time: 13:06:59 on Apr 06,2025, Elapsed time: 0:00:01
+# Errors: 7, Warnings: 30
+vsim -gui work.cpu_ptb
+# vsim -gui work.cpu_ptb 
+# Start time: 13:08:24 on Apr 06,2025
+# Loading work.cpu_ptb
+# ** Error: (vsim-3033) Instantiation of 'cpu_pipelined' failed. The design unit was not found.
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb File: C:/Users/themi/ECE552Project/project-phase2-testbench.v Line: 30
+#         Searched libraries:
+#             C:/Users/themi/ECE552Project/work
+# Error loading design
+# End time: 13:08:24 on Apr 06,2025, Elapsed time: 0:00:00
+# Errors: 1, Warnings: 1
+# Compile of project-phase2-testbench.v was successful.
+vsim -gui work.cpu_ptb
+# vsim -gui work.cpu_ptb 
+# Start time: 13:09:02 on Apr 06,2025
+# Loading work.cpu_ptb
+# Loading work.cpu
+# Loading work.cpu_IF
+# Loading work.pc_logic
+# Loading work.add_16bit
+# Loading work.inst_memory
+# Loading work.cpu_ID
+# Loading work.branch
+# Loading work.control
+# Loading work.RegisterFile
+# Loading work.ReadDecoder_4_16
+# Loading work.Shifter
+# Loading work.WriteDecoder_4_16
+# Loading work.Register
+# Loading work.BitCell
+# Loading work.dff
+# Loading work.cpu_EX
+# Loading work.ALU
+# Loading work.addsub_16bit
+# Loading work.psa_16bit
+# Loading work.addsub_4bit
+# Loading work.RED
+# Loading work.add_4bit
+# Loading work.add_8bit
+# Loading work.ALUControl
+# Loading work.cpu_MEM
+# Loading work.data_memory
+# Loading work.hazard_detection
+# Loading work.forwarding_unit
+# ** Warning: (vsim-3008) [CNNODP] - Component name (regWriteAddress) is not on a downward path.
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb File: C:/Users/themi/ECE552Project/project-phase2-testbench.v Line: 147
+# ** Error: (vsim-3043) Unresolved reference to 'regWriteAddress' in DUT.ID.regWriteAddress.
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb File: C:/Users/themi/ECE552Project/project-phase2-testbench.v Line: 147
+# ** Warning: (vsim-3008) [CNNODP] - Component name (p0) is not on a downward path.
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb File: C:/Users/themi/ECE552Project/project-phase2-testbench.v Line: 153
+# ** Error: (vsim-3043) Unresolved reference to 'p0' in DUT.p0.
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb File: C:/Users/themi/ECE552Project/project-phase2-testbench.v Line: 153
+# ** Warning: (vsim-3008) [CNNODP] - Component name (pMEMcontrols_EX) is not on a downward path.
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb File: C:/Users/themi/ECE552Project/project-phase2-testbench.v Line: 156
+# ** Error: (vsim-3043) Unresolved reference to 'pMEMcontrols_EX' in DUT.pMEMcontrols_EX.
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb File: C:/Users/themi/ECE552Project/project-phase2-testbench.v Line: 156
+# ** Warning: (vsim-3015) [PCDPC] - Port size (16) does not match connection size (1) for port 'pcIn'. The port definition is at: C:/Users/themi/ECE552Project/pc_logic.v(2).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/IF/pcCombinationalLogic File: C:/Users/themi/ECE552Project/cpu_IF.v Line: 20
+# ** Warning: (vsim-3015) [PCDPC] - Port size (16) does not match connection size (1) for port 'addr'. The port definition is at: C:/Users/themi/ECE552Project/inst_memory.v(31).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/IF/instruction_mem File: C:/Users/themi/ECE552Project/cpu_IF.v Line: 45
+# ** Warning: (vsim-2685) [TFMPC] - Too few port connections for 'ID'.  Expected 20, found 19.
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/ID File: C:/Users/themi/ECE552Project/cpu.v Line: 82
+# ** Warning: (vsim-3015) [PCDPC] - Port size (7) does not match connection size (6) for port 'EXcontrols'. The port definition is at: C:/Users/themi/ECE552Project/cpu_ID.v(13).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/ID File: C:/Users/themi/ECE552Project/cpu.v Line: 82
+# ** Warning: (vsim-3015) [PCDPC] - Port size (2) does not match connection size (3) for port 'WBcontrols'. The port definition is at: C:/Users/themi/ECE552Project/cpu_ID.v(15).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/ID File: C:/Users/themi/ECE552Project/cpu.v Line: 82
+# ** Warning: (vsim-3722) C:/Users/themi/ECE552Project/cpu.v(82): [TFMPC] - Missing connection for port 'pcD'.
+# ** Warning: (vsim-3015) [PCDPC] - Port size (16) does not match connection size (1) for port 'Sum'. The port definition is at: C:/Users/themi/ECE552Project/ALU components/add_16bit.v(4).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/ID/branchSelect/adder2 File: C:/Users/themi/ECE552Project/branch.v Line: 33
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (4) for port 'RegWrite'. The port definition is at: C:/Users/themi/ECE552Project/control.v(3).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/ID/controlUnit File: C:/Users/themi/ECE552Project/cpu_ID.v Line: 52
+# ** Warning: (vsim-3015) [PCDPC] - Port size (16) does not match connection size (1) for port 'DstData'. The port definition is at: C:/Users/themi/ECE552Project/RegisterFile.v(1).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/ID/reg_file File: C:/Users/themi/ECE552Project/cpu_ID.v Line: 86
+# ** Error (suppressible): (vsim-3054) Port connection object port 'd' must be 1 or 7-bit wide. The actual provided is 6-bit. The port definition is at: C:/Users/themi/ECE552Project/D-Flip-Flop.v(3).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/ID_EX_EXcontrols[0] File: C:/Users/themi/ECE552Project/cpu.v Line: 124
+# ** Error (suppressible): (vsim-3054) Port connection object port 'd' must be 1 or 2-bit wide. The actual provided is 3-bit. The port definition is at: C:/Users/themi/ECE552Project/D-Flip-Flop.v(3).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/ID_EX_WBcontrols[0] File: C:/Users/themi/ECE552Project/cpu.v Line: 128
+# ** Warning: (vsim-3015) [PCDPC] - Port size (2) does not match connection size (1) for port 'ForwardA'. The port definition is at: C:/Users/themi/ECE552Project/cpu_EX.v(9).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/EX File: C:/Users/themi/ECE552Project/cpu.v Line: 166
+# ** Warning: (vsim-3015) [PCDPC] - Port size (2) does not match connection size (1) for port 'ForwardB'. The port definition is at: C:/Users/themi/ECE552Project/cpu_EX.v(9).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/EX File: C:/Users/themi/ECE552Project/cpu.v Line: 166
+# ** Warning: (vsim-3015) [PCDPC] - Port size (4) does not match connection size (3) for port 'Opcode'. The port definition is at: C:/Users/themi/ECE552Project/ALU.v(4).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/EX/alu File: C:/Users/themi/ECE552Project/cpu_EX.v Line: 34
+# ** Warning: (vsim-2685) [TFMPC] - Too few port connections for 'MEM'.  Expected 8, found 7.
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/MEM File: C:/Users/themi/ECE552Project/cpu.v Line: 228
+# ** Warning: (vsim-3722) C:/Users/themi/ECE552Project/cpu.v(228): [TFMPC] - Missing connection for port 'WB_fdata'.
+# ** Error (suppressible): (vsim-3389) Port 'IFID_MemWrite' not found in the connected module (5th connection).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/hdu File: C:/Users/themi/ECE552Project/cpu.v Line: 271
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (16) for port 'IFID_Rs'. The port definition is at: C:/Users/themi/ECE552Project/harzard_detection.v(5).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/hdu File: C:/Users/themi/ECE552Project/cpu.v Line: 271
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (16) for port 'IFID_Rt'. The port definition is at: C:/Users/themi/ECE552Project/harzard_detection.v(6).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/hdu File: C:/Users/themi/ECE552Project/cpu.v Line: 271
+# ** Warning: (vsim-2685) [TFMPC] - Too few port connections for 'funit'.  Expected 12, found 11.
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/funit File: C:/Users/themi/ECE552Project/cpu.v Line: 283
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (4) for port 'EXMem_Rd'. The port definition is at: C:/Users/themi/ECE552Project/forwarding_unit.v(5).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/funit File: C:/Users/themi/ECE552Project/cpu.v Line: 283
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (16) for port 'IDEX_Rs'. The port definition is at: C:/Users/themi/ECE552Project/forwarding_unit.v(6).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/funit File: C:/Users/themi/ECE552Project/cpu.v Line: 283
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (16) for port 'IDEX_Rt'. The port definition is at: C:/Users/themi/ECE552Project/forwarding_unit.v(7).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/funit File: C:/Users/themi/ECE552Project/cpu.v Line: 283
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (16) for port 'EXMem_Rt'. The port definition is at: C:/Users/themi/ECE552Project/forwarding_unit.v(8).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/funit File: C:/Users/themi/ECE552Project/cpu.v Line: 283
+# ** Warning: (vsim-3015) [PCDPC] - Port size (2) does not match connection size (1) for port 'ForwardA'. The port definition is at: C:/Users/themi/ECE552Project/forwarding_unit.v(12).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/funit File: C:/Users/themi/ECE552Project/cpu.v Line: 283
+# ** Warning: (vsim-3015) [PCDPC] - Port size (2) does not match connection size (1) for port 'ForwardB'. The port definition is at: C:/Users/themi/ECE552Project/forwarding_unit.v(12).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/funit File: C:/Users/themi/ECE552Project/cpu.v Line: 283
+# ** Warning: (vsim-3722) C:/Users/themi/ECE552Project/cpu.v(283): [TFMPC] - Missing connection for port 'MemWB_Rd'.
+# Error loading design
+# End time: 13:09:03 on Apr 06,2025, Elapsed time: 0:00:01
+# Errors: 6, Warnings: 29
+# Compile of cpu_IF.v was successful.
+# Load canceled
+# Compile of branch.v was successful.
+# Compile of cpu.v was successful.
+# Compile of cpu_ID.v was successful.
+# 3 compiles, 0 failed with no errors.
+vsim -gui work.cpu_ptb
+# vsim -gui work.cpu_ptb 
+# Start time: 13:22:46 on Apr 06,2025
+# Loading work.cpu_ptb
+# Loading work.cpu
+# Loading work.cpu_IF
+# Loading work.pc_logic
+# Loading work.add_16bit
+# Loading work.inst_memory
+# Loading work.cpu_ID
+# Loading work.branch
+# Loading work.control
+# Loading work.RegisterFile
+# Loading work.ReadDecoder_4_16
+# Loading work.Shifter
+# Loading work.WriteDecoder_4_16
+# Loading work.Register
+# Loading work.BitCell
+# Loading work.dff
+# Loading work.cpu_EX
+# Loading work.ALU
+# Loading work.addsub_16bit
+# Loading work.psa_16bit
+# Loading work.addsub_4bit
+# Loading work.RED
+# Loading work.add_4bit
+# Loading work.add_8bit
+# Loading work.ALUControl
+# Loading work.cpu_MEM
+# Loading work.data_memory
+# Loading work.hazard_detection
+# Loading work.forwarding_unit
+# ** Warning: (vsim-3008) [CNNODP] - Component name (regWriteAddress) is not on a downward path.
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb File: C:/Users/themi/ECE552Project/project-phase2-testbench.v Line: 147
+# ** Error: (vsim-3043) Unresolved reference to 'regWriteAddress' in DUT.ID.regWriteAddress.
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb File: C:/Users/themi/ECE552Project/project-phase2-testbench.v Line: 147
+# ** Warning: (vsim-3008) [CNNODP] - Component name (p0) is not on a downward path.
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb File: C:/Users/themi/ECE552Project/project-phase2-testbench.v Line: 153
+# ** Error: (vsim-3043) Unresolved reference to 'p0' in DUT.p0.
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb File: C:/Users/themi/ECE552Project/project-phase2-testbench.v Line: 153
+# ** Warning: (vsim-3008) [CNNODP] - Component name (pMEMcontrols_EX) is not on a downward path.
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb File: C:/Users/themi/ECE552Project/project-phase2-testbench.v Line: 156
+# ** Error: (vsim-3043) Unresolved reference to 'pMEMcontrols_EX' in DUT.pMEMcontrols_EX.
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb File: C:/Users/themi/ECE552Project/project-phase2-testbench.v Line: 156
+# ** Warning: (vsim-3015) [PCDPC] - Port size (2) does not match connection size (1) for port 'ForwardA'. The port definition is at: C:/Users/themi/ECE552Project/cpu_EX.v(9).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/EX File: C:/Users/themi/ECE552Project/cpu.v Line: 166
+# ** Warning: (vsim-3015) [PCDPC] - Port size (2) does not match connection size (1) for port 'ForwardB'. The port definition is at: C:/Users/themi/ECE552Project/cpu_EX.v(9).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/EX File: C:/Users/themi/ECE552Project/cpu.v Line: 166
+# ** Warning: (vsim-3015) [PCDPC] - Port size (4) does not match connection size (3) for port 'Opcode'. The port definition is at: C:/Users/themi/ECE552Project/ALU.v(4).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/EX/alu File: C:/Users/themi/ECE552Project/cpu_EX.v Line: 34
+# ** Warning: (vsim-2685) [TFMPC] - Too few port connections for 'MEM'.  Expected 8, found 7.
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/MEM File: C:/Users/themi/ECE552Project/cpu.v Line: 228
+# ** Warning: (vsim-3722) C:/Users/themi/ECE552Project/cpu.v(228): [TFMPC] - Missing connection for port 'WB_fdata'.
+# ** Error (suppressible): (vsim-3389) Port 'IFID_MemWrite' not found in the connected module (5th connection).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/hdu File: C:/Users/themi/ECE552Project/cpu.v Line: 271
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (16) for port 'IFID_Rs'. The port definition is at: C:/Users/themi/ECE552Project/harzard_detection.v(5).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/hdu File: C:/Users/themi/ECE552Project/cpu.v Line: 271
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (16) for port 'IFID_Rt'. The port definition is at: C:/Users/themi/ECE552Project/harzard_detection.v(6).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/hdu File: C:/Users/themi/ECE552Project/cpu.v Line: 271
+# ** Warning: (vsim-2685) [TFMPC] - Too few port connections for 'funit'.  Expected 12, found 11.
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/funit File: C:/Users/themi/ECE552Project/cpu.v Line: 283
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (4) for port 'EXMem_Rd'. The port definition is at: C:/Users/themi/ECE552Project/forwarding_unit.v(5).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/funit File: C:/Users/themi/ECE552Project/cpu.v Line: 283
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (16) for port 'IDEX_Rs'. The port definition is at: C:/Users/themi/ECE552Project/forwarding_unit.v(6).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/funit File: C:/Users/themi/ECE552Project/cpu.v Line: 283
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (16) for port 'IDEX_Rt'. The port definition is at: C:/Users/themi/ECE552Project/forwarding_unit.v(7).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/funit File: C:/Users/themi/ECE552Project/cpu.v Line: 283
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (16) for port 'EXMem_Rt'. The port definition is at: C:/Users/themi/ECE552Project/forwarding_unit.v(8).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/funit File: C:/Users/themi/ECE552Project/cpu.v Line: 283
+# ** Warning: (vsim-3015) [PCDPC] - Port size (2) does not match connection size (1) for port 'ForwardA'. The port definition is at: C:/Users/themi/ECE552Project/forwarding_unit.v(12).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/funit File: C:/Users/themi/ECE552Project/cpu.v Line: 283
+# ** Warning: (vsim-3015) [PCDPC] - Port size (2) does not match connection size (1) for port 'ForwardB'. The port definition is at: C:/Users/themi/ECE552Project/forwarding_unit.v(12).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/funit File: C:/Users/themi/ECE552Project/cpu.v Line: 283
+# ** Warning: (vsim-3722) C:/Users/themi/ECE552Project/cpu.v(283): [TFMPC] - Missing connection for port 'MemWB_Rd'.
+# Error loading design
+# End time: 13:22:46 on Apr 06,2025, Elapsed time: 0:00:00
+# Errors: 4, Warnings: 21
+# Compile of cpu.v was successful.
+# Compile of cpu_EX.v was successful.
+# 2 compiles, 0 failed with no errors.
+vsim -gui work.cpu_ptb
+# vsim -gui work.cpu_ptb 
+# Start time: 13:26:40 on Apr 06,2025
+# Loading work.cpu_ptb
+# Loading work.cpu
+# Loading work.cpu_IF
+# Loading work.pc_logic
+# Loading work.add_16bit
+# Loading work.inst_memory
+# Loading work.cpu_ID
+# Loading work.branch
+# Loading work.control
+# Loading work.RegisterFile
+# Loading work.ReadDecoder_4_16
+# Loading work.Shifter
+# Loading work.WriteDecoder_4_16
+# Loading work.Register
+# Loading work.BitCell
+# Loading work.dff
+# Loading work.cpu_EX
+# Loading work.ALU
+# Loading work.addsub_16bit
+# Loading work.psa_16bit
+# Loading work.addsub_4bit
+# Loading work.RED
+# Loading work.add_4bit
+# Loading work.add_8bit
+# Loading work.ALUControl
+# Loading work.cpu_MEM
+# Loading work.data_memory
+# Loading work.hazard_detection
+# Loading work.forwarding_unit
+# ** Warning: (vsim-3008) [CNNODP] - Component name (regWriteAddress) is not on a downward path.
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb File: C:/Users/themi/ECE552Project/project-phase2-testbench.v Line: 147
+# ** Error: (vsim-3043) Unresolved reference to 'regWriteAddress' in DUT.ID.regWriteAddress.
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb File: C:/Users/themi/ECE552Project/project-phase2-testbench.v Line: 147
+# ** Warning: (vsim-3008) [CNNODP] - Component name (p0) is not on a downward path.
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb File: C:/Users/themi/ECE552Project/project-phase2-testbench.v Line: 153
+# ** Error: (vsim-3043) Unresolved reference to 'p0' in DUT.p0.
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb File: C:/Users/themi/ECE552Project/project-phase2-testbench.v Line: 153
+# ** Warning: (vsim-3008) [CNNODP] - Component name (pMEMcontrols_EX) is not on a downward path.
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb File: C:/Users/themi/ECE552Project/project-phase2-testbench.v Line: 156
+# ** Error: (vsim-3043) Unresolved reference to 'pMEMcontrols_EX' in DUT.pMEMcontrols_EX.
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb File: C:/Users/themi/ECE552Project/project-phase2-testbench.v Line: 156
+# ** Warning: (vsim-3015) [PCDPC] - Port size (2) does not match connection size (1) for port 'ForwardA'. The port definition is at: C:/Users/themi/ECE552Project/cpu_EX.v(9).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/EX File: C:/Users/themi/ECE552Project/cpu.v Line: 166
+# ** Warning: (vsim-3015) [PCDPC] - Port size (2) does not match connection size (1) for port 'ForwardB'. The port definition is at: C:/Users/themi/ECE552Project/cpu_EX.v(9).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/EX File: C:/Users/themi/ECE552Project/cpu.v Line: 166
+# ** Error (suppressible): (vsim-3389) Port 'IFID_MemWrite' not found in the connected module (5th connection).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/hdu File: C:/Users/themi/ECE552Project/cpu.v Line: 271
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (16) for port 'IFID_Rs'. The port definition is at: C:/Users/themi/ECE552Project/harzard_detection.v(5).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/hdu File: C:/Users/themi/ECE552Project/cpu.v Line: 271
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (16) for port 'IFID_Rt'. The port definition is at: C:/Users/themi/ECE552Project/harzard_detection.v(6).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/hdu File: C:/Users/themi/ECE552Project/cpu.v Line: 271
+# ** Warning: (vsim-2685) [TFMPC] - Too few port connections for 'funit'.  Expected 12, found 11.
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/funit File: C:/Users/themi/ECE552Project/cpu.v Line: 283
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (4) for port 'EXMem_Rd'. The port definition is at: C:/Users/themi/ECE552Project/forwarding_unit.v(5).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/funit File: C:/Users/themi/ECE552Project/cpu.v Line: 283
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (16) for port 'IDEX_Rs'. The port definition is at: C:/Users/themi/ECE552Project/forwarding_unit.v(6).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/funit File: C:/Users/themi/ECE552Project/cpu.v Line: 283
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (16) for port 'IDEX_Rt'. The port definition is at: C:/Users/themi/ECE552Project/forwarding_unit.v(7).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/funit File: C:/Users/themi/ECE552Project/cpu.v Line: 283
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (16) for port 'EXMem_Rt'. The port definition is at: C:/Users/themi/ECE552Project/forwarding_unit.v(8).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/funit File: C:/Users/themi/ECE552Project/cpu.v Line: 283
+# ** Warning: (vsim-3015) [PCDPC] - Port size (2) does not match connection size (1) for port 'ForwardA'. The port definition is at: C:/Users/themi/ECE552Project/forwarding_unit.v(12).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/funit File: C:/Users/themi/ECE552Project/cpu.v Line: 283
+# ** Warning: (vsim-3015) [PCDPC] - Port size (2) does not match connection size (1) for port 'ForwardB'. The port definition is at: C:/Users/themi/ECE552Project/forwarding_unit.v(12).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu_ptb/DUT/funit File: C:/Users/themi/ECE552Project/cpu.v Line: 283
+# ** Warning: (vsim-3722) C:/Users/themi/ECE552Project/cpu.v(283): [TFMPC] - Missing connection for port 'MemWB_Rd'.
+# Error loading design
+# End time: 13:26:40 on Apr 06,2025, Elapsed time: 0:00:00
+# Errors: 4, Warnings: 17
+# Compile of cpu.v was successful.
+# Compile of cpu_ID.v was successful.
+# Compile of project-phase2-testbench.v was successful.
+# 3 compiles, 0 failed with no errors.
