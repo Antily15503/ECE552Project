@@ -1,6 +1,6 @@
 module cpu_EX(
     input clk, rst_n,
-    input [15:0] pc_ID, instr, 
+    input [15:0] pc_ID,
     input [15:0] regAData, regBData, immEx,
     input [6:0] EXcontrols,
     input memWrite,
@@ -8,7 +8,6 @@ module cpu_EX(
     input [15:0] WB_fdata,          //Data from MEM to EX forwarding
     input [1:0] ForwardA, ForwardB, //Forwarding unit mux control signals
     output [15:0] aluOut,
-    output [3:0] regW,
     output zero, overflow, neg
 );
 wire [2:0] opcode;
@@ -27,8 +26,6 @@ assign opcode = EXcontrols[3:0];
 assign aluSrc = EXcontrols[4]; //CONTROL SIGNAL FOR ALUSRC: 1 for R instructions, 0 for I instructions
 assign regDst = EXcontrols[5]; //CONTROL SIGNAL FOR REGDST: 1 for R instructions, 0 for I instructions
 assign pcSwitch = EXcontrols[6]; //CONTROL SIGNAL FOR PCSWITCH: 1 to store pc in register, 0 for all other instructions
-
-assign regW = memWrite ? (secA) : (regDst ? (secC) : (secB)); //Register write for a SW instruction 
 
 wire [15:0] in1, in2; //inputs to the ALU
 assign in1 = pcSwitch ? pc_ID : forward_regAData; //ALU input 1 is the PC if pcSwitch is 1, otherwise it's the register data

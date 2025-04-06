@@ -52,11 +52,13 @@ module cpu(
 */
 
     wire [15:0] regAData, regBData, immEx, writeData_WB;    
-    wire [3:0] writeAddress_WB;     //from WB Register
+    wire [3:0] writeAddress_WB;     //address of register to write to for previous instruction (from WB stage)
+    wire [3:0] regW;                //register value to be written into register file for current instruction
     wire [5:0] EXcontrols;
     wire [1:0] MEMcontrols;
     wire [2:0] WBcontrols;
     wire regWrite_WB;
+
 
 // Signals used in the ID stage:
 /* Used By Registers:
@@ -82,8 +84,8 @@ module cpu(
         .clk(clk),
         .rst_n(rst_n),
         .wrData(writeData_WB),
-        .regWrite(regWrite_WB),
-        .regWriteAddress(writeAddress_WB),
+        .regWriteControl(regWrite_WB),
+        .regWriteIncomingAddr(writeAddress_WB),
         .instr(instr_ID),
         .pc(pc_ID),
         .zero(zero),
@@ -94,6 +96,7 @@ module cpu(
         .regAData(regAData),
         .regBData(regBData),
         .immEx(immEx),
+        .regWrite(regW),
         .pcBranch(pcBranch),
         .EXcontrols(EXcontrols),
         .MEMcontrols(MEMcontrols),
@@ -106,6 +109,7 @@ module cpu(
     wire [1:0] MEMcontrols_EX;
     wire [1:0] WBcontrols_EX;
     wire [15:0] regAData_EX, regBData_EX, imm_EX, instr_EX;
+    wire [3:0] regW_EX;
 
 /****************************     ID/EX Pipeline Registers   *********************************/
 
@@ -130,12 +134,13 @@ module cpu(
     dff ID_EX_immEx [15:0] (.q(imm_EX), .d(immEx), .wen(1'b1), .clk(clk), .rst(~rst_n));
     //register that stores operation instruction from instruction fetch stage
     dff ID_EX_instr [15:0] (.q(instr_EX), .d(instr_ID), .wen(1'b1), .clk(clk), .rst(~rst_n));
+    //register that stores register value to be written into register file
+    dff ID_EX_regW [3:0] (.q(regW_EX), .d(regW), .wen(1'b1), .clk(clk), .rst(~rst_n));
 
 
 /****************************     Execution Stage (EX)   *********************************/
 //EX stage signals
     wire [15:0] aluOut;
-    wire [3:0] regW;
     wire [15:0] aluOut_MEM;
 
 // Signals used in the EX stage:
@@ -168,7 +173,6 @@ cpu_EX EX(
     .immEx(imm_EX),
     .EXcontrols(EXcontrols_EX),
     .memWrite(MEMcontrols_EX[0]), //MEMcontrols[0] = memWrite
-    .instr(instr_EX),
 
     //Forwarding Inputs
     .MEM_faddress(aluOut_MEM),  //Address from EX to EX forwarding
@@ -178,7 +182,6 @@ cpu_EX EX(
 
     //Outputs =======
     .aluOut(aluOut),
-    .regW(regW),
     .zero(zero),         //ALU zero flag
     .overflow(overflow), //ALU overflow flag
     .neg(neg)         //ALU negative flag
@@ -207,7 +210,7 @@ wire [1:0] WBcontrols_MEM;
     //register that stores ALU output data
     dff EX_MEM_aluOut [15:0] (.q(aluOut_MEM), .d(aluOut), .wen(1'b1), .clk(clk), .rst(~rst_n));
     //register that stores register value to be written into register file
-    dff EX_MEM_regW [3:0] (.q(regW_MEM), .d(regW), .wen(1'b1), .clk(clk), .rst(~rst_n));
+    dff EX_MEM_regW [3:0] (.q(regW_MEM), .d(regW_EX), .wen(1'b1), .clk(clk), .rst(~rst_n));
 
 /****************************     Memory Access Stage (MEM)   *********************************/
 /* Used By Memory module:
@@ -261,7 +264,7 @@ wire memToReg;
 
 assign regWrite_WB = WBcontrols_WB[0]; //CONTROL SIGNAL FOR REGWRITE: 1 for write, 0 for read
 assign memToReg = WBcontrols_WB[1]; //CONTROL SIGNAL FOR MEMTOREG: 1 for memory output, 0 for ALU output
-assign writeData_WB = (memToReg) : dataOut_WB : aluOut_WB; //write data to register file
+assign writeData_WB = (memToReg) ? dataOut_WB : aluOut_WB; //write data to register file
 
 /****************************     Outside Pipeline Modules   *********************************/
 
@@ -290,7 +293,7 @@ forwarding_unit funit(
 
     .ForwardA(ForwardA),        //Output to forwarding mux
     .ForwardB(ForwardB),        //Output to forwarding mux
-    .ForwardC(ForwardC),        //Output to forwarding mux 
+    .ForwardC(ForwardC)         //Output to forwarding mux 
 );
 
 
