@@ -63,28 +63,30 @@ module ALU (
                        .zeroEnable(zeroEnable),
                        .overflowEnable(overflowEnable),
                        .negEnable(negEnable));
+    wire [2:0] Flags_q;
     dff zero_dff(
-        .q(Flags[2]),
+        .q(Flags_q[2]),
         .d(ALU_Out == 16'h0000),
         .wen(zeroEnable),
         .clk(clk),
         .rst(rst)
     );
     dff overflow_dff(
-        .q(Flags[1]),
+        .q(Flags_q[1]),
         .d(overflow),
         .wen(overflowEnable),
         .clk(clk),
         .rst(rst)
     );
     dff neg_dff(
-        .q(Flags[0]),
+        .q(Flags_q[0]),
         .d(ALU_Out[15]),
         .wen(negEnable),
         .clk(clk),
         .rst(rst)
     );
 
-    
-
+    assign Flags[0] = negEnable ? ALU_Out[15] : Flags_q[0]; //N flag
+    assign Flags[1] = overflowEnable ? overflow : Flags_q[1]; //V flag
+    assign Flags[2] = zeroEnable ? (ALU_Out == 16'h0000) : Flags_q[2]; //Z flag
 endmodule

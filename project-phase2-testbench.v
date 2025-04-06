@@ -150,7 +150,7 @@ module cpu_ptb();
    assign WriteData = DUT.ID.wrData;
    // If above is true, this should hold the Data being written to the register. (16 bits)
    
-   assign MemRead =  (DUT.p0.memRxout);
+   assign MemRead =  (DUT.MEMcontrols_EX[1]);
    // Is memory being read from, in this cycle. one bit signal (1 means yes, 0 means no)
    
    assign MemWrite = (DUT.MEMcontrols_EX[0]);

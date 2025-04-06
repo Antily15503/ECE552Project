@@ -41,9 +41,9 @@ module cpu(
    Otherwise, register simply passes the pcD and instr signals to the next stage.
 */
     //program counter register
-    dff IF_ID_pc [15:0] (.q(pc_ID), .d(pcInc), .wen(1'b1), .clk(clk), .rst(~rst_n));
+    dff IF_ID_pc [15:0] (.q(pc_ID), .d(pcInc), .wen(1'b1), .clk(clk), .rst(~rst_n | branchTake));
     //instruction register
-    dff IF_ID_instr [15:0] (.q(instr_ID), .d(instr), .wen(!(stall & 1'b1)), .clk(clk), .rst(~rst_n));
+    dff IF_ID_instr [15:0] (.q(instr_ID), .d(instr), .wen(!(stall & 1'b1)), .clk(clk), .rst(~rst_n | branchTake));
 
 /****************************     Instruction Decode Stage (ID)   *********************************/
 //From IF/ID stage signals
@@ -52,6 +52,7 @@ module cpu(
 */
 
     wire [15:0] regAData, regBData, immEx, writeData_WB;    
+    wire [3:0] regA, regB;
     wire [3:0] writeAddress_WB;     //address of register to write to for previous instruction (from WB stage)
     wire [3:0] regW;                //register value to be written into register file for current instruction
     wire [6:0] EXcontrols;
@@ -95,6 +96,8 @@ module cpu(
         //Outputs =======
         .regAData(regAData),
         .regBData(regBData),
+        .regA(regA),
+        .regB(regB),
         .immEx(immEx),
         .regWrite(regW),
         .pcBranch(pcBranch),
@@ -109,6 +112,7 @@ module cpu(
     wire [1:0] MEMcontrols_EX;
     wire [1:0] WBcontrols_EX;
     wire [15:0] regAData_EX, regBData_EX, imm_EX, instr_EX;
+    wire [3:0] regA_EX, regB_EX;
     wire [3:0] regW_EX;
 
 /****************************     ID/EX Pipeline Registers   *********************************/
@@ -130,6 +134,10 @@ module cpu(
     dff ID_EX_regAData [15:0] (.q(regAData_EX), .d(regAData), .wen(1'b1), .clk(clk), .rst(~rst_n));
     //register that stores register data from register B
     dff ID_EX_regBData [15:0] (.q(regBData_EX), .d(regBData), .wen(1'b1), .clk(clk), .rst(~rst_n));
+    //register address for register A
+    dff ID_EX_regA [3:0] (.q(regA_EX), .d(regA), .wen(1'b1), .clk(clk), .rst(~rst_n));
+    //register address for register B
+    dff ID_EX_regB [3:0] (.q(regB_EX), .d(regB), .wen(1'b1), .clk(clk), .rst(~rst_n));
     //register that stores immediate data from instruction
     dff ID_EX_immEx [15:0] (.q(imm_EX), .d(immEx), .wen(1'b1), .clk(clk), .rst(~rst_n));
     //register that stores operation instruction from instruction fetch stage
@@ -190,6 +198,7 @@ cpu_EX EX(
 
 //Signals for next stage
 wire [15:0] regBData_MEM;
+wire [3:0] regB_MEM;
 wire [3:0] regW_MEM;
 wire [1:0] MEMcontrols_MEM;
 wire [1:0] WBcontrols_MEM;
@@ -209,6 +218,8 @@ wire ForwardC;
     dff EX_MEM_WBcontrols [1:0] (.q(WBcontrols_MEM), .d(WBcontrols_EX), .wen(1'b1), .clk(clk), .rst(~rst_n));
     //register that stores register data from register B from EX stage
     dff EX_MEM_regBData [15:0] (.q(regBData_MEM), .d(regBData_EX), .wen(1'b1), .clk(clk), .rst(~rst_n));
+    //register that passes reg B address to MEM stage
+    dff EX_MEM_regB [3:0] (.q(regB_MEM), .d(regB_EX), .wen(1'b1), .clk(clk), .rst(~rst_n));
     //register that stores ALU output data
     dff EX_MEM_aluOut [15:0] (.q(aluOut_MEM), .d(aluOut), .wen(1'b1), .clk(clk), .rst(~rst_n));
     //register that stores register value to be written into register file
@@ -270,12 +281,12 @@ assign writeData_WB = (memToReg) ? dataOut_WB : aluOut_WB; //write data to regis
 
 /****************************     Outside Pipeline Modules   *********************************/
 
-hazard_detection hdu( //NEED TO ADD LFUSHING STILL
+hazard_detection hdu(
     //load to use signals
     .IDEX_MemRead(MEMcontrols_EX[1]),   // ID/EX.MemRead
     .IDEX_Rd(regW_EX),                  // ID/EX.RegisterRd 
-    .IFID_Rs(regAData),                 // IF/ID.RegisterRs - READ from inside decode stage instead of pipeline
-    .IFID_Rt(regBData),                 // IF/ID.RegisterRt
+    .IFID_Rs(regA),                 // IF/ID.RegisterRs - READ from inside decode stage instead of pipeline
+    .IFID_Rt(regB),                 // IF/ID.RegisterRt
     .IFID_MemWrite(MEMcontrols[0]),     // IF/ID.MemWrite
 
     .stall(stall)
@@ -287,9 +298,9 @@ forwarding_unit funit(
     .MemWB_Rd(writeAddress_WB),
     .EXMem_RegWrite(WBcontrols_MEM[1]), // EX/MEM.RegWrite 
     .EXMem_Rd(regW_MEM),                // EX/MEM.RegisterRd
-    .IDEX_Rs(regAData_EX),              // ID/EX.RegisterRs
-    .IDEX_Rt(regBData_EX),              // ID/EX.RegisterRt
-    .EXMem_Rt(regBData_MEM),            // EX/MEM.RegisterRt
+    .IDEX_Rs(regA_EX),              // ID/EX.RegisterRs
+    .IDEX_Rt(regB_EX),              // ID/EX.RegisterRt
+    .EXMem_Rt(regB_MEM),            // EX/MEM.RegisterRt
     .MemWB_MemToReg(memToReg),
     .EXMem_MemWrite(MEMcontrols_MEM[0]),
 

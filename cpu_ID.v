@@ -8,6 +8,7 @@ module cpu_ID(
     input zero, overflow, neg,
     output [15:0] pcBranch,
     output [15:0] regAData, regBData,
+    output [3:0] regA, regB,
     output [15:0] immEx,
     output [3:0] regWrite,
     output reg [6:0] EXcontrols,
@@ -67,7 +68,7 @@ module cpu_ID(
 
 //Register Reading
     wire [15:0] aluOut;
-    wire [3:0] regA, regB, regC;
+    wire [3:0] regC;
     assign regA = secA;
     //CONTROL SIGNAL FOR REGDST
     //1 for R instructions, 0 for I instructions

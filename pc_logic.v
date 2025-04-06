@@ -10,12 +10,12 @@ module pc_logic(
 //adder to calculate next pc value
 //pcInc = pcIn + 2
 wire [15:0] pcBranch;
-add_16bit adder(
+addsub_16bit adder(
     .A(pcIn),
     .B(16'h0002),
+    .sub(1'b0),
     .Sum(pcInc),
-    .Cin(1'b0),
-    .Cout()
+    .overflow()
 );
 
 //if stall or halt signal is high, we prevent the pc from incrementing, otherwise pc = pc + 2

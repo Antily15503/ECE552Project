@@ -46,10 +46,8 @@ assign negOv = ( (A[15] == 1'b1) & (Bnot[15] == 1'b1) & (SumRaw[15] == 1'b0));
 assign overflow = posOv | negOv;
 assign Sum = posOv ? (16'h7FFF) : (//16'h7FFF = 0x0111111111111111 
     negOv ? (16'h8000) : ( //16'h8000 = 0x1000000000000000
-        SumRaw
+    SumRaw
     )
 );
 
-// assign overflow = Cout;
-// assign Sum = SumRaw;
 endmodule
