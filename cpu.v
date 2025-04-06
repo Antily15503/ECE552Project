@@ -142,6 +142,7 @@ module cpu(
 //EX stage signals
     wire [15:0] aluOut;
     wire [15:0] aluOut_MEM;
+    wire [1:0] ForwardA, ForwardB;
 
 // Signals used in the EX stage:
 /* Used By the ALU:
@@ -192,6 +193,7 @@ wire [15:0] regBData_MEM;
 wire [3:0] regW_MEM;
 wire [1:0] MEMcontrols_MEM;
 wire [1:0] WBcontrols_MEM;
+wire ForwardC;
 
 /****************************     EX/MEM Pipeline Registers   *********************************/
 /* NOTE: _MEM signals represent signals coming out of the EX/MEM Pipeline Registers
@@ -271,7 +273,7 @@ assign writeData_WB = (memToReg) ? dataOut_WB : aluOut_WB; //write data to regis
 hazard_detection hdu( //NEED TO ADD LFUSHING STILL
     //load to use signals
     .IDEX_MemRead(MEMcontrols_EX[1]),   // ID/EX.MemRead
-    .IDEX_Rd(EXcontrols_EX[1]),         // ID/EX.RegisterRd 
+    .IDEX_Rd(regW_EX),                  // ID/EX.RegisterRd 
     .IFID_Rs(regAData),                 // IF/ID.RegisterRs - READ from inside decode stage instead of pipeline
     .IFID_Rt(regBData),                 // IF/ID.RegisterRt
     .IFID_MemWrite(MEMcontrols[0]),     // IF/ID.MemWrite
@@ -282,6 +284,7 @@ hazard_detection hdu( //NEED TO ADD LFUSHING STILL
 //DOUBLE CHECK CONNECTIONS
 forwarding_unit funit(
     .MemWB_RegWrite(regWrite_WB),
+    .MemWB_Rd(writeAddress_WB),
     .EXMem_RegWrite(WBcontrols_MEM[1]), // EX/MEM.RegWrite 
     .EXMem_Rd(regW_MEM),                // EX/MEM.RegisterRd
     .IDEX_Rs(regAData_EX),              // ID/EX.RegisterRs

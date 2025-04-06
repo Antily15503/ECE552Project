@@ -1,9 +1,10 @@
 module hazard_detection( // 
     //load to use signals
     input IDEX_MemRead,     // ID/EX.MemRead
-    input IDEX_Rd,          // ID/EX.RegisterRd 
-    input IFID_Rs,           // IF/ID.RegisterRs
-    input IFID_Rt,           // IF/ID.RegisterRt
+    input [3:0] IDEX_Rd,          // ID/EX.RegisterRd 
+    input [15:0] IFID_Rs,           // IF/ID.RegisterRs
+    input [15:0] IFID_Rt,           // IF/ID.RegisterRt
+    input IFID_MemWrite,
     output stall
 );
     

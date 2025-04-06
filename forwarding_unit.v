@@ -1,11 +1,11 @@
 module forwarding_unit(
     input MemWB_RegWrite,
-    input MemWB_Rd,
-    input EXMem_RegWrite,   // EX/MEM.RegWrite 
-    input EXMem_Rd,         // EX/MEM.RegisterRd
-    input IDEX_Rs,          // ID/EX.RegisterRs
-    input IDEX_Rt,          // ID/EX.RegisterRt
-    input EXMem_Rt,         // EX/MEM.RegisterRt
+    input [3:0] MemWB_Rd,
+    input EXMem_RegWrite,          // EX/MEM.RegWrite 
+    input [3:0] EXMem_Rd,         // EX/MEM.RegisterRd
+    input [15:0] IDEX_Rs,          // ID/EX.RegisterRs
+    input [15:0] IDEX_Rt,          // ID/EX.RegisterRt
+    input [15:0] EXMem_Rt,         // EX/MEM.RegisterRt
     input MemWB_MemToReg,
     input EXMem_MemWrite,
 
