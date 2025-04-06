@@ -10,7 +10,6 @@ module cpu_ID(
     output [15:0] regAData, regBData,
     output [3:0] regA, regB,
     output [15:0] immEx,
-    output [3:0] regWrite,
     output reg [6:0] EXcontrols,
     output reg [1:0] MEMcontrols,
     output reg [1:0] WBcontrols,
@@ -29,6 +28,8 @@ module cpu_ID(
 //Branch Handling
     //branch module
     wire branchControl, branch;
+    wire [15:0] pcBranchRelative;
+    assign pcBranchRelative= regBData;
     branch branchSelect(
         //inputs
         .condition(secA[3:1]),
@@ -36,7 +37,7 @@ module cpu_ID(
         .branchRegMux(branchControl),
         .branch(branch),
         .I(instr[8:0]),
-        .branchRegData(regBData),
+        .branchRegData(pcBranchRelative),
         .pcIn(pc),
 
         //outputs
@@ -45,11 +46,11 @@ module cpu_ID(
     );
 
 //Control Unit
-    wire regDst, aluSrc, memToReg, memRead, memWrite, pcSwitch, lwHalf;
+    wire regDst, aluSrc, memToReg, memRead, memWrite, pcSwitch, lwHalf, writeEnable;
     /*signals used in IF: pcSwitch, branchTake, branchControl, lwHalf
       signals used in EX: aluSrc, regDst, opcode
       signals used in MEM: memRead, memWrite
-      signals used in WB: memToReg, regWrite, pcSwitch*/
+      signals used in WB: memToReg, writeEnable*/
     control controlUnit(
         //inputs
         .opcode(opcode),
@@ -57,7 +58,7 @@ module cpu_ID(
         .RegDst(regDst),  //used
         .AluSrc(aluSrc),  //used
         .MemtoReg(memToReg),  //used
-        .RegWrite(regWriteControl),  //used
+        .RegWrite(writeEnable),  //used
         .MemRead(memRead),  //used
         .MemWrite(memWrite),  //used
         .MemHalf(lwHalf), //used
@@ -67,14 +68,13 @@ module cpu_ID(
     );
 
 //Register Reading
-    wire [15:0] aluOut;
     wire [3:0] regC;
     assign regA = secA;
     //CONTROL SIGNAL FOR REGDST
     //1 for R instructions, 0 for I instructions
     
-    //combination logic for determining which register to write to
-    assign regWrite = memWrite ? (secA) : (regDst ? (secC) : (secB));
+    //combination logic for determining which register to read from
+    assign regC = memWrite ? (secA) : (regDst ? (secC) : (secB));
 
     //Comb Logic for Register Immediate Value Updating
     //1 to assign regB to instr[11:8] (only in load half), 0 to assign regB to instr[7:4]
@@ -99,6 +99,6 @@ RegisterFile reg_file(
 //Control signal bundles
     assign EXcontrols = {pcSwitch, aluSrc, regDst, opcode};
     assign MEMcontrols = {memRead, memWrite};
-    assign WBcontrols = {memToReg, regWrite};
+    assign WBcontrols = {memToReg, writeEnable};
 
 endmodule

@@ -7,20 +7,24 @@ module pc_logic(
     output [15:0] pcInc //Program Counter value + 2
 );
 
+
+
 //adder to calculate next pc value
 //pcInc = pcIn + 2
-wire [15:0] pcBranch;
+wire [15:0] pcSum;
 addsub_16bit adder(
     .A(pcIn),
     .B(16'h0002),
     .sub(1'b0),
-    .Sum(pcInc),
+    .Sum(pcSum),
     .overflow()
 );
 
+
+
 //if stall or halt signal is high, we prevent the pc from incrementing, otherwise pc = pc + 2
-assign pcD = (stall || halt) ? pcIn : pcInc; 
+assign pcD = (stall || halt) ? pcIn : pcSum; 
 
 //if the stall signal is high, we assign the pc value to the ID stage to prevent new instruction from being fetched
-assign pcInc = stall ? pc_ID : pcInc;
+assign pcInc = stall ? pc_ID : pcSum;
 endmodule
