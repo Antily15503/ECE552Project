@@ -28,7 +28,7 @@ module forwarding_unit(
 // and (MEM/WB.RegisterRd = EX/MEM.RegisterRt)
 // ) enable MEM-to-MEM forwarding;
 
-
+//test
 assign ForwardA = (EXMem_RegWrite & (EXMem_Rd != 4'h0) &    //EX-to-EX forwarding logic
                     (EXMem_Rd) == IDEX_Rs) ? 2'b10:
                   (MemWB_RegWrite & (MemWB_Rd != 4'h0) &    //MEM-to-EX forwarding logic
