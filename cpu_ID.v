@@ -9,8 +9,8 @@ module cpu_ID(
     output [15:0] pcD, pcBranch,
     output [15:0] regAData, regBData,
     output [15:0] immEx,
-    output reg [5:0] EXcontrols,
-    output reg [2:0] MEMcontrols,
+    output reg [6:0] EXcontrols,
+    output reg [1:0] MEMcontrols,
     output reg [1:0] WBcontrols,
     output branchTake
 );
@@ -94,8 +94,8 @@ RegisterFile reg_file(
     );
 
 //Control signal bundles
-    assign EXcontrols = {aluSrc, regDst, opcode};
-    assign MEMcontrols = {pcSwitch, memRead, memWrite};
+    assign EXcontrols = {pcSwitch, aluSrc, regDst, opcode};
+    assign MEMcontrols = {memRead, memWrite};
     assign WBcontrols = {memToReg, regWrite};
 
 endmodule

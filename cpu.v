@@ -71,9 +71,9 @@ module cpu(
    {zero, overflow, neg} = flags from the ALU (used in branch logic)
 
    Output from Control:
-   [5:0] EXcontrols = control signals for EX stage:    {aluSource, regDst, 4 bit opcode}
+   [6:0] EXcontrols = control signals for EX stage:    {pcSwitch, aluSource, regDst, 4 bit opcode}
    [1:0] MEMcontrols = control signals for MEM stage:  {memRead, memWrite}
-   [2:0] WBcontrols = control signals for WB stage:    {memToReg, regWrite, pcSwitch}
+   [1:0] WBcontrols = control signals for WB stage:    {memToReg, regWrite}
 */
 
 //Instruction Decode Pipeline Module
@@ -102,9 +102,9 @@ module cpu(
     );
 
     //Signals for next stage
-    wire [5:0] EXcontrols_EX;
+    wire [6:0] EXcontrols_EX;
     wire [1:0] MEMcontrols_EX;
-    wire [2:0] WBcontrols_EX;
+    wire [1:0] WBcontrols_EX;
     wire [15:0] regAData_EX, regBData_EX, imm_EX, instr_EX;
 
 /****************************     ID/EX Pipeline Registers   *********************************/
@@ -117,11 +117,11 @@ module cpu(
      - operation instruction from instruction fetch stage to determine write register (instr_ID)
 */
     //EXcontrols register
-    dff ID_EX_EXcontrols [5:0] (.q(EXcontrols_EX), .d(EXcontrols), .wen(1'b1), .clk(clk), .rst(~rst_n));
+    dff ID_EX_EXcontrols [6:0] (.q(EXcontrols_EX), .d(EXcontrols), .wen(1'b1), .clk(clk), .rst(~rst_n));
     //MEMcontrols register
     dff ID_EX_MEMcontrols [1:0] (.q(MEMcontrols_EX), .d(MEMcontrols), .wen(1'b1), .clk(clk), .rst(~rst_n));
     //WBcontrols register
-    dff ID_EX_WBcontrols [2:0] (.q(WBcontrols_EX), .d(WBcontrols), .wen(1'b1), .clk(clk), .rst(~rst_n));
+    dff ID_EX_WBcontrols [1:0] (.q(WBcontrols_EX), .d(WBcontrols), .wen(1'b1), .clk(clk), .rst(~rst_n));
     //register that stores register data from register A
     dff ID_EX_regAData [15:0] (.q(regAData_EX), .d(regAData), .wen(1'b1), .clk(clk), .rst(~rst_n));
     //register that stores register data from register B
@@ -188,7 +188,7 @@ cpu_EX EX(
 wire [15:0] regBData_MEM;
 wire [3:0] regW_MEM;
 wire [1:0] MEMcontrols_MEM;
-wire [2:0] WBcontrols_MEM;
+wire [1:0] WBcontrols_MEM;
 
 /****************************     EX/MEM Pipeline Registers   *********************************/
 /* NOTE: _MEM signals represent signals coming out of the EX/MEM Pipeline Registers
@@ -201,7 +201,7 @@ wire [2:0] WBcontrols_MEM;
     //MEMcontrols register
     dff EX_MEM_MEMcontrols [1:0] (.q(MEMcontrols_MEM), .d(MEMcontrols_EX), .wen(1'b1), .clk(clk), .rst(~rst_n));
     //WBcontrols register
-    dff EX_MEM_WBcontrols [2:0] (.q(WBcontrols_MEM), .d(WBcontrols_EX), .wen(1'b1), .clk(clk), .rst(~rst_n));
+    dff EX_MEM_WBcontrols [1:0] (.q(WBcontrols_MEM), .d(WBcontrols_EX), .wen(1'b1), .clk(clk), .rst(~rst_n));
     //register that stores register data from register B from EX stage
     dff EX_MEM_regBData [15:0] (.q(regBData_MEM), .d(regBData_EX), .wen(1'b1), .clk(clk), .rst(~rst_n));
     //register that stores ALU output data
@@ -237,7 +237,7 @@ cpu_MEM(
 
 //Signals for next stage
 wire [15:0] dataOut_WB, aluOut_WB;
-wire [2:0] WBcontrols_WB;
+wire [1:0] WBcontrols_WB;
 
 /****************************     MEM/WB Pipeline Registers   *********************************/
 /* NOTE: _WB signals represent signals coming out of the MEM/WB Pipeline Registers
@@ -248,7 +248,7 @@ wire [2:0] WBcontrols_WB;
      - register value to be written into register file (regW)
 */
     //WBcontrols register
-    dff MEM_WB_WBcontrols [2:0] (.q(WBcontrols_WB), .d(WBcontrols_MEM), .wen(1'b1), .clk(clk), .rst(~rst_n));
+    dff MEM_WB_WBcontrols [1:0] (.q(WBcontrols_WB), .d(WBcontrols_MEM), .wen(1'b1), .clk(clk), .rst(~rst_n));
     //register that stores data from memory access stage
     dff MEM_WB_dataOut [15:0] (.q(dataOut_WB), .d(dataOut), .wen(1'b1), .clk(clk), .rst(~rst_n));
     //register that stores ALU output data
@@ -257,20 +257,11 @@ wire [2:0] WBcontrols_WB;
     dff MEM_WB_regW [3:0] (.q(writeAddress_WB), .d(regW_MEM), .wen(1'b1), .clk(clk), .rst(~rst_n));
 
 /****************************     Writeback Stage (WB)   *********************************/
-wire memToReg, pcSwitch;
-reg [15:0] wrDataIntermed;
-assign pcSwitch = WBcontrols_WB[0]; //CONTROL SIGNAL FOR PC: 1 for PC, 0 for everything else
-assign regWrite_WB = WBcontrols_WB[2]; //CONTROL SIGNAL FOR REGWRITE: 1 for write, 0 for read
+wire memToReg;
+
+assign regWrite_WB = WBcontrols_WB[0]; //CONTROL SIGNAL FOR REGWRITE: 1 for write, 0 for read
 assign memToReg = WBcontrols_WB[1]; //CONTROL SIGNAL FOR MEMTOREG: 1 for memory output, 0 for ALU output
-always @(*) begin
-        casex({pcSwitch, memToReg})
-            2'b1?: wrDataIntermed = pcD;
-            2'b01: wrDataIntermed = dataOut_WB;
-            2'b00: wrDataIntermed = aluOut;
-            default: wrDataIntermed = 16'h0000;
-        endcase
-    end
-    assign writeData_WB = wrDataIntermed;
+assign writeData_WB = (memToReg) : dataOut_WB : aluOut_WB; //write data to register file
 
 /****************************     Outside Pipeline Modules   *********************************/
 
