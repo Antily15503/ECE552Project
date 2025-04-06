@@ -1,0 +1,17 @@
+*.vcd
+*.mti
+*.mpf
+Phase2.cr.mti
+Phase2.mpf
+transcript
+work/*
+[_@]*
+*.dat
+*.dbs
+*.psm
+
+wlf*
+*.wlf
+*.vstf 
+cov*/
+transcript*
