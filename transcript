@@ -1,0 +1,42 @@
+# Compile of ALU.v was successful.
+# Compile of BitCell.v was successful.
+# Compile of branch.v was successful.
+# Compile of control.v failed with 2 errors.
+# Compile of cpu.v failed with 5 errors.
+# Compile of cpu_EX.v failed with 3 errors.
+# Compile of cpu_ID.v was successful.
+# Compile of cpu_IF.v was successful.
+# Compile of cpu_MEM.v was successful.
+# Compile of data_memory.v was successful.
+# Compile of decoder_one_hot.v was successful.
+# Compile of D-Flip-Flop.v was successful.
+# Compile of forwarding_unit.v was successful.
+# Compile of harzard_detection.v was successful.
+# Compile of inst_memory.v was successful.
+# Compile of pc_logic.v failed with 1 errors.
+# Compile of ReadDecoder_4_16.v was successful.
+# Compile of RED_tb.v was successful.
+# Compile of register.v was successful.
+# Compile of RegisterFile.v was successful.
+# Compile of WriteDecoder_4_16.v was successful.
+# Compile of add_4bit.v was successful.
+# Compile of add_8bit.v was successful.
+# Compile of add_16bit.v was successful.
+# Compile of add_16bit_tb.sv was successful.
+# Compile of addsub_4bit.v was successful.
+# Compile of addsub_16bit.v was successful.
+# Compile of addsub_16bit_tb.v was successful.
+# Compile of ALUControl.v was successful.
+# Compile of psa_16bit.v was successful.
+# Compile of RED.v was successful.
+# Compile of Shifter.v was successful.
+# 32 compiles, 4 failed with 11 errors.
+# Compile of control.v was successful.
+# Compile of cpu.v failed with 5 errors.
+# Compile of cpu_EX.v failed with 3 errors.
+# Compile of pc_logic.v failed with 1 errors.
+# 4 compiles, 3 failed with 9 errors.
+# Compile of cpu.v failed with 3 errors.
+# Compile of cpu_EX.v failed with 3 errors.
+# Compile of pc_logic.v failed with 1 errors.
+# 3 compiles, 3 failed with 7 errors.

@@ -29,6 +29,9 @@ assign regDst = EXcontrols[5]; //CONTROL SIGNAL FOR REGDST: 1 for R instructions
 
 assign regW = memWrite ? (secA) : (regDst ? (secC) : (secB)); //Register write for a SW instruction 
 
+wire [15:0] in1, in2; //inputs to the ALU
+assign in1 = pc
+
 ALU alu(
         .clk(clk),
         .rst(~rst_n),

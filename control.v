@@ -94,7 +94,7 @@ always @(*) begin
             alusrc = 1'b0;
             memw = 1'b0;
             regw = 1'b1;
-            pc = 1'b0;`
+            pc = 1'b0;
         end
         4'b1100: begin //Branch Relative (B)
             regd = 1'b0;

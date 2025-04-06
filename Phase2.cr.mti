@@ -1,4 +1,11 @@
-C:/Users/DanielJL/Documents/GitHub/ECE552Project/ReadDecoder_4_16.v {1 {vlog -work work -stats=none C:/Users/DanielJL/Documents/GitHub/ECE552Project/ReadDecoder_4_16.v
+{C:/Users/themi/ECE552Project/ALU components/ALUControl.v} {1 {vlog -work work -stats=none {C:/Users/themi/ECE552Project/ALU components/ALUControl.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module ALUControl
+
+Top level modules:
+	ALUControl
+
+} {} {}} C:/Users/DanielJL/Documents/GitHub/ECE552Project/ReadDecoder_4_16.v {1 {vlog -work work -stats=none C:/Users/DanielJL/Documents/GitHub/ECE552Project/ReadDecoder_4_16.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
 -- Compiling module ReadDecoder_4_16
 
@@ -19,6 +26,20 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 
 Top level modules:
 	cpu_ptb
 
+} {} {}} {C:/Users/themi/ECE552Project/ALU components/Shifter.v} {1 {vlog -work work -stats=none {C:/Users/themi/ECE552Project/ALU components/Shifter.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module Shifter
+
+Top level modules:
+	Shifter
+
+} {} {}} {C:/Users/themi/ECE552Project/ALU components/add_16bit.v} {1 {vlog -work work -stats=none {C:/Users/themi/ECE552Project/ALU components/add_16bit.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module add_16bit
+
+Top level modules:
+	add_16bit
+
 } {} {}} C:/Users/DanielJL/Documents/GitHub/ECE552Project/BitCell.v {1 {vlog -work work -stats=none C:/Users/DanielJL/Documents/GitHub/ECE552Project/BitCell.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
 -- Compiling module BitCell
@@ -26,12 +47,26 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 
 Top level modules:
 	BitCell
 
+} {} {}} {C:/Users/themi/ECE552Project/ALU components/addsub_16bit.v} {1 {vlog -work work -stats=none {C:/Users/themi/ECE552Project/ALU components/addsub_16bit.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module addsub_16bit
+
+Top level modules:
+	addsub_16bit
+
 } {} {}} C:/Users/DanielJL/Documents/GitHub/ECE552Project/pc_logic.v {0 {vlog -work work -stats=none C:/Users/DanielJL/Documents/GitHub/ECE552Project/pc_logic.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
 -- Compiling module pc_logic
 ** Error: (vlog-13069) C:/Users/DanielJL/Documents/GitHub/ECE552Project/pc_logic.v(4): near "input": syntax error, unexpected input, expecting ')'.
 
-} {4.0 5.0} {}} C:/Users/DanielJL/Documents/GitHub/ECE552Project/decoder_one_hot.v {1 {vlog -work work -stats=none C:/Users/DanielJL/Documents/GitHub/ECE552Project/decoder_one_hot.v
+} {4.0 5.0} {}} {C:/Users/themi/ECE552Project/ALU components/psa_16bit.v} {1 {vlog -work work -stats=none {C:/Users/themi/ECE552Project/ALU components/psa_16bit.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module psa_16bit
+
+Top level modules:
+	psa_16bit
+
+} {} {}} C:/Users/DanielJL/Documents/GitHub/ECE552Project/decoder_one_hot.v {1 {vlog -work work -stats=none C:/Users/DanielJL/Documents/GitHub/ECE552Project/decoder_one_hot.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
 -- Compiling module decoder_one_hot
 
@@ -62,6 +97,20 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 
 Top level modules:
 	ALU
 
+} {} {}} {C:/Users/themi/ECE552Project/ALU components/add_4bit.v} {1 {vlog -work work -stats=none {C:/Users/themi/ECE552Project/ALU components/add_4bit.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module add_4bit
+
+Top level modules:
+	add_4bit
+
+} {} {}} {C:/Users/themi/ECE552Project/ALU components/RED.v} {1 {vlog -work work -stats=none {C:/Users/themi/ECE552Project/ALU components/RED.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module RED
+
+Top level modules:
+	RED
+
 } {} {}} C:/Users/DanielJL/Documents/GitHub/ECE552Project/branch_tb.v {1 {vlog -work work -stats=none C:/Users/DanielJL/Documents/GitHub/ECE552Project/branch_tb.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
 -- Compiling module branch_tb
@@ -76,12 +125,12 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 
 ** Error: C:/Users/DanielJL/Documents/GitHub/ECE552Project/cpu_EX.v(30): (vlog-2730) Undefined variable: 'secC'.
 ** Error: C:/Users/DanielJL/Documents/GitHub/ECE552Project/cpu_EX.v(30): (vlog-2730) Undefined variable: 'secB'.
 
-} {4.0 7.0} {}} C:/Users/DanielJL/Documents/GitHub/ECE552Project/RegisterFile.v {1 {vlog -work work -stats=none C:/Users/DanielJL/Documents/GitHub/ECE552Project/RegisterFile.v
+} {4.0 7.0} {}} {C:/Users/themi/ECE552Project/ALU components/addsub_4bit.v} {1 {vlog -work work -stats=none {C:/Users/themi/ECE552Project/ALU components/addsub_4bit.v}
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module RegisterFile
+-- Compiling module addsub_4bit
 
 Top level modules:
-	RegisterFile
+	addsub_4bit
 
 } {} {}} C:/Users/DanielJL/Documents/GitHub/ECE552Project/register.v {1 {vlog -work work -stats=none C:/Users/DanielJL/Documents/GitHub/ECE552Project/register.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
@@ -90,38 +139,52 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 
 Top level modules:
 	Register
 
-} {} {}} C:/Users/DanielJL/Documents/GitHub/ECE552Project/branch.v {1 {vlog -work work -stats=none C:/Users/DanielJL/Documents/GitHub/ECE552Project/branch.v
+} {} {}} C:/Users/DanielJL/Documents/GitHub/ECE552Project/RegisterFile.v {1 {vlog -work work -stats=none C:/Users/DanielJL/Documents/GitHub/ECE552Project/RegisterFile.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module branch
+-- Compiling module RegisterFile
 
 Top level modules:
-	branch
+	RegisterFile
 
-} {} {}} C:/Users/DanielJL/Documents/GitHub/ECE552Project/cpu_IF.v {0 {vlog -work work -stats=none C:/Users/DanielJL/Documents/GitHub/ECE552Project/cpu_IF.v
+} {} {}} {C:/Users/themi/ECE552Project/ALU components/add_16bit_tb.sv} {1 {vlog -work work -sv -stats=none {C:/Users/themi/ECE552Project/ALU components/add_16bit_tb.sv}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module add_16bit_tb
+
+Top level modules:
+	add_16bit_tb
+
+} {} {}} C:/Users/DanielJL/Documents/GitHub/ECE552Project/cpu_MEM.v {0 {vlog -work work -stats=none C:/Users/DanielJL/Documents/GitHub/ECE552Project/cpu_MEM.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module cpu_MEM
+** Error: (vlog-13069) C:/Users/DanielJL/Documents/GitHub/ECE552Project/cpu_MEM.v(15): near "WB_fdata": syntax error, unexpected IDENTIFIER, expecting ';' or ','.
+
+} {4.0 5.0} {}} C:/Users/DanielJL/Documents/GitHub/ECE552Project/cpu_IF.v {0 {vlog -work work -stats=none C:/Users/DanielJL/Documents/GitHub/ECE552Project/cpu_IF.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
 -- Compiling module cpu_IF
 ** Error: (vlog-13069) C:/Users/DanielJL/Documents/GitHub/ECE552Project/cpu_IF.v(18): near "[": syntax error, unexpected '['.
 ** Error: (vlog-13069) C:/Users/DanielJL/Documents/GitHub/ECE552Project/cpu_IF.v(29): near "assign": syntax error, unexpected assign, expecting ';' or ','.
 ** Error (suppressible): C:/Users/DanielJL/Documents/GitHub/ECE552Project/cpu_IF.v(45): (vlog-2388) 'instr' already declared in this scope (cpu_IF) at C:/Users/DanielJL/Documents/GitHub/ECE552Project/cpu_IF.v(5).
 
-} {4.0 6.0} {}} C:/Users/DanielJL/Documents/GitHub/ECE552Project/cpu_MEM.v {0 {vlog -work work -stats=none C:/Users/DanielJL/Documents/GitHub/ECE552Project/cpu_MEM.v
-Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module cpu_MEM
-** Error: (vlog-13069) C:/Users/DanielJL/Documents/GitHub/ECE552Project/cpu_MEM.v(15): near "WB_fdata": syntax error, unexpected IDENTIFIER, expecting ';' or ','.
-
-} {4.0 5.0} {}} C:/Users/DanielJL/Documents/GitHub/ECE552Project/branch_pipelined.v {1 {vlog -work work -stats=none C:/Users/DanielJL/Documents/GitHub/ECE552Project/branch_pipelined.v
+} {4.0 6.0} {}} C:/Users/DanielJL/Documents/GitHub/ECE552Project/branch.v {1 {vlog -work work -stats=none C:/Users/DanielJL/Documents/GitHub/ECE552Project/branch.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
 -- Compiling module branch
 
 Top level modules:
 	branch
 
-} {} {}} C:/Users/DanielJL/Documents/GitHub/ECE552Project/RED_tb.v {1 {vlog -work work -stats=none C:/Users/DanielJL/Documents/GitHub/ECE552Project/RED_tb.v
+} {} {}} {C:/Users/themi/ECE552Project/ALU components/add_8bit.v} {1 {vlog -work work -stats=none {C:/Users/themi/ECE552Project/ALU components/add_8bit.v}
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module RED_tb
+-- Compiling module add_8bit
 
 Top level modules:
-	RED_tb
+	add_8bit
+
+} {} {}} C:/Users/DanielJL/Documents/GitHub/ECE552Project/branch_pipelined.v {1 {vlog -work work -stats=none C:/Users/DanielJL/Documents/GitHub/ECE552Project/branch_pipelined.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module branch
+
+Top level modules:
+	branch
 
 } {} {}} C:/Users/DanielJL/Documents/GitHub/ECE552Project/cpu.v {1 {vlog -work work -stats=none C:/Users/DanielJL/Documents/GitHub/ECE552Project/cpu.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
@@ -129,6 +192,13 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 
 
 Top level modules:
 	cpu
+
+} {} {}} C:/Users/DanielJL/Documents/GitHub/ECE552Project/RED_tb.v {1 {vlog -work work -stats=none C:/Users/DanielJL/Documents/GitHub/ECE552Project/RED_tb.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module RED_tb
+
+Top level modules:
+	RED_tb
 
 } {} {}} C:/Users/DanielJL/Documents/GitHub/ECE552Project/cpu_pipelined.v {0 {vlog -work work -stats=none C:/Users/DanielJL/Documents/GitHub/ECE552Project/cpu_pipelined.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
@@ -146,18 +216,18 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 
 ** Error: (vlog-13069) C:/Users/DanielJL/Documents/GitHub/ECE552Project/cpu_pipelined.v(296): near ";": syntax error, unexpected ';', expecting ')'.
 ** Error: (vlog-13069) C:/Users/DanielJL/Documents/GitHub/ECE552Project/cpu_pipelined.v(302): near ".": syntax error, unexpected '.', expecting ')'.
 
-} {4.0 5.0 6.0 8.0 9.0 10.0 12.0 16.0} {}} C:/Users/DanielJL/Documents/GitHub/ECE552Project/WriteDecoder_4_16.v {1 {vlog -work work -stats=none C:/Users/DanielJL/Documents/GitHub/ECE552Project/WriteDecoder_4_16.v
-Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module WriteDecoder_4_16
-
-Top level modules:
-	WriteDecoder_4_16
-
-} {} {}} C:/Users/DanielJL/Documents/GitHub/ECE552Project/D-Flip-Flop.v {1 {vlog -work work -stats=none C:/Users/DanielJL/Documents/GitHub/ECE552Project/D-Flip-Flop.v
+} {4.0 5.0 6.0 8.0 9.0 10.0 12.0 16.0} {}} C:/Users/DanielJL/Documents/GitHub/ECE552Project/D-Flip-Flop.v {1 {vlog -work work -stats=none C:/Users/DanielJL/Documents/GitHub/ECE552Project/D-Flip-Flop.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
 -- Compiling module dff
 
 Top level modules:
 	dff
+
+} {} {}} C:/Users/DanielJL/Documents/GitHub/ECE552Project/WriteDecoder_4_16.v {1 {vlog -work work -stats=none C:/Users/DanielJL/Documents/GitHub/ECE552Project/WriteDecoder_4_16.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module WriteDecoder_4_16
+
+Top level modules:
+	WriteDecoder_4_16
 
 } {} {}}

@@ -51,7 +51,7 @@ module cpu(
    [15:0] pc_ID = current program counter passed from IF stage
 */
 
-    wire [15:0] regAData, regBData, immEx, writeData_WB, pcBranch;    
+    wire [15:0] regAData, regBData, immEx, writeData_WB;    
     wire [3:0] writeAddress_WB;     //from WB Register
     wire [5:0] EXcontrols;
     wire [1:0] MEMcontrols;
@@ -98,7 +98,7 @@ module cpu(
         .EXcontrols(EXcontrols),
         .MEMcontrols(MEMcontrols),
         .WBcontrols(WBcontrols),
-        .branchTake(branchTake),
+        .branchTake(branchTake)
     );
 
     //Signals for next stage
@@ -136,6 +136,7 @@ module cpu(
 //EX stage signals
     wire [15:0] aluOut;
     wire [3:0] regW;
+    wire [15:0] aluOut_MEM;
 
 // Signals used in the EX stage:
 /* Used By the ALU:
@@ -184,7 +185,7 @@ cpu_EX EX(
 );
 
 //Signals for next stage
-wire [15:0] aluOut_MEM, regBData_MEM;
+wire [15:0] regBData_MEM;
 wire [3:0] regW_MEM;
 wire [1:0] MEMcontrols_MEM;
 wire [2:0] WBcontrols_MEM;
