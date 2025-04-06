@@ -153,7 +153,7 @@ module cpu_ptb();
    assign MemRead =  (DUT.p0.memRxout);
    // Is memory being read from, in this cycle. one bit signal (1 means yes, 0 means no)
    
-   assign MemWrite = (DUT.pMEMcontrols_EX[0]);
+   assign MemWrite = (DUT.MEMcontrols_EX[0]);
    // Is memory being written to, in this cycle (1 bit signal)
    
    assign MemAddress = DUT.aluOut_MEM;

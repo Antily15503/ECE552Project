@@ -88,7 +88,7 @@ RegisterFile reg_file(
         .rst(~rst_n),
         .SrcReg1(regB),
         .SrcReg2(regC),
-        .DstReg(regWRiteIncomingAddr),
+        .DstReg(regWriteIncomingAddr),
         .SrcData1(regAData),
         .SrcData2(regBData),
         .WriteReg(regWriteControl), //CONTROL SIGNAL FOR REGWRITE: 1 for write, 0 for read
