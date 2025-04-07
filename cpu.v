@@ -31,7 +31,6 @@ module cpu(
         .pcNext(pc),            //Output PC
         .pcInc(pcInc),         //??
         .instr(instr)       //Instruction from inst memory
-        .halt(???)
     );
 
 
