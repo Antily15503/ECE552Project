@@ -31,6 +31,7 @@ module cpu(
         .pcNext(pc),            //Output PC
         .pcInc(pcInc),         //??
         .instr(instr)       //Instruction from inst memory
+        .halt(???)
     );
 
 
@@ -296,7 +297,7 @@ hazard_detection hdu(
 forwarding_unit funit(
     .MemWB_RegWrite(regWrite_WB),
     .MemWB_Rd(writeAddress_WB),
-    .EXMem_RegWrite(WBcontrols_MEM[1]), // EX/MEM.RegWrite 
+    .EXMem_RegWrite(WBcontrols_MEM[0]), // EX/MEM.RegWrite 
     .EXMem_Rd(regW_MEM),                // EX/MEM.RegisterRd
     .IDEX_Rs(regSource1_EX),              // ID/EX.RegisterRs
     .IDEX_Rt(regSource2_EX),              // ID/EX.RegisterRt

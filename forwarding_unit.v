@@ -32,16 +32,12 @@ module forwarding_unit(
 assign ForwardA = (EXMem_RegWrite & (EXMem_Rd != 4'h0) &    //EX-to-EX forwarding logic
                     (EXMem_Rd) == IDEX_Rs) ? 2'b10:
                   (MemWB_RegWrite & (MemWB_Rd != 4'h0) &    //MEM-to-EX forwarding logic
-                    !(EXMem_RegWrite & (EXMem_Rd != 4'h0) &
-                    (EXMem_Rd != IDEX_Rs)) &
                     (MemWB_Rd == IDEX_Rs)) ? 2'b01:
                   2'b00;                                    //No Forwarding
 
 assign ForwardB = (EXMem_RegWrite & (EXMem_Rd != 4'h0) &    //EX-to-EX forwarding logic
                     (EXMem_Rd) == IDEX_Rt) ? 2'b10:
                   (MemWB_RegWrite & (MemWB_Rd != 4'h0) &    //MEM-to-EX forwarding logic
-                    !(EXMem_RegWrite & (EXMem_Rd != 4'h0) &
-                    (EXMem_Rd != IDEX_Rs)) &
                     (MemWB_Rd == IDEX_Rt)) ? 2'b01:
                   2'b00;                                    //No Forwarding
 

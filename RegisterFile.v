@@ -8,7 +8,7 @@ module RegisterFile(input clk, input rst, input [3:0] SrcReg1, input [3:0] SrcRe
     ReadDecoder_4_16 rd2(.RegId(SrcReg2), .Wordline(read_enable2));
     WriteDecoder_4_16 wd(.RegId(DstReg), .WriteReg(WriteReg), .Wordline(write_enable));
     
-    Register regesiter0(.clk(clk), .rst(rst), .D(DstData), .WriteReg(write_enable[0]), .ReadEnable1(read_enable1[0]), .ReadEnable2(read_enable2[0]), .Bitline1(sd1), .Bitline2(sd2));
+    Register regesiter0(.clk(clk), .rst(rst), .D(DstData), .WriteReg(1'b0), .ReadEnable1(read_enable1[0]), .ReadEnable2(read_enable2[0]), .Bitline1(sd1), .Bitline2(sd2));
     Register regesiter1(.clk(clk), .rst(rst), .D(DstData), .WriteReg(write_enable[1]), .ReadEnable1(read_enable1[1]), .ReadEnable2(read_enable2[1]), .Bitline1(sd1), .Bitline2(sd2));
     Register regesiter2(.clk(clk), .rst(rst), .D(DstData), .WriteReg(write_enable[2]), .ReadEnable1(read_enable1[2]), .ReadEnable2(read_enable2[2]), .Bitline1(sd1), .Bitline2(sd2));
     Register regesiter3(.clk(clk), .rst(rst), .D(DstData), .WriteReg(write_enable[3]), .ReadEnable1(read_enable1[3]), .ReadEnable2(read_enable2[3]), .Bitline1(sd1), .Bitline2(sd2));
@@ -25,7 +25,7 @@ module RegisterFile(input clk, input rst, input [3:0] SrcReg1, input [3:0] SrcRe
     Register regesiter14(.clk(clk), .rst(rst), .D(DstData), .WriteReg(write_enable[14]), .ReadEnable1(read_enable1[14]), .ReadEnable2(read_enable2[14]), .Bitline1(sd1), .Bitline2(sd2));
     Register regesiter15(.clk(clk), .rst(rst), .D(DstData), .WriteReg(write_enable[15]), .ReadEnable1(read_enable1[15]), .ReadEnable2(read_enable2[15]), .Bitline1(sd1), .Bitline2(sd2));
 
-    assign SrcData1 = sd1;
-    assign SrcData2 = sd2;
+    assign SrcData1 = (WriteReg & (DstReg == SrcReg1)) ? DstData : sd1;
+    assign SrcData2 = (WriteReg & (DstReg == SrcReg2)) ? DstData : sd2;
 
 endmodule

@@ -86,7 +86,7 @@ module ALU (
         .rst(rst)
     );
 
-    assign Flags[0] = negEnable ? ALU_Out[15] : Flags_q[0]; //N flag
-    assign Flags[1] = overflowEnable ? overflow : Flags_q[1]; //V flag
-    assign Flags[2] = zeroEnable ? (ALU_Out == 16'h0000) : Flags_q[2]; //Z flag
+    assign Flags[0] = negEnable ? ALU_Out[15] : Flags_q[0]; //N flag bypassing
+    assign Flags[1] = overflowEnable ? overflow : Flags_q[1]; //V flag bypassing
+    assign Flags[2] = zeroEnable ? (ALU_Out == 16'h0000) : Flags_q[2]; //Z flag bypassing
 endmodule

@@ -138,7 +138,7 @@ module cpu_ptb();
    // Is processor halted (1 bit signal)
    
 
-   assign Inst = DUT.instr_ID;
+   assign Inst = DUT.instr;
    //Instruction fetched in the current cycle
    
    assign RegWrite = DUT.regWrite_WB;
@@ -147,19 +147,19 @@ module cpu_ptb();
    assign WriteRegister = DUT.writeAddress_WB;
    // If above is true, this should hold the name of the register being written to. (4 bit signal)
    
-   assign WriteData = DUT.ID.wrData;
+   assign WriteData = DUT.writeData_WB;
    // If above is true, this should hold the Data being written to the register. (16 bits)
    
-   assign MemRead =  (DUT.MEMcontrols_EX[1]);
+   assign MemRead =  (DUT.MEMcontrols_MEM[1]);
    // Is memory being read from, in this cycle. one bit signal (1 means yes, 0 means no)
    
-   assign MemWrite = (DUT.MEMcontrols_EX[0]);
+   assign MemWrite = (DUT.MEMcontrols_MEM[0]);
    // Is memory being written to, in this cycle (1 bit signal)
    
    assign MemAddress = DUT.aluOut_MEM;
    // If there's a memory access this cycle, this should hold the address to access memory with (for both reads and writes to memory, 16 bits)
    
-   assign MemDataIn = DUT.regBData_MEM;
+   assign MemDataIn = DUT.MEM.forward_regSource2Data;
    // If there's a memory write in this cycle, this is the Data being written to memory (16 bits)
    
    assign MemDataOut = DUT.dataOut_WB;

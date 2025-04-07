@@ -131,7 +131,6 @@ always @(*) begin
             memw = 1'b0;
             regw = 1'b0;
             pc = 1'b1;
-            
         end
         default: begin
             regd = 1'b0;

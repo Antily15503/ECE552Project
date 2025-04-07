@@ -8,7 +8,7 @@ module cpu_ID(
     input zero, overflow, neg,
     output [15:0] pcBranch,
     output [15:0] regSource1Data, regSource2Data,
-    output [3:0] regSource1, regSource2, regWrite
+    output [3:0] regSource1, regSource2, regWrite,
     output [15:0] immEx,
     output reg [6:0] EXcontrols,
     output reg [1:0] MEMcontrols,

@@ -1,7 +1,7 @@
 module cpu_EX(
     input clk, rst_n,
     input [15:0] pc_ID,
-    input [15:0] regAData, regBData, immEx,
+    input [15:0] regSource1Data, regSource2Data, immEx,
     input [6:0] EXcontrols,
     input memWrite,
     input [15:0] MEM_faddress,       //Address from EX to EX forwarding
@@ -16,15 +16,15 @@ wire [15:0] forward_regAData, forward_regBData; //register data after fowarding 
 
 assign forward_regAData = (ForwardA == 2'b10) ? MEM_faddress :
                           (ForwardA == 2'b01) ? WB_fdata :
-                          regAData;
+                          regSource1Data;
 
 assign forward_regBData = (ForwardB == 2'b10) ? MEM_faddress :
                           (ForwardB == 2'b01) ? WB_fdata :
-                          regBData;
+                          regSource2Data;
 
 assign opcode = EXcontrols[3:0];
-assign aluSrc = EXcontrols[4]; //CONTROL SIGNAL FOR ALUSRC: 1 for R instructions, 0 for I instructions
-assign regDst = EXcontrols[5]; //CONTROL SIGNAL FOR REGDST: 1 for R instructions, 0 for I instructions
+assign aluSrc = EXcontrols[5]; //CONTROL SIGNAL FOR ALUSRC: 1 for R instructions, 0 for I instructions
+assign regDst = EXcontrols[4]; //CONTROL SIGNAL FOR REGDST: 1 for R instructions, 0 for I instructions
 assign pcSwitch = EXcontrols[6]; //CONTROL SIGNAL FOR PCSWITCH: 1 to store pc in register, 0 for all other instructions
 
 wire [15:0] in1, in2; //inputs to the ALU

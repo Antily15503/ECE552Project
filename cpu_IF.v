@@ -2,7 +2,8 @@ module cpu_IF(
     input clk, rst_n, stall, branch,
     input [15:0] pc_ID, pcBranch,
     output [15:0] pcNext, pcInc,
-    output [15:0] instr
+    output [15:0] instr,
+    output halt
 );
 
 
