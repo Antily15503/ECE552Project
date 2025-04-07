@@ -7,8 +7,8 @@ module cpu_ID(
     input [15:0] pc,
     input zero, overflow, neg,
     output [15:0] pcBranch,
-    output [15:0] regAData, regBData,
-    output [3:0] regA, regB,
+    output [15:0] regSource1Data, regSource2Data,
+    output [3:0] regSource1, regSource2, regWrite
     output [15:0] immEx,
     output reg [6:0] EXcontrols,
     output reg [1:0] MEMcontrols,
@@ -29,7 +29,7 @@ module cpu_ID(
     //branch module
     wire branchControl, branch;
     wire [15:0] pcBranchRelative;
-    assign pcBranchRelative= regBData;
+    assign pcBranchRelative= regSource1Data;
     branch branchSelect(
         //inputs
         .condition(secA[3:1]),
@@ -68,17 +68,16 @@ module cpu_ID(
     );
 
 //Register Reading
-    wire [3:0] regC;
-    assign regA = secA;
+    assign regWrite = secA;
     //CONTROL SIGNAL FOR REGDST
     //1 for R instructions, 0 for I instructions
     
     //combination logic for determining which register to read from
-    assign regC = memWrite ? (secA) : (regDst ? (secC) : (secB));
+    assign regSource2 = memWrite ? (secA) : (regDst ? (secC) : (secB));
 
     //Comb Logic for Register Immediate Value Updating
-    //1 to assign regB to instr[11:8] (only in load half), 0 to assign regB to instr[7:4]
-    assign  regB = lwHalf ? secA : secB;
+    //1 to assign regSource1 to instr[11:8] (only in load half), 0 to assign regSource1 to instr[7:4]
+    assign  regSource1 = lwHalf ? secA : secB;
 
     //sign extending immediate value (if applicable)
     assign immEx = (memRead | memWrite) ? ({{11{secC[3]}}, secC, 1'b0}) : (
@@ -87,11 +86,11 @@ module cpu_ID(
 RegisterFile reg_file(
         .clk(clk),
         .rst(~rst_n),
-        .SrcReg1(regB),
-        .SrcReg2(regC),
+        .SrcReg1(regSource1),
+        .SrcReg2(regSource2),
         .DstReg(regWriteIncomingAddr),
-        .SrcData1(regAData),
-        .SrcData2(regBData),
+        .SrcData1(regSource1Data),
+        .SrcData2(regSource2Data),
         .WriteReg(regWriteControl), //CONTROL SIGNAL FOR REGWRITE: 1 for write, 0 for read
         .DstData(wrData)
     );
