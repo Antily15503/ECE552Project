@@ -99,7 +99,6 @@ module cpu(
         .regA(regA),
         .regB(regB),
         .immEx(immEx),
-        .regWrite(regW),
         .pcBranch(pcBranch),
         .EXcontrols(EXcontrols),
         .MEMcontrols(MEMcontrols),
