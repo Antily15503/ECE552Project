@@ -5,6 +5,9 @@ module cpu_ID(
     input regWriteControl,
     input [15:0] instr,
     input [15:0] pc,
+    input [3:0] IDEX_RegDst,
+    input [15:0] IDEX_AluOut,
+    input IDEX_RegWrite,
     input zero, overflow, neg,
     output [15:0] pcBranch,
     output [15:0] regSource1Data, regSource2Data,
@@ -46,10 +49,10 @@ module cpu_ID(
     );
 
 //Control Unit
-    wire regDst, aluSrc, memToReg, memRead, memWrite, pcSwitch, lwHalf, writeEnable;
+    wire regDst, aluSrc, memToReg, memEnable, memWrite, pcSwitch, lwHalf, writeEnable;
     /*signals used in IF: pcSwitch, branchTake, branchControl, lwHalf
       signals used in EX: aluSrc, regDst, opcode
-      signals used in MEM: memRead, memWrite
+      signals used in MEM: memEnable, memWrite
       signals used in WB: memToReg, writeEnable*/
     control controlUnit(
         //inputs
@@ -59,7 +62,7 @@ module cpu_ID(
         .AluSrc(aluSrc),  //used
         .MemtoReg(memToReg),  //used
         .RegWrite(writeEnable),  //used
-        .MemRead(memRead),  //used
+        .MemEnable(memEnable),  //used
         .MemWrite(memWrite),  //used
         .MemHalf(lwHalf), //used
         .Branch(branch), //used
@@ -80,24 +83,29 @@ module cpu_ID(
     assign  regSource1 = lwHalf ? secA : secB;
 
     //sign extending immediate value (if applicable)
-    assign immEx = (memRead | memWrite) ? ({{11{secC[3]}}, secC, 1'b0}) : (
+    assign immEx = (memEnable | memWrite) ? ({{11{secC[3]}}, secC, 1'b0}) : (
         lwHalf ? {8'h00, instr[7:0]} : {{12{secC[3]}}, secC}
     ); //NOTE: this is logical shifting, not arithmetic shifting
+    wire [15:0] regSource1DataRaw;
 RegisterFile reg_file(
         .clk(clk),
         .rst(~rst_n),
         .SrcReg1(regSource1),
         .SrcReg2(regSource2),
         .DstReg(regWriteIncomingAddr),
-        .SrcData1(regSource1Data),
+        .SrcData1(regSource1DataRaw),
         .SrcData2(regSource2Data),
         .WriteReg(regWriteControl), //CONTROL SIGNAL FOR REGWRITE: 1 for write, 0 for read
         .DstData(wrData)
     );
 
+//logic for EX to ID forwarding
+    assign forwardID = (IDEX_RegDst == 0) && (regSource1 == IDEX_RegDst) && IDEX_RegWrite;
+    assign regSource1Data = (forwardID) ? IDEX_AluOut : regSource1DataRaw;
+
 //Control signal bundles
     assign EXcontrols = {pcSwitch, aluSrc, regDst, opcode};
-    assign MEMcontrols = {memRead, memWrite};
+    assign MEMcontrols = {memEnable, memWrite};
     assign WBcontrols = {memToReg, writeEnable};
 
 endmodule

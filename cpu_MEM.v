@@ -7,8 +7,8 @@ module cpu_MEM(
     output [15:0] dataOut
 );
 
-wire memRead, memWrite;
-assign memRead = MEMcontrols[1]; //CONTROL SIGNAL FOR MEMREAD: 1 for read, 0 for write
+wire memEnable, memWrite;
+assign memEnable = MEMcontrols[1]; //CONTROL SIGNAL FOR MEMREAD: 1 for read, 0 for write
 assign memWrite = MEMcontrols[0]; //CONTROL SIGNAL FOR MEMWRITE: 1 for write, 0 for read
 
 wire [15:0] forward_regSource2Data; //register data after fowarding mux
@@ -22,7 +22,7 @@ assign forward_regSource2Data = (ForwardC) ? WB_fdata : regSource2Data;
         .data_out(dataOut),
         .data_in(forward_regSource2Data),
         .wr(memWrite),
-        .enable(memRead)
+        .enable(memEnable)
     );
 
 endmodule

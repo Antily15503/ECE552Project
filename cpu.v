@@ -64,6 +64,9 @@ module cpu(
     wire [1:0] MEMcontrols;
     wire [1:0] WBcontrols;
     wire regWrite_WB;
+    wire [1:0] WBcontrols_EX;
+    wire [3:0] regW_EX;
+    wire [15:0] aluOut;            //ALU output data from EX stage
 
 
 // Signals used in the ID stage:
@@ -80,7 +83,7 @@ module cpu(
 
    Output from Control:
    [6:0] EXcontrols = control signals for EX stage:    {pcSwitch, aluSource, regDst, 4 bit opcode}
-   [1:0] MEMcontrols = control signals for MEM stage:  {memRead, memWrite}
+   [1:0] MEMcontrols = control signals for MEM stage:  {memEnable, memWrite}
    [1:0] WBcontrols = control signals for WB stage:    {memToReg, regWrite}
 */
 
@@ -94,6 +97,9 @@ module cpu(
         .regWriteIncomingAddr(writeAddress_WB),
         .instr(instr_ID),
         .pc(pc_ID),
+        .IDEX_RegDst(regW_EX),
+        .IDEX_AluOut(aluOut),
+        .IDEX_RegWrite(WBcontrols_EX[0]),
         .zero(zero),
         .overflow(overflow),
         .neg(neg),
@@ -115,10 +121,8 @@ module cpu(
     //Signals for next stage
     wire [6:0] EXcontrols_EX;
     wire [1:0] MEMcontrols_EX;
-    wire [1:0] WBcontrols_EX;
     wire [15:0] regSource1Data_EX, regSource2Data_EX, imm_EX, instr_EX, pc_EX;
     wire [3:0] regSource1_EX, regSource2_EX;
-    wire [3:0] regW_EX;
     wire halt_EX;
 
 /****************************     ID/EX Pipeline Registers   *********************************/
@@ -157,7 +161,6 @@ module cpu(
 
 /****************************     Execution Stage (EX)   *********************************/
 //EX stage signals
-    wire [15:0] aluOut;
     wire [15:0] aluOut_MEM;
     wire [1:0] ForwardA, ForwardB;
 
@@ -169,7 +172,7 @@ module cpu(
    [5:0] EXcontrols = control signals for the ALU: {aluSource, regDst, 4 bit opcode}
 
    Signals from ID/EX we're passing along:
-   [1:0] MEMcontrols_EX = control signals for MEM stage:  {memRead, memWrite}
+   [1:0] MEMcontrols_EX = control signals for MEM stage:  {memEnable, memWrite}
    [2:0] WBcontrols_EX = control signals for WB stage:    {memToReg, regWrite, pcSwitch}
    [15:0] regSource2Data_EX = data fetched from register Source2 in ID stage
    
@@ -242,14 +245,13 @@ wire halt_MEM;
 /* Used By Memory module:
    [15:0] aluOut = ALU output data (used as address for memory access)
    [15:0] regSource2Data = data fetched from register Source2 (used as data to be written into memory)
-   [1:0] MEMcontrols = control signals for MEM stage:  {memRead, memWrite}
+   [1:0] MEMcontrols = control signals for MEM stage:  {memEnable, memWrite}
 
    Output from Memory module:
    [15:0] dataOut = data fetched from memory (used in WB stage to determine write data)
 */
 //MEM stage signals
     wire [15:0] dataOut;
-    wire memRead, memWrite, lwHalf;
 
 cpu_MEM MEM(
     //Inputs ========
@@ -303,6 +305,8 @@ hazard_detection hdu(
     //load to use signals
     .IDEX_MemToReg(WBcontrols_EX[1]),   // ID/EX.MemToReg
     .IDEX_RegWrite(WBcontrols[0]),    // ID/EX.RegWrite
+    .instr(instr[15:12]),               // instruction opcode
+    .branch(branchTake),
     .IDEX_Rd(regW_EX),                  // ID/EX.RegisterRd 
     .IFID_Rs(regSource1),                 // IF/ID.RegisterRs - READ from inside decode stage instead of pipeline
     .IFID_Rt(regSource2),                 // IF/ID.RegisterRt
