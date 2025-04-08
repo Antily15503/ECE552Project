@@ -1,8 +1,9 @@
 module cpu_IF(
     input clk, rst_n, stall, branch,
-    input [15:0] pc_ID, pcBranch,
-    output [15:0] pcNext, pcInc,
-    output [15:0] instr
+    input [15:0] pc_ID, pcBranch, instr_ID,
+    output [15:0] pc, pcInc,
+    output [15:0] instr,
+    output halt
 );
 
 
@@ -14,8 +15,8 @@ module cpu_IF(
    [15:0] pcNext = program counter value strictly going into the PC register, either pcD or pcBranch (if there is branching)
 
    NOTE: pcInc -> pc_ID is what gets used in subsequent stages, and pcD is what gets stored at the execution of the next instruction*/
-    wire [15:0] pc, pcD;
-    wire halt;
+    wire [15:0] pcD, pcNext;
+    // wire halt;
     pc_logic pcCombinationalLogic(
         .pcIn(pc),
         .pcD(pcD),
@@ -41,16 +42,21 @@ module cpu_IF(
    [15:0] pc = program counter value coming out of the PC register
    data_in, wr, and enable are not used in this module. They are hard wired to constants.
 */
+wire [15:0] instrRaw;
     inst_memory instruction_mem(
             .clk(clk),
             .rst(~rst_n),
             .addr(pc),
-            .data_out(instr),
+            .data_out(instrRaw),
             .data_in(16'h0000),
             .wr(1'b0),
             .enable(1'b1)
         );
 
+/* If stall is true, assign instruction to the instruction from the ID stage (instr_ID)
+//if branch is true, assign it to a NOP instruction (0xA000), otherwise use the instruction fetched from memory*/
+assign instr = stall ? (instr_ID) : (branch ? 16'hA000 : instrRaw);
+
 assign halt = &(instr[15:12]); // Halt instruction is 1111xxxx, so if the upper 4 bits are all 1s, halt is true
 
-endmodule
+endmodule 

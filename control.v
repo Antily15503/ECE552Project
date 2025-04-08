@@ -129,7 +129,7 @@ always @(*) begin
             alusrc = 1'b0;
             memh = 1'b0;
             memw = 1'b0;
-            regw = 1'b0;
+            regw = 1'b1;
             pc = 1'b1;
         end
         default: begin

@@ -16,6 +16,7 @@ module cpu(
     wire [15:0] pc_ID, instr_ID;
     wire [15:0] pcBranch; //Branch address from ID stage, from ID stage 
     wire stall, branchTake;
+    wire halt, halt_ID;
 
 //Instruction Fetch Pipeline Module (located in cpu_IF.v)
     cpu_IF IF(
@@ -26,11 +27,13 @@ module cpu(
         .branch(branchTake),
         .pc_ID(pc_ID),
         .pcBranch(pcBranch),
+        .instr_ID(instr_ID),
 
         //Outputs =======
-        .pcNext(pc),            //Output PC
-        .pcInc(pcInc),         //??
-        .instr(instr)       //Instruction from inst memory
+        .pcInc(pcInc),            //Output PC
+        .pc(pc),             //current PC value
+        .instr(instr),       //Instruction from inst memory
+        .halt(halt)
     );
 
 
@@ -44,6 +47,8 @@ module cpu(
     dff IF_ID_pc [15:0] (.q(pc_ID), .d(pcInc), .wen(1'b1), .clk(clk), .rst(~rst_n | branchTake));
     //instruction register
     dff IF_ID_instr [15:0] (.q(instr_ID), .d(instr), .wen(!(stall & 1'b1)), .clk(clk), .rst(~rst_n | branchTake));
+    //passing halt signal through IF/ID
+    dff IF_ID_halt (.q(halt_ID), .d(halt), .wen(!(stall & 1'b1)), .clk(clk), .rst(~rst_n | branchTake));
 
 /****************************     Instruction Decode Stage (ID)   *********************************/
 //From IF/ID stage signals
@@ -111,9 +116,10 @@ module cpu(
     wire [6:0] EXcontrols_EX;
     wire [1:0] MEMcontrols_EX;
     wire [1:0] WBcontrols_EX;
-    wire [15:0] regSource1Data_EX, regSource2Data_EX, imm_EX, instr_EX;
+    wire [15:0] regSource1Data_EX, regSource2Data_EX, imm_EX, instr_EX, pc_EX;
     wire [3:0] regSource1_EX, regSource2_EX;
     wire [3:0] regW_EX;
+    wire halt_EX;
 
 /****************************     ID/EX Pipeline Registers   *********************************/
 
@@ -138,13 +144,16 @@ module cpu(
     dff ID_EX_regSource1 [3:0] (.q(regSource1_EX), .d(regSource1), .wen(1'b1), .clk(clk), .rst(~rst_n));
     //register address for register Source2
     dff ID_EX_regSource2 [3:0] (.q(regSource2_EX), .d(regSource2), .wen(1'b1), .clk(clk), .rst(~rst_n));
+    //register address to store pc_ID
+    dff ID_EX_pc [15:0] (.q(pc_EX), .d(pc_ID), .wen(1'b1), .clk(clk), .rst(~rst_n));
     //register that stores immediate data from instruction
     dff ID_EX_immEx [15:0] (.q(imm_EX), .d(immEx), .wen(1'b1), .clk(clk), .rst(~rst_n));
     //register that stores operation instruction from instruction fetch stage
     dff ID_EX_instr [15:0] (.q(instr_EX), .d(instr_ID), .wen(1'b1), .clk(clk), .rst(~rst_n));
     //register that stores register value to be written into register file
     dff ID_EX_regW [3:0] (.q(regW_EX), .d(regW), .wen(1'b1), .clk(clk), .rst(~rst_n));
-
+    //passing halt signal through ID/EX
+    dff IF_EX_halt (.q(halt_EX), .d(halt_ID), .wen(!(stall & 1'b1)), .clk(clk), .rst(~rst_n | branchTake));
 
 /****************************     Execution Stage (EX)   *********************************/
 //EX stage signals
@@ -176,7 +185,7 @@ cpu_EX EX(
     //Inputs ========
     .clk(clk),
     .rst_n(rst_n),
-    .pc_ID(pc_ID),
+    .pc_EX(pc_EX),
     .regSource1Data(regSource1Data_EX),
     .regSource2Data(regSource2Data_EX),
     .immEx(imm_EX),
@@ -203,6 +212,7 @@ wire [3:0] regW_MEM;
 wire [1:0] MEMcontrols_MEM;
 wire [1:0] WBcontrols_MEM;
 wire ForwardC;
+wire halt_MEM;
 
 /****************************     EX/MEM Pipeline Registers   *********************************/
 /* NOTE: _MEM signals represent signals coming out of the EX/MEM Pipeline Registers
@@ -224,6 +234,9 @@ wire ForwardC;
     dff EX_MEM_aluOut [15:0] (.q(aluOut_MEM), .d(aluOut), .wen(1'b1), .clk(clk), .rst(~rst_n));
     //register that stores register value to be written into register file
     dff EX_MEM_regW [3:0] (.q(regW_MEM), .d(regW_EX), .wen(1'b1), .clk(clk), .rst(~rst_n));
+    //passing halt signal through EX/MEM
+    dff EX_MEM_halt (.q(halt_MEM), .d(halt_EX), .wen(!(stall & 1'b1)), .clk(clk), .rst(~rst_n | branchTake));
+
 
 /****************************     Memory Access Stage (MEM)   *********************************/
 /* Used By Memory module:
@@ -236,7 +249,7 @@ wire ForwardC;
 */
 //MEM stage signals
     wire [15:0] dataOut;
-    wire memRead, memWrite, lwHalf, halt;
+    wire memRead, memWrite, lwHalf;
 
 cpu_MEM MEM(
     //Inputs ========
@@ -254,6 +267,7 @@ cpu_MEM MEM(
 //Signals for next stage
 wire [15:0] dataOut_WB, aluOut_WB;
 wire [1:0] WBcontrols_WB;
+wire halt_WB;
 
 /****************************     MEM/WB Pipeline Registers   *********************************/
 /* NOTE: _WB signals represent signals coming out of the MEM/WB Pipeline Registers
@@ -271,6 +285,9 @@ wire [1:0] WBcontrols_WB;
     dff MEM_WB_aluOut [15:0] (.q(aluOut_WB), .d(aluOut_MEM), .wen(1'b1), .clk(clk), .rst(~rst_n));
     //register that stores register value to be written into register file
     dff MEM_WB_regW [3:0] (.q(writeAddress_WB), .d(regW_MEM), .wen(1'b1), .clk(clk), .rst(~rst_n));
+    //passing halt signal through MEM/WB
+    dff MEM_WB_halt (.q(halt_WB), .d(halt_MEM), .wen(!(stall & 1'b1)), .clk(clk), .rst(~rst_n | branchTake));
+
 
 /****************************     Writeback Stage (WB)   *********************************/
 wire memToReg;
@@ -278,17 +295,17 @@ wire memToReg;
 assign regWrite_WB = WBcontrols_WB[0]; //CONTROL SIGNAL FOR REGWRITE: 1 for write, 0 for read
 assign memToReg = WBcontrols_WB[1]; //CONTROL SIGNAL FOR MEMTOREG: 1 for memory output, 0 for ALU output
 assign writeData_WB = (memToReg) ? dataOut_WB : aluOut_WB; //write data to register file
+assign hlt = halt_WB; //assigning halt signal to global cpu output
 
 /****************************     Outside Pipeline Modules   *********************************/
 
 hazard_detection hdu(
     //load to use signals
-    .IDEX_MemRead(MEMcontrols_EX[1]),   // ID/EX.MemRead
+    .IDEX_MemToReg(WBcontrols_EX[1]),   // ID/EX.MemToReg
+    .IDEX_RegWrite(WBcontrols[0]),    // ID/EX.RegWrite
     .IDEX_Rd(regW_EX),                  // ID/EX.RegisterRd 
     .IFID_Rs(regSource1),                 // IF/ID.RegisterRs - READ from inside decode stage instead of pipeline
     .IFID_Rt(regSource2),                 // IF/ID.RegisterRt
-    .IFID_MemWrite(MEMcontrols[0]),     // IF/ID.MemWrite
-
     .stall(stall)
 );
 

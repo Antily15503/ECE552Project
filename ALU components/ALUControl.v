@@ -78,6 +78,13 @@ module ALUControl(
                 negEnable = 1'b0;
                 ALU_Out = ((ALU_In1 & 16'h00FF) | ALU_In2[7:0]<<8); //LHB
             end
+            4'b1110: begin
+                zeroEnable = 1'b0;
+                overflowEnable = 1'b0;
+                negEnable = 1'b0;
+                ALU_Out = adder_out; //LLB
+            end
+            
             default: begin 
                 zeroEnable = 1'b0;
                 overflowEnable = 1'b0;

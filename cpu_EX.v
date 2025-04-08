@@ -1,6 +1,6 @@
 module cpu_EX(
     input clk, rst_n,
-    input [15:0] pc_ID,
+    input [15:0] pc_EX,
     input [15:0] regSource1Data, regSource2Data, immEx,
     input [6:0] EXcontrols,
     input memWrite,
@@ -28,7 +28,7 @@ assign regDst = EXcontrols[4]; //CONTROL SIGNAL FOR REGDST: 1 for R instructions
 assign pcSwitch = EXcontrols[6]; //CONTROL SIGNAL FOR PCSWITCH: 1 to store pc in register, 0 for all other instructions
 
 wire [15:0] in1, in2; //inputs to the ALU
-assign in1 = pcSwitch ? pc_ID : forward_regAData; //ALU input 1 is the PC if pcSwitch is 1, otherwise it's the register data
+assign in1 = pcSwitch ? pc_EX : forward_regAData; //ALU input 1 is the PC if pcSwitch is 1, otherwise it's the register data
 assign in2 = aluSrc ? forward_regBData : immEx; //ALU input 2 is the immediate value if aluSrc is 1, otherwise it's the register data
 
 ALU alu(

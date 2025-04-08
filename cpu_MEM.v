@@ -7,7 +7,7 @@ module cpu_MEM(
     output [15:0] dataOut
 );
 
-wire memRead, memWrite, lwHalf;
+wire memRead, memWrite;
 assign memRead = MEMcontrols[1]; //CONTROL SIGNAL FOR MEMREAD: 1 for read, 0 for write
 assign memWrite = MEMcontrols[0]; //CONTROL SIGNAL FOR MEMWRITE: 1 for write, 0 for read
 

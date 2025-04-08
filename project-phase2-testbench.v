@@ -162,7 +162,7 @@ module cpu_ptb();
    assign MemDataIn = DUT.MEM.forward_regSource2Data;
    // If there's a memory write in this cycle, this is the Data being written to memory (16 bits)
    
-   assign MemDataOut = DUT.dataOut_WB;
+   assign MemDataOut = DUT.MEM.dataOut;
    // If there's a memory read in this cycle, this is the data being read out of memory (16 bits)
 
 
