@@ -18,7 +18,8 @@ module hazard_detection( //
         .clk(clk),
         .rst(rst_n),
         .d(~stallstate & stall2),
-        .q(stallstate)
+        .q(stallstate),
+        .wen(1'b1)
     );
 
     assign stall = stall2 | stall1 | stallstate;

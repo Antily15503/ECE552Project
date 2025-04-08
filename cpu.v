@@ -303,6 +303,8 @@ assign hlt = halt_WB; //assigning halt signal to global cpu output
 
 hazard_detection hdu(
     //load to use signals
+    .clk(clk),
+    .rst_n(rst_n),
     .IDEX_MemToReg(WBcontrols_EX[1]),   // ID/EX.MemToReg
     .IDEX_RegWrite(WBcontrols[0]),    // ID/EX.RegWrite
     .instr(instr[15:12]),               // instruction opcode
