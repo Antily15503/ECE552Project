@@ -1,3 +1,20 @@
+`default_nettype none
+
+/**
+* This is the ALU module for the 16-bit processor. It calculates and generates the ALU output based on
+* the opcode and the two inputs. Some instructions can also update flag bits (Zero, Sign, Overflow).
+* 
+* Inputs:
+* -        clk: clock signal
+* -        rst: reset signal
+* - [15:0] ALU_In1: first input to the ALU
+* - [15:0] ALU_In2: second input to the ALU
+* - [3:0]  Opcode: operation code that determines the operation to be performed
+*
+* Outputs:
+* - [15:0] ALU_Out: output of the ALU after performing the operation specified by Opcode
+* - [2:0]  Flags: 3-bit output representing the status flags {Zero, Overflow, Sign}
+**/
 module ALU (
     input clk, rst,
     input [15:0] ALU_In1, ALU_In2,
@@ -5,16 +22,21 @@ module ALU (
     output [15:0] ALU_Out,
     output [2:0] Flags // Zero(Z) = bit2, Overflow (V) = bit1, and Sign (N) = bit0
 );
+
+    // wire busses that store potential outputs of the ALU
     wire [15:0] adder_out;
     wire [15:0] xor_out;
     wire [15:0] shift_out;
     wire [15:0] red_out;
     wire [15:0] paddsub_out;
+
+    //wires that store other signals
     wire overflow;
     wire overflow_paddsb; //might need for V flag
     wire sub;
 
-    //adder/subtractor
+    //ALU internal adder/subtractor
+    //Note: subtraction is done by setting sub to 1
     addsub_16bit adder_sub(
         .A(ALU_In1),
         .B(ALU_In2),
@@ -49,6 +71,7 @@ module ALU (
         .Sum(red_out)
     );
 
+    //ALU control unit, determines which operation to use, and which flags to set
     wire zeroEnable, overflowEnable, negEnable; //output of case
     ALUControl ALUcase(.Opcode(Opcode),
                        .adder_out(adder_out),
@@ -64,6 +87,8 @@ module ALU (
                        .overflowEnable(overflowEnable),
                        .negEnable(negEnable));
     wire [2:0] Flags_q;
+
+    //Flags register, stores the status of the ALU and flops them on the clock edge
     dff zero_dff(
         .q(Flags_q[2]),
         .d(ALU_Out == 16'h0000),
@@ -90,3 +115,5 @@ module ALU (
     assign Flags[1] = overflowEnable ? overflow : Flags_q[1]; //V flag bypassing
     assign Flags[2] = zeroEnable ? (ALU_Out == 16'h0000) : Flags_q[2]; //Z flag bypassing
 endmodule
+
+`default_nettype wire

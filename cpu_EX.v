@@ -1,14 +1,10 @@
 module cpu_EX(
-    input clk, rst_n,
-    input [15:0] pc_EX,
-    input [15:0] regSource1Data, regSource2Data, immEx,
-    input [6:0] EXcontrols,
-    input memWrite,
-    input [15:0] MEM_faddress,       //Address from EX to EX forwarding
-    input [15:0] WB_fdata,          //Data from MEM to EX forwarding
+    input clk, rst_n, //Clock and reset signals
+    input [15:0] pc_EX, //Program counter value from ID stage that came out from the IF/ID register
+    input [15:0] regSource1Data, regSource2Data, immEx, //Register data and immediate value from ID stage
     input [1:0] ForwardA, ForwardB, //Forwarding unit mux control signals
-    output [15:0] aluOut,
-    output zero, overflow, neg
+    output [15:0] aluOut, //ALU output, to be passed on to the MEM stage
+    output zero, overflow, neg //ALU flags
 );
 wire [3:0] opcode;
 wire pcSwitch, aluSrc, regDst;

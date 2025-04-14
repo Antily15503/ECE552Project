@@ -1,9 +1,9 @@
 module cpu_IF(
-    input clk, rst_n, stall, branch,
-    input [15:0] pc_ID, pcBranch, instr_ID,
-    output [15:0] pc, pcInc,
-    output [15:0] instr,
-    output halt
+    input clk, rst_n, stall, branch, //Clock and reset signals, as well as stall and branch signals. Stall is used to hold the pc, and branch is used to determine if we need to branch to a different address.
+    input [15:0] pc_ID, pcBranch, instr_ID, //pc_ID is the program counter value coming from the ID stage, pcBranch is the branch target address (if we take a branch), and instr_ID is the instruction from the ID stage.
+    output [15:0] pc, pcInc, //Program counter value coming out of the PC register and the incremented program counter value (pc + 2)
+    output [15:0] instr, //Instruction fetched from instruction memory based on program counter value
+    output halt //Halt signal, which is true if the instruction is a halt instruction (0xFxxx)
 );
 
 

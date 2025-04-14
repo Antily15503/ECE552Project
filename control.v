@@ -1,3 +1,15 @@
+`default_nettype none
+/**
+* This is the control module for the 16-bit processor. It generates control signals based on the 
+* opcode of the instruction, which are used to control various muxes within the processor.
+* 
+* Inputs:
+* - [3:0] opcode: operation code that determines the operation to be performed
+*
+*
+* Outputs:
+* - multiple self explanatory signals
+**/
 module control(
     input [3:0] opcode,
     output RegDst, Branch, BranchReg, MemtoReg, MemEnable, AluSrc, MemWrite, MemHalf, RegWrite, PC
@@ -157,3 +169,5 @@ assign RegWrite = regw;
 assign PC = pc;
 assign MemHalf = memh;
 endmodule
+
+`default_nettype wire

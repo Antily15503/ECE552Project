@@ -1,3 +1,24 @@
+`default_nettype none
+/**
+* This is the branch module for the 16-bit processor. It calculates the branch address based on the 
+* current program counter (pcIn), instruction immediate value (I), and determines if the branch should be taken
+* based on the condition code and flags. The module also includes a multiplexer to determine branch whether the
+* instruction is B or BR
+*
+* Inputs:
+* - [2:0]  condition: specifies the branch condition (e.g., equal, not equal, etc.)
+* - [2:0]  Flags:status flags {zero, overflow, neg}
+* - [8:0]  I: immediate value from the instruction, NOT sign extended.
+* - [15:0] pcIn: current program counter value associated with the current instruction (branch or non-branching)
+* - [15:0] branchRegData: data from the register file for relative branching (only used in BR instructions)
+* -        branchRegMux: control signal to select between calculated branch address (B) or register data (BR)
+* -        branch: control signal to indicate if the instruction is a branch instruction
+*
+* Outputs:
+* - [15:0] pcOut: output pc value after branch calculations
+* -        branchTake: control signal indicating if the branch should be taken (1) or not (0)
+**/
+
 module branch(
     input [2:0] condition, // condition code for branch
     input [2:0] Flags, // format: Flags = {zero, overflow, neg}
@@ -14,6 +35,7 @@ module branch(
     assign overflow = Flags[1];
     assign negative = Flags[0];
 
+    //logic to determine if branch should be taken based on condition code and flags
     reg b;
     always @(*) begin
         case (condition)
@@ -43,3 +65,5 @@ module branch(
     //mux to select between branch address and register data
     assign pcOut = branchRegMux ? branchRegData : pcBranch; 
 endmodule
+
+`default_nettype wire

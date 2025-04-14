@@ -1,21 +1,21 @@
 module cpu_ID(
-    input clk, rst_n,
-    input [15:0] wrData,
-    input [3:0] regWriteIncomingAddr,
-    input regWriteControl,
-    input [15:0] instr,
-    input [15:0] pc,
-    input [3:0] IDEX_RegDst,
-    input [15:0] IDEX_AluOut,
-    input IDEX_RegWrite,
-    input zero, overflow, neg,
-    output [15:0] pcBranch,
-    output [15:0] regSource1Data, regSource2Data,
-    output [3:0] regSource1, regSource2, regWrite,
-    output [15:0] immEx,
-    output reg [6:0] EXcontrols,
-    output reg [1:0] MEMcontrols,
-    output reg [1:0] WBcontrols,
+    input clk, rst_n, //Clock and reset signals
+    input [15:0] wrData, //Data to be written to the register file, passed from the MEM and WB stage
+    input [3:0] regWriteIncomingAddr, //Register address to be written to, passed from the MEM and WB stage
+    input regWriteControl, //Control signal to determine whether we allow a register write or not, passed from the MEM and WB stage
+    input [15:0] instr, //Current instruction to be decoded, passed from the IF stage
+    input [15:0] pc, //Current program counter value from ID stage that came out from the IF/ID register
+    input [3:0] IDEX_RegDst, //regwrite destination register of the previous instruction, passed from the EX stage (forwarding)
+    input [15:0] IDEX_AluOut, //ALU output of the previous instruction from the EX stage (forwarding)
+    input IDEX_RegWrite, //regwrite control signal of the previous instruction, passed from the EX stage (forwarding)
+    input zero, overflow, neg, //ALU flags from the EX stage
+    output [15:0] pcBranch, //Branch target address, passed to the EX stage
+    output [15:0] regSource1Data, regSource2Data, //Register data from register module to be passed to the EX stage
+    output [3:0] regSource1, regSource2, regWrite, //Register addresses that we need to fetch, as well as the register to write to. regSource1, regSource2, and regWrite are all assigned locally, but regWrite gets passed on.
+    output [15:0] immEx, //Sign extended immediate value to be passed to the EX stage
+    output reg [6:0] EXcontrols, //Control signals to be passed to the EX stage
+    output reg [1:0] MEMcontrols, //Control signals to be passed to the MEM stage
+    output reg [1:0] WBcontrols, //Control signals to be passed to the WB stage
     output branchTake
 );
 
