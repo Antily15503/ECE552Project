@@ -1,10 +1,10 @@
 module cpu_MEM(
     input clk, rst_n,
-    input [15:0] aluOut, regSource2Data,
-    input [1:0] MEMcontrols,
+    input [15:0] aluOut, regSource2Data, //ALU output and R2 data passed from EX stage to MEM stage
+    input [1:0] MEMcontrols, // Control signals for MEM stage
     input ForwardC, //Forwarding unit mux control signal for MEM to MEM
     input [15:0] WB_fdata,           //Data from MEM to MEM forwarding
-    output [15:0] dataOut
+    output [15:0] dataOut //Data output from the data memory to be passed to the WB stage (if needed)
 );
 
 wire memEnable, memWrite;
