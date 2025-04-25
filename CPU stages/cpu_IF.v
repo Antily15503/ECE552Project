@@ -1,3 +1,4 @@
+`default_nettype none
 module cpu_IF(
     //Inputs ================================================
     input clk, rst_n, //Clock and reset signals
@@ -65,3 +66,4 @@ assign instr = stall ? (instr_ID) : (branch ? 16'hA000 : instrRaw);
 assign halt = &(instr[15:12]); // Halt instruction is 1111xxxx, so if the upper 4 bits are all 1s, halt is true
 
 endmodule 
+`default_nettype wire
