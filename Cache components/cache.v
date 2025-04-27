@@ -19,6 +19,8 @@ wire [7:0] one_hot_offset;
 
 psm_cache_64 set_shifter(.shift_val(set_bits),.shift_out(one_hot_set));
 
+psm_cache_8 word_shifter(.shift_val(offset),.shift_out(one_hot_offset));
+
 cache_fill_FSM cache_miss_handler(
     .
 );
@@ -35,7 +37,13 @@ DataArray data_array(
 );
 
 MetaDataArray meta_data_array(
-    .
+    .clk(clk),
+    .rst(rst_n),
+    .DataIn(tag_bits),
+    .Write(write_enable),
+    .BlockEnable(),
+    .SetEnable(one_hot_set),
+    .DataOut()
 );
 
 
