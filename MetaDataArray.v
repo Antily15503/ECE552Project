@@ -10,17 +10,19 @@ module MetaDataArray(
 	input rst, 
 	input [7:0] DataIn, 
 	input Write, 
-	input [127:0] BlockEnable, 
+	input BlockEnable,
+	input [63:0] SetEnable, 
 	output [7:0] DataOut
 );
-	MBlock Mblk[127:0]( 
+	MSet sets[63:0](
 		.clk(clk), 
 		.rst(rst), 
-		.Din(DataIn), 
-		.WriteEnable(Write), 
-		.Enable(BlockEnable), 
-		.Dout(DataOut)
-);
+		.DataIn(DataIn), 
+		.Write(Write), 
+		.BlockEnable(BlockEnable), 
+		.SetEnable(SetEnable), 
+		.DataOut(DataOut)
+	);
 endmodule
 
 module MSet(
@@ -28,13 +30,12 @@ module MSet(
 	input rst,
 	input [7:0] DataIn,
 	input Write,
-	input [1:0] BlockEnable,
-	SetEnable,
+	input BlockEnable,
+	input SetEnable,
 	output [7:0] DataOut
 )
 	wire [1:0] BlockEnable_real; 
-	assign BlockEnable_real = {2{SetEnable}} & BlockEnable;
-	//assign BlockEnable_real = SetEnable ? BlockEnable : 2'b00;
+	assign BlockEnable_real = {BlockEnable, ~BlockEnable};
 
 	Block blk[1:0]( 
 		.clk(clk), 

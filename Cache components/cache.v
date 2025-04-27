@@ -8,11 +8,13 @@ module cache(
 );
 
 wire [5:0] tag_bits, set_bits;
-wire [3:0] offset;
+wire block_bit;
+wire [2:0] offset;
 
 assign tag_bits = address[15:10];
 assign set_bits = address[9:4];
-assign offset = address[3:0];
+assign block_bit = address[3];
+assign offset = address[2:0];
 
 wire [63:0] one_hot_set;
 wire [7:0] one_hot_offset;
@@ -30,7 +32,7 @@ DataArray data_array(
     .rst(rst_n),
     .DataIn(data_in),
     .Write(write_enable),
-    .Block_Enable(),
+    .Block_Enable(block_bit),
     .SetEnable(one_hot_set),
     .WordEnable(one_hot_offset),
     .DataOut(data_out)
@@ -41,7 +43,7 @@ MetaDataArray meta_data_array(
     .rst(rst_n),
     .DataIn(tag_bits),
     .Write(write_enable),
-    .BlockEnable(),
+    .BlockEnable(block_bit),
     .SetEnable(one_hot_set),
     .DataOut()
 );

@@ -8,7 +8,7 @@ module DataArray(
 	input rst, 
 	input [15:0] DataIn, 
 	input Write, 
-	input [1:0] BlockEnable, 
+	input BlockEnable, 
 	input [63:0] SetEnable, 
 	input [7:0] WordEnable, 
 	output [15:0] DataOut
@@ -30,14 +30,13 @@ module Set(
 	input rst, 
 	input [15:0] DataIn, 
 	input Write, 
-	input [1:0] BlockEnable,
+	input BlockEnable,
 	input SetEnable, 			//1 high bit out of [63:0] (one hot)
 	input [7:0] WordEnable, 
 	output [15:0] DataOut
 );
 	wire [1:0] BlockEnable_real; 
-	assign BlockEnable_real = {2{SetEnable}} & BlockEnable;
-	//assign BlockEnable_real = SetEnable ? BlockEnable : 2'b00;
+	assign BlockEnable_real = {BlockEnable, ~BlockEnable};
 
 	Block blk[1:0]( 
 		.clk(clk), 
