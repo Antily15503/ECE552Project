@@ -20,6 +20,8 @@ module cache(
 wire [5:0] tag_bits, set_bits;
 wire block_bit;
 wire [2:0] offset;
+wire write_data_array; //enable write on miss refill only, remains on for the duration of the fill
+wire write_tag_array; //enable write at the end of the fill, when we need to write to the metadata array
 
 assign tag_bits = address[15:10];
 assign set_bits = address[9:4];
@@ -37,7 +39,7 @@ DataArray data_array(
     .clk(clk),
     .rst(rst_n),
     .DataIn(data_in),
-    .Write(write_enable),
+    .Write(hit ? write_enable : write_data_array), //???
     .Block_Enable(block_bit),
     .SetEnable(one_hot_set),
     .WordEnable(one_hot_offset),
@@ -46,14 +48,13 @@ DataArray data_array(
 
 //MetaDataArray
 wire [7:0] meta_data_out;
-wire write_meta = write_data_array; //enable write on miss refill only
 wire hit;
 
 MetaDataArray meta_data_array(
     .clk(clk),
     .rst(rst_n),
     .DataIn(tag_bits),
-    .Write(write_meta), //might need to be only be on miss
+    .Write(write_tag_array), //might need to be only be on miss
     .BlockEnable(block_bit),
     .SetEnable(one_hot_set),
     .DataOut(meta_data_out)
@@ -69,8 +70,6 @@ hit = meta_valid & (meta_tag == tag_bits);
 
 //FSM 
 wire fsm_busy;
-wire write_data_array;
-wire write_tag_array; //not sure what this does
 
 cache_fill_FSM cache_miss_handler(
     .clk(clk),

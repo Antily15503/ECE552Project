@@ -49,6 +49,8 @@ module cpu_IF(
    data_in, wr, and enable are not used in this module. They are hard wired to constants.
 */
 wire [15:0] instrRaw;
+
+    
     inst_memory instruction_mem(
             .clk(clk),
             .rst(~rst_n),

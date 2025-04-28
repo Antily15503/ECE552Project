@@ -34,27 +34,37 @@ always (*) begin
     nextstate = 0;
     case (state)
         0: begin
-            if (miss_detected) begin
-                fsm_busy_sm = 1'b1;
-                write_tag_array_sm = 1'b0;
-                nextstate = 1'b1;
-            end else begin
-                nextstate = 1'b0;
-            end
+            fsm_busy_sm = miss_detected;
+            next_state = miss_detected;
+            write_tag_array_sm = ~miss_detected;
+            
+            // if (miss_detected) begin
+            //     fsm_busy_sm = 1'b1;
+            //     write_tag_array_sm = 1'b0;
+            //     nextstate = 1'b1;
+            // end else begin
+            //     nextstate = 1'b0;
+            // end
         end
         1: begin
-            if (count[3]) begin
-                fsm_busy_sm = 1'b0;
-                write_tag_array_sm = 1'b1;
-                nextstate = 1'b0;
-                increment = 1'b0;
-            end else begin
-                fsm_busy_sm = 1'b1;
-                write_data_array_sm = 1'b1;
-                write_tag_array_sm = 1'b0;
-                increment = 1'b1;
-                nextstate = 1'b1;
-            end
+            fsm_busy_sm = ~count[3];
+            next_state = ~count[3];
+            increment = ~count[3];
+            write_data_array_sm = ~count[3]; //might cause issues
+            write_tag_array_sm = count[3];
+
+            // if (count[3]) begin
+            //     //fsm_busy_sm = 1'b0;
+            //     //write_tag_array_sm = 1'b1;
+            //     //nextstate = 1'b0;
+            //     //increment = 1'b0;
+            // end else begin
+            //     //fsm_busy_sm = 1'b1;
+            //     //write_data_array_sm = 1'b1;
+            //     //write_tag_array_sm = 1'b0;
+            //     //increment = 1'b1;
+            //     //nextstate = 1'b1;
+            // end
         end
         default: nextstate = 1'b0;
     endcase
