@@ -12,7 +12,7 @@ module arbiter(
     output [15:0] memory_address, // address to be read from or written to memory
     output [15:0] memory_data, // data from memory to be passed to either caches
     output enable, // signal that enables the memory module
-    output wr, //toggles between reading and writing to memory. 1 = write, 0 = read
+    output wr //toggles between reading and writing to memory. 1 = write, 0 = read
 );
 
 // ######## STATE MACHINE SIGNALS FOR THE ARBITER #########
@@ -37,6 +37,16 @@ reg enable_sm, wr_sm, dmem_data_valid_sm, imem_data_valid_sm, dmem_write_done_sm
 //State machine logic
 always (*) begin
     //default values
+    state = 00;
+    next_state = 00;
+    address_sm = 16'h0000;
+    enable_sm = 1'b0;
+    wr_sm = 1'b0;
+    dmem_data_valid_sm = 1'b0;
+    imem_data_valid_sm = 1'b0;
+    dmem_write_done_sm = 1'b0;
+    imem_write_done_sm = 1'b0;
+
     case (state)
         00: begin // IDLE
             // TODO: set up idle logic
