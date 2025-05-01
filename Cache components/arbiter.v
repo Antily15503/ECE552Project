@@ -3,7 +3,8 @@ module arbiter(
     input wire clk, rst_n, // clock and reset signals
     input wire valid, // data valid signal from data memory
     input wire [15:0] dmem_address, // address to be read from or written to
-    input wire [15:0] dmem_data, // data to be written to memory
+    input wire [15:0] data_to_write, // data to be written to memory
+    input wire [15:0] data_to_arbiter, // data from memory to be passed to arbiter
     input wire imem_read, //imem_write, // instruction memory read and write signals
     input wire dmem_read, dmem_write, // data memory read and write signals
     input wire [15:0] imem_address, // address to be read from or written to
@@ -11,7 +12,9 @@ module arbiter(
     output wire dmem_data_valid, imem_data_valid, // data valid signals to cache to toggle which cache is active
     output wire dmem_write_done, imem_write_done, // write done signals to cache to signal when cache is done writing
     output wire [15:0] memory_address, // address to be read from or written to memory
-    output wire [15:0] memory_data, // data from memory to be passed to either caches
+    output wire [15:0] data_to_cache, // data from memory to be passed to either caches
+    output wire [15:0] write_to_memory, // data to be written to memory
+
     output wire enable, // signal that enables the memory module
     output wire wr //toggles between reading and writing to memory. 1 = write, 0 = read
 );
@@ -134,7 +137,9 @@ assign next_state_ff = next_state;
 
 //signal assignments for memory address and cache
 assign memory_address = address_sm;
-assign memory_data = dmem_data; // data to be written to memory, not used in this module
+assign data_to_cache = data_from_memory; // data to be set from memory, not altered in this module
+assign write_to_memory = data_to_write; // data to be written to memory, not altered in this module
+
 assign wr = wr_sm;
 assign enable = enable_sm;
 assign dmem_data_valid = dmem_data_valid_sm;

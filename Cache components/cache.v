@@ -7,7 +7,7 @@ module cache(
     input wire [15:0] address, //address of the cache block that is being accessed, in case of a miss
     input wire write_enable,  // 1 = store, 0 = load
     output wire [15:0] data_out, //data being read from cache, taken to the processor
-    output wire istall, dstall, //stall signals for the processor
+    output wire stall, //stall signals for the processor
 
     // Memory ports
     output wire [15:0] memory_address,

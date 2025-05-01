@@ -1,7 +1,6 @@
 module processor(
     input clk, rst_n,
     output [15:0] pc,
-    output hlt
 );
 
 /****************************     Instruction Fetch Stage (IF)   *********************************/

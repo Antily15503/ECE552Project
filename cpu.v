@@ -4,15 +4,12 @@ module cpu(
     output wire hlt, // halt signal
     output wire [15:0] pc // program counter
 );
-wire [15:0] pc; // program counter (1)
-wire hlt; // halt signal (1)
-
 //signals used by the instruction cache and memory
-wire [15:0] pc;                 // [from CPU]   program counter used to fetch instruction
+wire [15:0] pcAddr;             // [from CPU]   program counter used to fetch instruction
 wire [15:0] instruction;        // [to CPU]     fetched instruction from instruction cache according to pc
 wire [15:0] pc_data;            // [to I-Cache] data fetched from instruction memory 
 wire [15:0] pc_cache_address;   // [fr I-Cache] address in memory (1) to fetch instruction from instruction memory
-wire pc_stall;                  // [to CPU]     stall signal for instruction cache
+wire pc_stall, data_stall;      // [to CPU]     stall signal from instruction and data cache
 wire pc_valid;                  // [fr I-Cache] data valid signal for instruction memory
 
 //signals used by data cache and memory
@@ -30,12 +27,17 @@ wire mem_valid;
 wire mem_enable;
 wire mem_wr;    //toggles between reading and writing to memory. 1 = write, 0 = read
 
+wire [15:0] data_arbiter_to_mem, data_mem_to_arbiter;
+wire [15:0] addr_arbiter_to_mem;
+
 //instantiate the central processor
 processor processor(
     .clk(clk),
     .rst_n(rst_n),
     .pc(pc),
-    .hlt(hlt)
+    .instruction(instruction),
+    .pcStall(pc_stall),
+    .dataStall(data_stall),
 );
 
 wire inst_read;
@@ -44,14 +46,14 @@ cache instruction_cache(
     .clk(clk),
     .rst_n(rst_n),
     .data_in(),
-    .address(pc),
+    .address(pcAddr),
     .write_enable(1'b0),
     .data_out(instruction),
     .stall(pc_stall),
     .memory_address(pc_cache_address),  //out
     .memory_data(pc_data),              //in
-    .memory_data_valid(pc_valid),       //in (1)
-    .memory_read(inst_read),            //out (This was 1'b1???)
+    .memory_data_valid(pc_valid),       //in
+    .memory_read(inst_read),            //out
     .memory_write(1'b0)                 //out 
 );
 
@@ -59,9 +61,9 @@ cache instruction_cache(
 multicycle_memory memory(
     .clk(clk),
     .rst(rst_n),
-    .data_out(dmem_data_valid ? memory_read_data : imem_data_valid ? pc_data),
-    .data_in(16'h0000),
-    .addr( pc_cache_address),
+    .data_out(data_mem_to_arbiter),
+    .data_in(data_arbiter_to_mem),
+    .addr(addr_arbiter_to_mem),
     .enable(mem_enable),
     .wr(mem_wr),
     .data_valid(mem_valid)
@@ -76,46 +78,38 @@ cache data_cache(
     .address(write_address),
     .write_enable(write_enable),
     .data_out(data_out),
-    .stall(stall),
+    .stall(data_stall),
     .memory_address(memory_address),    //out
     .memory_data(memory_read_data),
-    .memory_data_valid( memory_data_valid),      //(1)
-    .memory_read(memory_data_read_bit), //(1)
+    .memory_data_valid(memory_data_valid),      
+    .memory_read(memory_data_read_bit), 
     .memory_write(memory_data_write_bit)
 );
 
+//wire dmem_write_done, imem_write_done;
 arbiter arbiter(
-    .clk(clk)
-    .rst_n(rst_n)
-    .valid(mem_valid)
-    .dmem_address(memory_address)
-    .dmem_data()            //(1)
-    .dmem_read(memory_data_read_bit)
-    .dmem_write(memory_data_write_bit)
-    .imem_read(inst_read)
-    .imem_address(pc_cache_address)
+    .clk(clk),
+    .rst_n(rst_n),
+    .valid(mem_valid),
+    .dmem_address(memory_address),
+    .data_to_write(data_out),
+    .data_to_arbiter(data_mem_to_arbiter),
+    .dmem_read(memory_data_read_bit),
+    .dmem_write(memory_data_write_bit),
+    .imem_read(inst_read),
+    .imem_address(pc_cache_address),
 
-    .dmem_data_valid(memory_data_valid)
-    .imem_data_valid(pc_valid)
-    .dmem_write_done()     //do we need to add signals to cache?
-    .imem_write_done()      //do we need to add signals to cache?
-    .memory_address()       //what is this for
-    .memory_data(memory_read_data pc_data)
-    .enable(mem_enable)
+    .dmem_data_valid(memory_data_valid),
+    .imem_data_valid(pc_valid),
+    .dmem_write_done(/*dmem_write_done*/),      //do we need to add signals to cache? (1)
+    .imem_write_done(/*imem_write_done*/),      //do we need to add signals to cache? (1)
+    .memory_address(addr_arbiter_to_mem),
+    .data_to_cache(memory_read_data pc_data),   //(1)
+    .write_to_memory(data_arbiter_to_mem),
+    .enable(mem_enable),
     .wr(mem_wr)
 );
 
-//instantiate the data memory
-// multicycle_data_memory data_memory(
-//     .data_out(memory_read_data), // (1)
-//     .data_in(memory_), // (1)
-//     .addr(memory_address),
-//     .enable(memory_read),
-//     .wr(memory_write),
-//     .clk(clk),
-//     .rst(rst_n),
-//     .data_valid(memory_data_valid)
-// );
-
+assign pc = pcAddr; // assign the program counter to the output
 endmodule
 `default_nettype wire
