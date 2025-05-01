@@ -4,7 +4,7 @@ module arbiter(
     input wire valid, // data valid signal from data memory
     input wire [15:0] dmem_address, // address to be read from or written to
     input wire [15:0] dmem_data, // data to be written to memory
-    input wire imem_read, imem_write, // instruction memory read and write signals
+    input wire imem_read, //imem_write, // instruction memory read and write signals
     input wire dmem_read, dmem_write, // data memory read and write signals
     input wire [15:0] imem_address, // address to be read from or written to
 
