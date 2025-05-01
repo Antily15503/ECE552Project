@@ -1,20 +1,20 @@
 `default_nettype none
 module cache(
-    input clk, rst_n,
+    input wire clk, rst_n,
 
     // CPU ports
-    input [15:0] data_in, //data being written to the cache, from the processor
-    input [15:0] address, //address of the cache block that is being accessed, in case of a miss
-    input write_enable,  // 1 = store, 0 = load
-    output [15:0] data_out, //data being read from cache, taken to the processor
-    output istall, dstall, //stall signals for the processor
+    input wire [15:0] data_in, //data being written to the cache, from the processor
+    input wire [15:0] address, //address of the cache block that is being accessed, in case of a miss
+    input wire write_enable,  // 1 = store, 0 = load
+    output wire [15:0] data_out, //data being read from cache, taken to the processor
+    output wire istall, dstall, //stall signals for the processor
 
     // Memory ports
-    output [15:0] memory_address,
-    input  [15:0] memory_data,
-    input  memory_data_valid,
-    output memory_read,
-    output memory_write
+    output wire [15:0] memory_address,
+    input  wire [15:0] memory_data,
+    input  wire memory_data_valid,
+    output wire memory_read,
+    output wire memory_write
 );
 
 wire [5:0] tag_bits, set_bits;

@@ -16,11 +16,11 @@
 * - [2:0]  Flags: 3-bit output representing the status flags {Zero, Overflow, Sign}
 **/
 module ALU (
-    input clk, rst,
-    input [15:0] ALU_In1, ALU_In2,
-    input [3:0] Opcode,
-    output [15:0] ALU_Out,
-    output [2:0] Flags // Zero(Z) = bit2, Overflow (V) = bit1, and Sign (N) = bit0
+    input wire clk, rst,
+    input wire [15:0] ALU_In1, ALU_In2,
+    input wire [3:0] Opcode,
+    output wire [15:0] ALU_Out,
+    output wire [2:0] Flags // Zero(Z) = bit2, Overflow (V) = bit1, and Sign (N) = bit0
 );
 
     // wire busses that store potential outputs of the ALU

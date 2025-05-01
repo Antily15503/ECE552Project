@@ -11,8 +11,8 @@
 * - multiple self explanatory signals
 **/
 module control(
-    input [3:0] opcode,
-    output RegDst, Branch, BranchReg, MemtoReg, MemEnable, AluSrc, MemWrite, MemHalf, RegWrite, PC
+    input wire [3:0] opcode,
+    output wire RegDst, Branch, BranchReg, MemtoReg, MemEnable, AluSrc, MemWrite, MemHalf, RegWrite, PC
 );
 
 reg regd, branch, branchr, meme, memtr, memh, alusrc, memw, regw, pc;

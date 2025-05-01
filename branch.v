@@ -20,15 +20,15 @@
 **/
 
 module branch(
-    input [2:0] condition, // condition code for branch
-    input [2:0] Flags, // format: Flags = {zero, overflow, neg}
-    input [8:0] I, // instruction immediate value
-    input [15:0] pcIn, // current pc value
-    input [15:0] branchRegData, // data from register file for relative branching
-    input branchRegMux,
-    input branch,
-    output [15:0] pcOut,
-    output branchTake
+    input wire [2:0] condition, // condition code for branch
+    input wire [2:0] Flags, // format: Flags = {zero, overflow, neg}
+    input wire [8:0] I, // instruction immediate value
+    input wire [15:0] pcIn, // current pc value
+    input wire [15:0] branchRegData, // data from register file for relative branching
+    input wire branchRegMux,
+    input wire branch,
+    output wire [15:0] pcOut,
+    output wire branchTake
 );
     wire zero, overflow, negative;
     assign zero = Flags[2];

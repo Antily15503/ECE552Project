@@ -1,9 +1,9 @@
 `default_nettype none
 module cpu(
-    input clk, rst_n, // clock and reset signals
-    output hlt, // halt signal
-    output [15:0] pc, // program counter
-)
+    input wire clk, rst_n, // clock and reset signals
+    output wire hlt, // halt signal
+    output wire [15:0] pc // program counter
+);
 wire [15:0] pc; // program counter (1)
 wire hlt; // halt signal (1)
 

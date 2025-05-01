@@ -24,7 +24,7 @@ dff stateflop(
 //logic signals for state machine
 reg increment, fsm_busy_sm, write_data_array_sm, write_tag_array_sm, state, nextstate;
 wire [3:0] count, count_d;
-always (*) begin
+always @(*) begin
     // Default values
     fsm_busy_sm = 1'b0;
     write_data_array_sm = 1'b0;
