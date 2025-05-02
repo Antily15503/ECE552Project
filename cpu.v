@@ -54,7 +54,8 @@ cache instruction_cache(
     .memory_data(pc_data),              //in
     .memory_data_valid(pc_valid),       //in
     .memory_read(inst_read),            //out
-    .memory_write(1'b0)                 //out 
+    .memory_write(1'b0),                //disabled 
+    .memory_read_data(1'b1)      //in   //disabled
 );
 
 //instantiate the instruction memory
@@ -83,7 +84,8 @@ cache data_cache(
     .memory_data(memory_read_data),
     .memory_data_valid(memory_data_valid),      
     .memory_read(memory_data_read_bit), 
-    .memory_write(memory_data_write_bit)
+    .memory_write(memory_data_write_bit),
+    .mem_write_done(dmem_write_done), //in
 );
 
 //wire dmem_write_done, imem_write_done;
@@ -101,8 +103,7 @@ arbiter arbiter(
 
     .dmem_data_valid(memory_data_valid),
     .imem_data_valid(pc_valid),
-    .dmem_write_done(/*dmem_write_done*/),      //do we need to add signals to cache? (1)
-    .imem_write_done(/*imem_write_done*/),      //do we need to add signals to cache? (1)
+    .dmem_write_done(dmem_write_done),      //do we need to add signals to cache?
     .memory_address(addr_arbiter_to_mem),
     .data_to_cache(memory_read_data pc_data),   //(1)
     .write_to_memory(data_arbiter_to_mem),

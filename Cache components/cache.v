@@ -15,6 +15,7 @@ module cache(
     input  wire memory_data_valid,
     output wire memory_read,
     output wire memory_write
+    input wire memory_write_done
 );
 
 wire [5:0] tag_bits, set_bits;
@@ -63,7 +64,7 @@ MetaDataArray meta_data_array(
 // parse metadata fields
 wire meta_tag = meta_data_out[7:2];
 wire meta_valid = meta_data_out[1];
-wire meta_lru = meta_data_out[0];
+wire meta_lru = meta_data_out[0]; // TODO: LRU bit only updated on a miss, should be updating on a hit as well
 
 // detect hits
 hit = meta_valid & (meta_tag == tag_bits);
@@ -71,6 +72,7 @@ hit = meta_valid & (meta_tag == tag_bits);
 //FSM 
 wire fsm_busy;
 
+//FSM is only for cache filling in a cache miss, it does not write
 cache_fill_FSM cache_miss_handler(
     .clk(clk),
     .rst_n(rst_n),
@@ -84,7 +86,7 @@ cache_fill_FSM cache_miss_handler(
     .memory_address(memory_address)
 );
 
-assign stall        = fsm_busy;
+assign stall        = fsm_busy | (~hit & (read_enable | write_enable)) | ~memory_write_done & write_enable;
 assign memory_read  = fsm_busy;
 assign memory_write = write_enable & hit;
 

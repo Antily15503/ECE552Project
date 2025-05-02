@@ -10,7 +10,7 @@ module arbiter(
     input wire [15:0] imem_address, // address to be read from or written to
 
     output wire dmem_data_valid, imem_data_valid, // data valid signals to cache to toggle which cache is active
-    output wire dmem_write_done, imem_write_done, // write done signals to cache to signal when cache is done writing
+    output wire dmem_write_done, // write done signals to data cache to signal when cache is done writing
     output wire [15:0] memory_address, // address to be read from or written to memory
     output wire [15:0] data_to_cache, // data from memory to be passed to either caches
     output wire [15:0] write_to_memory, // data to be written to memory
@@ -37,7 +37,7 @@ dff state_flop [1:0] (
 // State machine signals
 reg [1:0] next_state;
 reg [15:0] address_sm; // address and data signals for memory
-reg enable_sm, wr_sm, dmem_data_valid_sm, imem_data_valid_sm, dmem_write_done_sm, imem_write_done_sm;
+reg enable_sm, wr_sm, dmem_data_valid_sm, imem_data_valid_sm, dmem_write_done_sm;
 //State machine logic
 always @(*) begin
     //default values
@@ -48,7 +48,6 @@ always @(*) begin
     dmem_data_valid_sm = 1'b0;
     imem_data_valid_sm = 1'b0;
     dmem_write_done_sm = 1'b0;
-    imem_write_done_sm = 1'b0;
 
     case (state_ff)
         2'b00: begin // IDLE
@@ -62,7 +61,6 @@ always @(*) begin
             dmem_data_valid_sm = 1'b0; // data valid signal for data memory
             imem_data_valid_sm = 1'b0; // data valid signal for instruction memory
             dmem_write_done_sm = 1'b0; // write done signal for data memory
-            imem_write_done_sm = 1'b0; // write done signal for instruction memory
 
             //state transition logic
             next_state = (dmem_read) ? 2'b01 : // if dmem_read is true, go to DMEM_READ state
@@ -81,7 +79,6 @@ always @(*) begin
             dmem_data_valid_sm = valid; // data valid signal for data memory
             imem_data_valid_sm = 1'b0; // data valid signal for instruction memory
             dmem_write_done_sm = 1'b0; // write done signal for data memory
-            imem_write_done_sm = 1'b0; // write done signal for instruction memory
 
             //state transition logic and transition signal assertions
             next_state = (dmem_read) ? 2'b01 : 2'b00; // if dmem_read is true, stay in DMEM_READ state, otherwise go to IDLE state
@@ -97,7 +94,6 @@ always @(*) begin
             dmem_data_valid_sm = 1'b0; // data valid signal for data memory
             imem_data_valid_sm = valid; // data valid signal for instruction memory
             dmem_write_done_sm = 1'b0; // write done signal for data memory
-            imem_write_done_sm = 1'b0; // write done signal for instruction memory
 
             //state transition logic
             next_state = (imem_read) ? 2'b10 : 2'b00; // if imem_read is true, stay in IMEM_READ state, otherwise go to IDLE state
@@ -112,7 +108,6 @@ always @(*) begin
             dmem_data_valid_sm = 1'b0; // data valid signal for data memory
             imem_data_valid_sm = 1'b0; // data valid signal for instruction memory
             dmem_write_done_sm = 1'b1; // write done signal for data memory
-            imem_write_done_sm = 1'b0; // write done signal for instruction memory
 
             //state transition logic
             next_state = 2'b00; // write will only take one cycle, so go back to IDLE state after
@@ -126,8 +121,6 @@ always @(*) begin
             dmem_data_valid_sm = 1'b0; // data valid signal for data memory
             imem_data_valid_sm = 1'b0; // data valid signal for instruction memory
             dmem_write_done_sm = 1'b0; // write done signal for data memory
-            imem_write_done_sm = 1'b0; // write done signal for instruction memory
-
             next_state = 2'b00; // go back to IDLE state in default case
         end
     endcase
@@ -145,7 +138,6 @@ assign enable = enable_sm;
 assign dmem_data_valid = dmem_data_valid_sm;
 assign imem_data_valid = imem_data_valid_sm;
 assign dmem_write_done = dmem_write_done_sm;
-assign imem_write_done = imem_write_done_sm;
 
 endmodule
 `default_nettype wire
