@@ -111,12 +111,7 @@ arbiter arbiter(
 
     .dmem_data_valid(memory_data_valid),
     .imem_data_valid(pc_valid),
-<<<<<<< HEAD
-    .dmem_write_done(dmem_write_done),      //do we need to add signals to cache?
-=======
-    .dmem_write_done(dmem_write_done),      //do we need to add signals to cache? (1)
-    // .imem_write_done(/*imem_write_done*/),      //do we need to add signals to cache? (1)
->>>>>>> 068a12f256cd104b2578071f8fd5219ff0b933ba
+    .dmem_write_done(dmem_write_done),      
     .memory_address(addr_arbiter_to_mem),
     .data_to_cache(memory_read_data pc_data),   //(1)
     .write_to_memory(data_arbiter_to_mem),
