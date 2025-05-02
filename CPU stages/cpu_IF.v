@@ -64,10 +64,11 @@ wire [15:0] instrRaw;
             .wr(1'b0),
             .enable(1'b1)
         );
-
+wire [15:0] pre_instr;
 /* If stall is true, assign instruction to the instruction from the ID stage (instr_ID)
 //if branch is true, assign it to a NOP instruction (0xA000), otherwise use the instruction fetched from memory*/
-assign instr = pc_stall ? (instr_ID) : (branch ? 16'hA000 : instrRaw);
+assign pre_instr = (stall | data_stall) ? (instr_ID) : (branch ? 16'hA000 : instrRaw);
+assign instr = pc_stall ?  instr_ID : pre_instr;
 
 assign halt = &(instr[15:12]); // Halt instruction is 1111xxxx, so if the upper 4 bits are all 1s, halt is true
 
