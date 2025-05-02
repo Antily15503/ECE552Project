@@ -1,6 +1,7 @@
 module processor(
     input clk, rst_n,
-    input pc_stall, data_stall;
+    input pc_stall, data_stall,
+    input [15:0] instruction, //from I-cache
     output [15:0] pc,
 );
 
@@ -30,7 +31,7 @@ module processor(
         .pc_ID(pc_ID),
         .pcBranch(pcBranch),
         .instr_ID(instr_ID),
-
+        .instr_I_cache(instruction),
         //Outputs =======
         .pcInc(pcInc),            //Output PC
         .pc(pc),             //current PC value

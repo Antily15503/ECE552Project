@@ -8,6 +8,7 @@ module cpu_IF(
     input branch, //branch is used to determine if we need to branch to a different address. Comes from ID stage
     input [15:0] pc_ID, pcBranch, instr_ID, //pc_ID is the program counter value coming from the ID stage, pcBranch is the branch target address (if we take a branch), and instr_ID is the instruction from the ID stage.
     input data_stall, 
+    input [15:0] instr_I_cache,
     //Outputs ================================================
     output [15:0] pc, pcInc, //Program counter value coming out of the PC register and the incremented program counter value (pc + 2)
     output [15:0] instr, //Instruction fetched from instruction memory based on program counter value
@@ -52,22 +53,22 @@ module cpu_IF(
    [15:0] pc = program counter value coming out of the PC register
    data_in, wr, and enable are not used in this module. They are hard wired to constants.
 */
-wire [15:0] instrRaw;
-
+//wire [15:0] instrRaw; // replaced with insturction data_out from I cache
     
-    inst_memory instruction_mem(
-            .clk(clk),
-            .rst(~rst_n),
-            .addr(pc),
-            .data_out(instrRaw),
-            .data_in(16'h0000),
-            .wr(1'b0),
-            .enable(1'b1)
-        );
+    // inst_memory instruction_mem(
+    //         .clk(clk),
+    //         .rst(~rst_n),
+    //         .addr(pc),
+    //         .data_out(instrRaw),
+    //         .data_in(16'h0000),
+    //         .wr(1'b0),
+    //         .enable(1'b1)
+    //     );
+
 wire [15:0] pre_instr;
 /* If stall is true, assign instruction to the instruction from the ID stage (instr_ID)
 //if branch is true, assign it to a NOP instruction (0xA000), otherwise use the instruction fetched from memory*/
-assign pre_instr = (stall | data_stall) ? (instr_ID) : (branch ? 16'hA000 : instrRaw);
+assign pre_instr = (stall | data_stall) ? (instr_ID) : (branch ? 16'hA000 : instr_I_cache);
 assign instr = pc_stall ?  instr_ID : pre_instr;
 
 assign halt = &(instr[15:12]); // Halt instruction is 1111xxxx, so if the upper 4 bits are all 1s, halt is true

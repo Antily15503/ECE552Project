@@ -19,7 +19,7 @@ assign forward_regSource2Data = (ForwardC) ? WB_fdata : regSource2Data;
         .clk(clk),
         .rst(~rst_n),
         .addr(aluOut),
-        .data_out(dataOut),
+        .data_out(dataOut),  //output
         .data_in(forward_regSource2Data),
         .wr(memWrite),
         .enable(memEnable)
