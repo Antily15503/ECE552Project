@@ -6,6 +6,7 @@ module cache(
     input wire [15:0] data_in, //data being written to the cache, from the processor
     input wire [15:0] address, //address of the cache block that is being accessed, in case of a miss
     input wire write_enable,  // 1 = store, 0 = load
+    input wire dmem_write_done,
     output wire [15:0] data_out, //data being read from cache, taken to the processor
     output wire stall, //stall signals for the processor
 
@@ -64,7 +65,7 @@ MetaDataArray meta_data_array(
 wire meta_tag = meta_data_out[7:2];
 wire meta_valid = meta_data_out[1];
 wire meta_lru = meta_data_out[0];
-
+//(1) do we need to check LRU for hit? or replacement?
 // detect hits
 hit = meta_valid & (meta_tag == tag_bits);
 
@@ -84,7 +85,9 @@ cache_fill_FSM cache_miss_handler(
     .memory_address(memory_address)
 );
 
-assign stall        = fsm_busy;
+assign stall        = fsm_busy | ((hit | write_enable &) ~dmem_write_done); 
+/*Wired write done signal into here because I wanted to change the actual stall signal, I could just change the output stall signal to processor but
+I think changing the actual stall signal is better*/
 assign memory_read  = fsm_busy;
 assign memory_write = write_enable & hit;
 

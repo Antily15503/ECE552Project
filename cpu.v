@@ -30,6 +30,7 @@ wire mem_wr;    //toggles between reading and writing to memory. 1 = write, 0 = 
 wire [15:0] data_arbiter_to_mem, data_mem_to_arbiter;
 wire [15:0] addr_arbiter_to_mem;
 
+wire  dmem_write_done;
 //instantiate the central processor
 processor processor(
     .clk(clk),
@@ -37,7 +38,13 @@ processor processor(
     .pc(pc),
     .instruction(instruction),
     .pcStall(pc_stall),
+
+    //for D-cache
     .dataStall(data_stall),
+    .write_enable(write_enable)
+    .data_address(write_address),
+    .data_to_cache(write_data)
+    .data_to_cpu(data_out), //Goes into processor 
 );
 
 wire inst_read;
@@ -79,6 +86,7 @@ cache data_cache(
     .write_enable(write_enable),
     .data_out(data_out),
     .stall(data_stall),
+    .dmem_write_done(dmem_write_done), //(1) check note inside cache
     .memory_address(memory_address),    //out
     .memory_data(memory_read_data),
     .memory_data_valid(memory_data_valid),      
@@ -101,8 +109,8 @@ arbiter arbiter(
 
     .dmem_data_valid(memory_data_valid),
     .imem_data_valid(pc_valid),
-    .dmem_write_done(/*dmem_write_done*/),      //do we need to add signals to cache? (1)
-    .imem_write_done(/*imem_write_done*/),      //do we need to add signals to cache? (1)
+    .dmem_write_done(dmem_write_done),      //do we need to add signals to cache? (1)
+    // .imem_write_done(/*imem_write_done*/),      //do we need to add signals to cache? (1)
     .memory_address(addr_arbiter_to_mem),
     .data_to_cache(memory_read_data pc_data),   //(1)
     .write_to_memory(data_arbiter_to_mem),
