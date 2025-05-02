@@ -1,6 +1,14 @@
 module processor(
     input clk, rst_n,
+    input pc_stall, data_stall,
+    input [15:0] instruction, //from I-cache
     output [15:0] pc,
+
+    //signals for D-cache
+    output [15:0] data_address,
+    output write_enable,
+    output [15:0] data_to_cache,
+    input [15:0] data_to_cpu
 );
 
 /****************************     Instruction Fetch Stage (IF)   *********************************/
@@ -23,11 +31,13 @@ module processor(
         .clk(clk),
         .rst_n(rst_n),
         .stall(stall),
+        .pc_stall(pc_stall),
+        .data_stall(data_stall),
         .branch(branchTake),
         .pc_ID(pc_ID),
         .pcBranch(pcBranch),
         .instr_ID(instr_ID),
-
+        .instr_I_cache(instruction),
         //Outputs =======
         .pcInc(pcInc),            //Output PC
         .pc(pc),             //current PC value
@@ -250,25 +260,29 @@ wire halt_MEM;
    [15:0] dataOut = data fetched from memory (used in WB stage to determine write data)
 */
 //MEM stage signals
-    wire [15:0] dataOut;
+    wire [15:0] data_out;
+    assign data_address = aluOut_MEM;
+    //assign memEnable = MEMcontrols[1]; //CONTROL SIGNAL FOR MEMREAD: 1 for read, 0 for write
+    assign write_enable = MEMcontrols[0]; //CONTROL SIGNAL FOR MEMWRITE: 1 for write, 0 for read
+    assign data_to_cache = (ForwardC) ? writeData_WB : regSource2Data_MEM;
+    assign data_out = data_to_cpu;
+    // cpu_MEM MEM(
+    //     //Inputs ========
+    //     .clk(clk),
+    //     .rst_n(rst_n),
+    //     .MEMcontrols(MEMcontrols_MEM),
+    //     .aluOut(aluOut_MEM),
+    //     .regSource2Data(regSource2Data_MEM),
+    //     .ForwardC(ForwardC),
+    //     .WB_fdata(writeData_WB), //Data from MEM to MEM forwarding (CHECK IF RIGHT)
+    //     //Outputs =======
+    //     .dataOut(dataOut)
+    // );
 
-cpu_MEM MEM(
-    //Inputs ========
-    .clk(clk),
-    .rst_n(rst_n),
-    .MEMcontrols(MEMcontrols_MEM),
-    .aluOut(aluOut_MEM),
-    .regSource2Data(regSource2Data_MEM),
-    .ForwardC(ForwardC),
-    .WB_fdata(writeData_WB), //Data from MEM to MEM forwarding (CHECK IF RIGHT)
-    //Outputs =======
-    .dataOut(dataOut)
-);
-
-//Signals for next stage
-wire [15:0] dataOut_WB, aluOut_WB;
-wire [1:0] WBcontrols_WB;
-wire halt_WB;
+    //Signals for next stage
+    wire [15:0] dataOut_WB, aluOut_WB;
+    wire [1:0] WBcontrols_WB;
+    wire halt_WB;
 
 /****************************     MEM/WB Pipeline Registers   *********************************/
 /* NOTE: _WB signals represent signals coming out of the MEM/WB Pipeline Registers
@@ -279,9 +293,9 @@ wire halt_WB;
      - register value to be written into register file (regW)
 */
     //WBcontrols register
-    dff MEM_WB_WBcontrols [1:0] (.q(WBcontrols_WB), .d(WBcontrols_MEM), .wen(1'b1), .clk(clk), .rst(~rst_n));
+    dff MEM_WB_WBcontrols [1:0] (.q(WBcontrols_WB), .d(WBcontrols_MEM & {1,~data_stall}), .wen(1'b1), .clk(clk), .rst(~rst_n));
     //register that stores data from memory access stage
-    dff MEM_WB_dataOut [15:0] (.q(dataOut_WB), .d(dataOut), .wen(1'b1), .clk(clk), .rst(~rst_n));
+    dff MEM_WB_dataOut [15:0] (.q(dataOut_WB), .d(data_out), .wen(1'b1), .clk(clk), .rst(~rst_n));
     //register that stores ALU output data
     dff MEM_WB_aluOut [15:0] (.q(aluOut_WB), .d(aluOut_MEM), .wen(1'b1), .clk(clk), .rst(~rst_n));
     //register that stores register value to be written into register file

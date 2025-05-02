@@ -6,6 +6,7 @@ module cache(
     input wire [15:0] data_in, //data being written to the cache, from the processor
     input wire [15:0] address, //address of the cache block that is being accessed, in case of a miss
     input wire write_enable,  // 1 = store, 0 = load
+    input wire dmem_write_done,
     output wire [15:0] data_out, //data being read from cache, taken to the processor
     output wire stall, //stall signals for the processor
 
@@ -32,6 +33,8 @@ assign offset = address[2:0];
 wire [63:0] one_hot_set;
 wire [7:0] one_hot_offset;
 
+wire hit;
+
 psm_cache_64 set_shifter(.shift_val(set_bits),.shift_out(one_hot_set));
 
 psm_cache_8 word_shifter(.shift_val(offset),.shift_out(one_hot_offset));
@@ -49,7 +52,7 @@ DataArray data_array(
 
 //MetaDataArray
 wire [7:0] meta_data_out;
-wire hit;
+
 
 MetaDataArray meta_data_array(
     .clk(clk),
@@ -67,7 +70,7 @@ wire meta_valid = meta_data_out[1];
 wire meta_lru = meta_data_out[0]; // TODO: LRU bit only updated on a miss, should be updating on a hit as well
 
 // detect hits
-hit = meta_valid & (meta_tag == tag_bits);
+assign hit = meta_valid & (meta_tag == tag_bits);
 
 //FSM 
 wire fsm_busy;

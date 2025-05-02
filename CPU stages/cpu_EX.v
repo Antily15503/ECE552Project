@@ -5,6 +5,10 @@ module cpu_EX(
     input [15:0] pc_EX, //Program counter value from ID stage that came out from the IF/ID register
     input [15:0] regSource1Data, regSource2Data, immEx, //data from register and immediate value from ID stage. May be used by ALU
 
+    input [6:0] EXcontrols,
+    input memWrite,
+    input [15:0] MEM_faddress,
+    input [15:0] WB_fdata,
     input [1:0] ForwardA, ForwardB, //Forwarding unit mux control signals
     //Outputs ================================================
     output [15:0] aluOut, //ALU output, to be passed on to the MEM stage

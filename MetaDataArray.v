@@ -33,7 +33,7 @@ module MSet(
 	input BlockEnable,
 	input SetEnable,
 	output [7:0] DataOut
-)
+);
 	wire [1:0] BlockEnable_real; 
 	assign BlockEnable_real = {BlockEnable, ~BlockEnable};
 

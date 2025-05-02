@@ -35,7 +35,7 @@ always @(*) begin
     case (state)
         0: begin
             fsm_busy_sm = miss_detected;
-            next_state = miss_detected;
+            nextstate = miss_detected;
             write_tag_array_sm = ~miss_detected;
             
             // if (miss_detected) begin
@@ -48,7 +48,7 @@ always @(*) begin
         end
         1: begin
             fsm_busy_sm = ~count[3];
-            next_state = ~count[3];
+            nextstate = ~count[3];
             increment = ~count[3];
             write_data_array_sm = ~count[3]; //might cause issues
             write_tag_array_sm = count[3];
