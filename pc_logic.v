@@ -1,6 +1,8 @@
 module pc_logic(
     input [15:0] pcIn, //Program Counter value coming out of the PC register
-    input stall, halt, //Stall and Halt signal from the hazard detection unit
+    input pc_stall, halt, //Stall and Halt signal from the hazard detection unit
+    input data_stall,
+    input stall,
     input [15:0] pc_ID, //Program Counter value coming out of the ID stage
     
     output [15:0] pcD, //Program Counter value to be put into the PC register
@@ -23,8 +25,8 @@ addsub_16bit adder(
 
 
 //if stall or halt signal is high, we prevent the pc from incrementing, otherwise pc = pc + 2
-assign pcD = (stall || halt) ? pcIn : pcSum; 
+assign pcD = (data_stall | stall | halt) ? pcIn : pcSum; 
 
 //if the stall signal is high, we assign the pc value to the ID stage to prevent new instruction from being fetched
-assign pcInc = stall ? pc_ID : pcSum;
+assign pcInc = (stall | data_stall | pc_stall) ? pc_ID : pcSum;
 endmodule

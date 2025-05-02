@@ -3,9 +3,11 @@ module cpu_IF(
     //Inputs ================================================
     input clk, rst_n, //Clock and reset signals
     input stall, //Stall is used to hold the pc, asserted if instr = HALT
+    input pc_stall,
+    input data_stall, 
     input branch, //branch is used to determine if we need to branch to a different address. Comes from ID stage
     input [15:0] pc_ID, pcBranch, instr_ID, //pc_ID is the program counter value coming from the ID stage, pcBranch is the branch target address (if we take a branch), and instr_ID is the instruction from the ID stage.
-    
+    input data_stall, 
     //Outputs ================================================
     output [15:0] pc, pcInc, //Program counter value coming out of the PC register and the incremented program counter value (pc + 2)
     output [15:0] instr, //Instruction fetched from instruction memory based on program counter value
@@ -27,12 +29,14 @@ module cpu_IF(
         .pcIn(pc),
         .pcD(pcD),
         .stall(stall),
+        .pc_stall(pc_stall),
+        .data_stall(data_stall),
         .halt(halt),
         .pc_ID(pc_ID),
         .pcInc(pcInc)
     );
 // Program Branch Logic
-    assign pcNext = branch ? pcBranch : pcD; // If branch is true, use the branch address, otherwise use the incremented address
+    assign pcNext = (branch & ~pc_stall) ? pcBranch : pcD; // If branch is true, use the branch address, otherwise use the incremented address
 
 // Program Counter Register
     dff pcFlops [15:0] (
@@ -63,7 +67,7 @@ wire [15:0] instrRaw;
 
 /* If stall is true, assign instruction to the instruction from the ID stage (instr_ID)
 //if branch is true, assign it to a NOP instruction (0xA000), otherwise use the instruction fetched from memory*/
-assign instr = stall ? (instr_ID) : (branch ? 16'hA000 : instrRaw);
+assign instr = pc_stall ? (instr_ID) : (branch ? 16'hA000 : instrRaw);
 
 assign halt = &(instr[15:12]); // Halt instruction is 1111xxxx, so if the upper 4 bits are all 1s, halt is true
 

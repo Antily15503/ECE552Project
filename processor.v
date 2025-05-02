@@ -1,5 +1,6 @@
 module processor(
     input clk, rst_n,
+    input pc_stall, data_stall;
     output [15:0] pc,
 );
 
@@ -23,6 +24,8 @@ module processor(
         .clk(clk),
         .rst_n(rst_n),
         .stall(stall),
+        .pc_stall(pc_stall),
+        .data_stall(data_stall),
         .branch(branchTake),
         .pc_ID(pc_ID),
         .pcBranch(pcBranch),
