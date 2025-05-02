@@ -41,10 +41,10 @@ processor processor(
 
     //for D-cache
     .dataStall(data_stall),
-    .write_enable(write_enable)
+    .write_enable(write_enable),
     .data_address(write_address),
-    .data_to_cache(write_data)
-    .data_to_cpu(data_out), //Goes into processor 
+    .data_to_cache(write_data),
+    .data_to_cpu(data_out) //Goes into processor 
 );
 
 wire inst_read;

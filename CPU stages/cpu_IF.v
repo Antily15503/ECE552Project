@@ -1,18 +1,17 @@
 `default_nettype none
 module cpu_IF(
     //Inputs ================================================
-    input clk, rst_n, //Clock and reset signals
-    input stall, //Stall is used to hold the pc, asserted if instr = HALT
-    input pc_stall,
-    input data_stall, 
-    input branch, //branch is used to determine if we need to branch to a different address. Comes from ID stage
-    input [15:0] pc_ID, pcBranch, instr_ID, //pc_ID is the program counter value coming from the ID stage, pcBranch is the branch target address (if we take a branch), and instr_ID is the instruction from the ID stage.
-    input data_stall, 
-    input [15:0] instr_I_cache,
+    input wire clk, rst_n, //Clock and reset signals
+    input wire stall, //Stall is used to hold the pc, asserted if instr = HALT
+    input wire pc_stall,
+    input wire data_stall, 
+    input wire branch, //branch is used to determine if we need to branch to a different address. Comes from ID stage
+    input wire [15:0] pc_ID, pcBranch, instr_ID, //pc_ID is the program counter value coming from the ID stage, pcBranch is the branch target address (if we take a branch), and instr_ID is the instruction from the ID stage.
+    input wire [15:0] instr_I_cache,
     //Outputs ================================================
-    output [15:0] pc, pcInc, //Program counter value coming out of the PC register and the incremented program counter value (pc + 2)
-    output [15:0] instr, //Instruction fetched from instruction memory based on program counter value
-    output halt //Halt signal, which is true if the instruction is a halt instruction (0xFxxx)
+    output wire [15:0] pc, pcInc, //Program counter value coming out of the PC register and the incremented program counter value (pc + 2)
+    output wire [15:0] instr, //Instruction fetched from instruction memory based on program counter value
+    output wire halt //Halt signal, which is true if the instruction is a halt instruction (0xFxxx)
 );
 
 

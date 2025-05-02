@@ -1,9 +1,9 @@
 `default_nettype none
 module psm_cache(
-    input [5:0] shift_val,
-    output [63:0]shift_out
+    input wire [5:0] shift_val,
+    output wire [63:0]shift_out
 );
-
+wire [63:0] shift;
 assign shift = 64'h0000000000000001; // Default value for shift
 wire [63:0] shift_a, shift_b, shift_c, shift_d, shift_e;
 

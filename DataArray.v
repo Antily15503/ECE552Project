@@ -12,7 +12,7 @@ module DataArray(
 	input [63:0] SetEnable, 
 	input [7:0] WordEnable, 
 	output [15:0] DataOut
-)
+);
 	Set sets[63:0](
 		.clk(clk),
 		.rst(rst),

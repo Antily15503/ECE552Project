@@ -137,7 +137,7 @@ assign next_state_ff = next_state;
 
 //signal assignments for memory address and cache
 assign memory_address = address_sm;
-assign data_to_cache = data_from_memory; // data to be set from memory, not altered in this module
+assign data_to_cache = data_to_arbiter; // data to be set from memory, not altered in this module
 assign write_to_memory = data_to_write; // data to be written to memory, not altered in this module
 
 assign wr = wr_sm;
@@ -145,7 +145,7 @@ assign enable = enable_sm;
 assign dmem_data_valid = dmem_data_valid_sm;
 assign imem_data_valid = imem_data_valid_sm;
 assign dmem_write_done = dmem_write_done_sm;
-assign imem_write_done = imem_write_done_sm;
+// assign imem_write_done = imem_write_done_sm;
 
 endmodule
 `default_nettype wire
