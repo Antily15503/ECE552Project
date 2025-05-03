@@ -28,7 +28,6 @@ wire [15:0] data_arbiter_to_mem, data_mem_to_arbiter;
 wire [15:0] addr_arbiter_to_mem;
 wire read_enable;
 wire mem_to_reg;
-wire cache_mem_enable, icache_mem_enable, dcache_mem_enable;
 
 wire  dmem_write_done;
 //instantiate the central processor
@@ -66,7 +65,6 @@ cache instruction_cache(
     .memory_read(inst_read),            //out
     .memory_write(),                //disabled 
     .memory_write_done(1'b1),      //in   //disabled
-    .cache_mem_enable(icache_mem_enable),
     .valid(mem_valid)
 );
 
@@ -77,7 +75,7 @@ memory4c memory(
     .data_out(data_mem_to_arbiter),
     .data_in(data_arbiter_to_mem),
     .addr(addr_arbiter_to_mem),
-    .enable(mem_enable && cache_mem_enable),
+    .enable(mem_enable),
     .wr(mem_wr),
     .data_valid(mem_valid)
 );
@@ -99,7 +97,6 @@ cache data_cache(
     .memory_read(memory_data_read_bit), 
     .memory_write(memory_data_write_bit),
     .memory_write_done(dmem_write_done), //in
-    .cache_mem_enable(dcache_mem_enable),
     .valid(mem_valid)
 );
 
@@ -115,8 +112,6 @@ arbiter arbiter(
     .dmem_write(memory_data_write_bit),
     .imem_read(inst_read),
     .imem_address(pc_cache_address),
-    .icache_mem_enable(icache_mem_enable),
-    .dcache_mem_enable(dcache_mem_enable),
 
     .dmem_data_valid(memory_data_valid),
     .imem_data_valid(pc_valid),
@@ -125,8 +120,7 @@ arbiter arbiter(
     .data_to_cache(memory_read_data),   //(1)
     .write_to_memory(data_arbiter_to_mem),
     .enable(mem_enable),
-    .wr(mem_wr),
-    .cache_mem_enable(cache_mem_enable)
+    .wr(mem_wr)
 );
 
 assign pc = pcAddr; // assign the program counter to the output

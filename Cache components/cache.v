@@ -17,7 +17,6 @@ module cache(
     output wire memory_read,
     output wire memory_write,
     input wire memory_write_done,
-    output wire cache_mem_enable,
     input wire valid
 );
 
@@ -91,9 +90,8 @@ cache_fill_FSM cache_miss_handler(
 );
 
 assign stall        = fsm_busy | ~memory_write_done & write_enable;
-assign memory_read  = fsm_busy;
+assign memory_read  = fsm_busy & (cache_miss_handler.count_d != 3'h7);
 assign memory_write = write_enable & hit;
-assign cache_mem_enable = ~valid;
 
 endmodule
 `default_nettype wire
