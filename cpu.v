@@ -7,7 +7,6 @@ module cpu(
 //signals used by the instruction cache and memory
 wire [15:0] pcAddr;             // [from CPU]   program counter used to fetch instruction
 wire [15:0] instruction;        // [to CPU]     fetched instruction from instruction cache according to pc
-wire [15:0] pc_data;            // [to I-Cache] data fetched from instruction memory 
 wire [15:0] pc_cache_address;   // [fr I-Cache] address in memory (1) to fetch instruction from instruction memory
 wire pc_stall, data_stall;      // [to CPU]     stall signal from instruction and data cache
 wire pc_valid;                  // [fr I-Cache] data valid signal for instruction memory
@@ -17,9 +16,7 @@ wire [15:0] write_data;     // [from CPU]   data to be written to memory
 wire [15:0] write_address;  // [from CPU]   address to be written to memory
 wire write_enable;          // [from CPU]   write enable signal
 wire [15:0] data_out;       // [to CPU]     data read from memory 
-wire stall;                 // [to CPU]     stall signal for data cache
 wire [15:0] memory_address; // [fr D-Cache] address to be read from memory 
-wire [15:0] memory_data;    // [fr D-Cache] data read from memory 
 wire memory_data_valid;     // [fr D-Cache] data valid signal for data memory 
 wire [15:0] memory_read_data;      // [to D-Cache] data read from memory
 
@@ -29,13 +26,16 @@ wire mem_wr;    //toggles between reading and writing to memory. 1 = write, 0 = 
 
 wire [15:0] data_arbiter_to_mem, data_mem_to_arbiter;
 wire [15:0] addr_arbiter_to_mem;
+wire read_enable;
+wire mem_to_reg;
+wire cache_mem_enable, icache_mem_enable, dcache_mem_enable;
 
 wire  dmem_write_done;
 //instantiate the central processor
 processor processor(
     .clk(clk),
     .rst_n(rst_n),
-    .pc(pc),
+    .pc(pcAddr),
     .instruction(instruction),
     .pc_stall(pc_stall),
 
@@ -44,7 +44,9 @@ processor processor(
     .write_enable(write_enable),
     .data_address(write_address),
     .data_to_cache(write_data),
-    .data_to_cpu(data_out) //Goes into processor 
+    .data_to_cpu(data_out),
+    .mem_to_reg(mem_to_reg),
+    .hlt(hlt) //halt signal
 );
 
 wire inst_read;
@@ -55,6 +57,7 @@ cache instruction_cache(
     .data_in(),
     .address(pcAddr),
     .write_enable(1'b0),
+    .read_enable(1'b1),
     .data_out(instruction),
     .stall(pc_stall),
     .memory_address(pc_cache_address),  //out
@@ -62,17 +65,19 @@ cache instruction_cache(
     .memory_data_valid(pc_valid),       //in
     .memory_read(inst_read),            //out
     .memory_write(),                //disabled 
-    .memory_write_done(1'b1)      //in   //disabled
+    .memory_write_done(1'b1),      //in   //disabled
+    .cache_mem_enable(icache_mem_enable),
+    .valid(mem_valid)
 );
 
 //instantiate the instruction memory
 memory4c memory(
     .clk(clk),
-    .rst(rst_n),
+    .rst(~rst_n),
     .data_out(data_mem_to_arbiter),
     .data_in(data_arbiter_to_mem),
     .addr(addr_arbiter_to_mem),
-    .enable(mem_enable),
+    .enable(mem_enable && cache_mem_enable),
     .wr(mem_wr),
     .data_valid(mem_valid)
 );
@@ -85,6 +90,7 @@ cache data_cache(
     .data_in(write_data),
     .address(write_address),
     .write_enable(write_enable),
+    .read_enable(mem_to_reg),
     .data_out(data_out),
     .stall(data_stall),
     .memory_address(memory_address),    //out
@@ -92,7 +98,9 @@ cache data_cache(
     .memory_data_valid(memory_data_valid),      
     .memory_read(memory_data_read_bit), 
     .memory_write(memory_data_write_bit),
-    .memory_write_done(dmem_write_done) //in
+    .memory_write_done(dmem_write_done), //in
+    .cache_mem_enable(dcache_mem_enable),
+    .valid(mem_valid)
 );
 
 //wire dmem_write_done, imem_write_done;
@@ -107,6 +115,8 @@ arbiter arbiter(
     .dmem_write(memory_data_write_bit),
     .imem_read(inst_read),
     .imem_address(pc_cache_address),
+    .icache_mem_enable(icache_mem_enable),
+    .dcache_mem_enable(dcache_mem_enable),
 
     .dmem_data_valid(memory_data_valid),
     .imem_data_valid(pc_valid),
@@ -115,7 +125,8 @@ arbiter arbiter(
     .data_to_cache(memory_read_data),   //(1)
     .write_to_memory(data_arbiter_to_mem),
     .enable(mem_enable),
-    .wr(mem_wr)
+    .wr(mem_wr),
+    .cache_mem_enable(cache_mem_enable)
 );
 
 assign pc = pcAddr; // assign the program counter to the output

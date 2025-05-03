@@ -3,10 +3,12 @@ module processor(
     input pc_stall, data_stall,
     input [15:0] instruction, //from I-cache
     output [15:0] pc,
+    output hlt,
 
     //signals for D-cache
     output [15:0] data_address,
     output write_enable,
+    output mem_to_reg,
     output [15:0] data_to_cache,
     input [15:0] data_to_cpu
 );
@@ -346,6 +348,6 @@ forwarding_unit funit(
     .ForwardC(ForwardC)         //Output to forwarding mux 
 );
 
-
+assign mem_to_reg = WBcontrols_MEM[1];
 
 endmodule

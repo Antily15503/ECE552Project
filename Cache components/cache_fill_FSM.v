@@ -22,7 +22,7 @@ dff stateflop(
 );
 
 //logic signals for state machine
-reg increment, fsm_busy_sm, write_data_array_sm, write_tag_array_sm, state, nextstate;
+reg increment, fsm_busy_sm, write_data_array_sm, write_tag_array_sm, nextstate;
 wire [3:0] count, count_d;
 always @(*) begin
     // Default values
@@ -30,13 +30,12 @@ always @(*) begin
     write_data_array_sm = 1'b0;
     write_tag_array_sm = 1'b0;
     increment = 1'b0;
-    state = 0;
-    nextstate = 0;
-    case (state)
+    nextstate = 1'b0;
+    case (state_ff)
         0: begin
             fsm_busy_sm = miss_detected;
             nextstate = miss_detected;
-            write_tag_array_sm = ~miss_detected;
+            write_tag_array_sm = 1'b0;
             
             // if (miss_detected) begin
             //     fsm_busy_sm = 1'b1;
@@ -72,8 +71,9 @@ end
 assign fsm_busy = fsm_busy_sm;
 assign write_data_array = write_data_array_sm;
 assign write_tag_array = write_tag_array_sm;
-assign state_ff = state;
 assign nextstate_ff = nextstate;
+
+
 
 //incrementer
 dff count_reg[3:0] (

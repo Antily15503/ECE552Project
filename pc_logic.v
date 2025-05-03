@@ -25,8 +25,8 @@ addsub_16bit adder(
 
 
 //if stall or halt signal is high, we prevent the pc from incrementing, otherwise pc = pc + 2
-assign pcD = (data_stall | stall | halt) ? pcIn : pcSum; 
+assign pcD = (data_stall | pc_stall | stall | halt) ? pcIn : pcSum; 
 
 //if the stall signal is high, we assign the pc value to the ID stage to prevent new instruction from being fetched
-assign pcInc = (stall | data_stall | pc_stall) ? pc_ID : pcSum;
+assign pcInc = (stall | data_stall | halt) ? pc_ID : pcSum;
 endmodule

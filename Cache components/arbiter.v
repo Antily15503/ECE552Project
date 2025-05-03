@@ -8,12 +8,15 @@ module arbiter(
     input wire imem_read, //imem_write, // instruction memory read and write signals
     input wire dmem_read, dmem_write, // data memory read and write signals
     input wire [15:0] imem_address, // address to be read from or written to
+    input wire icache_mem_enable,
+    input wire dcache_mem_enable,
 
     output wire dmem_data_valid, imem_data_valid, // data valid signals to cache to toggle which cache is active
     output wire dmem_write_done, //imem_write_done, // write done signals to cache to signal when cache is done writing
     output wire [15:0] memory_address, // address to be read from or written to memory
     output wire [15:0] data_to_cache, // data from memory to be passed to either caches
     output wire [15:0] write_to_memory, // data to be written to memory
+    output wire cache_mem_enable,
 
     output wire enable, // signal that enables the memory module
     output wire wr //toggles between reading and writing to memory. 1 = write, 0 = read
@@ -138,7 +141,7 @@ assign enable = enable_sm;
 assign dmem_data_valid = dmem_data_valid_sm;
 assign imem_data_valid = imem_data_valid_sm;
 assign dmem_write_done = dmem_write_done_sm;
-// assign imem_write_done = imem_write_done_sm;
+assign cache_mem_enable = dcache_mem_enable | icache_mem_enable;
 
 endmodule
 `default_nettype wire
