@@ -44,8 +44,8 @@ psm_cache_8 word_shifter(.shift_val(offset),.shift_out(one_hot_offset));
 DataArray data_array(
     .clk(clk),
     .rst(~rst_n),
-    .DataIn(data_in),
-    .Write(hit ? write_enable : write_data_array), //???
+    .DataIn(hit ? data_in : memory_data), //memory_data_valid ? memory_data : data_in
+    .Write(hit ? write_enable : write_data_array), //hit ? write_enable : (write_data_array | (hit & write_enable)
     .BlockEnable(block_bit),
     .SetEnable(one_hot_set),
     .WordEnable(one_hot_offset),
@@ -83,7 +83,7 @@ cache_fill_FSM cache_miss_handler(
     .miss_detected(~hit & (read_enable | write_enable)),
     .miss_address(address),
     .memory_data(memory_data),
-    .memory_data_valid(memory_data_valid & cache_mem_enable),
+    .memory_data_valid(memory_data_valid),// & cache_mem_enable),
     .fsm_busy(fsm_busy),
     .write_data_array(write_data_array),
     .write_tag_array(write_tag_array),

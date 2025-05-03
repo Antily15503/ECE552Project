@@ -7,8 +7,8 @@ module DataArray(
 	input clk, 
 	input rst, 
 	input [15:0] DataIn, 
-	input Write, 
-	input BlockEnable, 
+	input Write,  //becomes write enable
+	input BlockEnable, //enable*
 	input [63:0] SetEnable, 
 	input [7:0] WordEnable, 
 	output [15:0] DataOut
@@ -70,7 +70,7 @@ endmodule
 
 module DCell( input clk,  input rst, input Din, input WriteEnable, input Enable, output Dout);
 	wire q;
-	assign Dout = (Enable & ~WriteEnable) ? q:'bz;
+	assign Dout = (Enable) ? q:'bz;
 	dff dffd(.q(q), .d(Din), .wen(Enable & WriteEnable), .clk(clk), .rst(rst));
 endmodule
 

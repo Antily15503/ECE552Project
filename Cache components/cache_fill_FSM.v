@@ -48,7 +48,7 @@ always @(*) begin
         1: begin
             fsm_busy_sm = ~count[3];
             nextstate = ~count[3];
-            increment = ~count[3];
+            increment = ~(count == 4'h8);
             write_data_array_sm = ~count[3]; //might cause issues
             write_tag_array_sm = count[3];
 
@@ -81,12 +81,13 @@ dff count_reg[3:0] (
     .q(count),
     .wen(1'b1),
     .clk(clk),
-    .rst(~rst_n & ~miss_detected)
+    .rst(~rst_n | (state_ff == 1'b0 & ~miss_detected))
 );
-addsub_4bit count_adder(
+add_4bit count_adder(
     .A(increment ? count : 4'h0),
     .B(increment ? {3'h0, memory_data_valid} : 4'h0),
-    .sub(1'b0),
+    // .sub(1'b0),
+    .Cin(1'b0),
     .Sum(count_d),
     .Cout()
 );
