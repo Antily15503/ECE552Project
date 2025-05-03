@@ -1,5 +1,5 @@
 `default_nettype none
-module psm_cache(
+module psm_cache_8(
     input wire [2:0] shift_val,
     output wire [7:0]shift_out
 );

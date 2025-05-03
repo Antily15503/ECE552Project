@@ -88,7 +88,7 @@ addsub_4bit count_adder(
     .B(increment ? {3'h0, memory_data_valid} : 4'h0),
     .sub(1'b0),
     .Sum(count_d),
-    .Ovfl()
+    .Cout()
 );
 
 assign memory_address = {miss_address[15:4], count[2:0], 1'b0};

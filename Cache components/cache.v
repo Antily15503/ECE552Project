@@ -6,7 +6,6 @@ module cache(
     input wire [15:0] data_in, //data being written to the cache, from the processor
     input wire [15:0] address, //address of the cache block that is being accessed, in case of a miss
     input wire write_enable,  // 1 = store, 0 = load
-    input wire dmem_write_done,
     output wire [15:0] data_out, //data being read from cache, taken to the processor
     output wire stall, //stall signals for the processor
 
@@ -15,7 +14,7 @@ module cache(
     input  wire [15:0] memory_data,
     input  wire memory_data_valid,
     output wire memory_read,
-    output wire memory_write
+    output wire memory_write,
     input wire memory_write_done
 );
 
@@ -44,7 +43,7 @@ DataArray data_array(
     .rst(rst_n),
     .DataIn(data_in),
     .Write(hit ? write_enable : write_data_array), //???
-    .Block_Enable(block_bit),
+    .BlockEnable(block_bit),
     .SetEnable(one_hot_set),
     .WordEnable(one_hot_offset),
     .DataOut(data_out)
@@ -57,7 +56,7 @@ wire [7:0] meta_data_out;
 MetaDataArray meta_data_array(
     .clk(clk),
     .rst(rst_n),
-    .DataIn(tag_bits),
+    .DataIn({tag_bits, 2'b00}), //TODO: implement Valid and LRU bits
     .Write(write_tag_array), //might need to be only be on miss
     .BlockEnable(block_bit),
     .SetEnable(one_hot_set),
@@ -89,7 +88,7 @@ cache_fill_FSM cache_miss_handler(
     .memory_address(memory_address)
 );
 
-assign stall        = fsm_busy | (~hit & (read_enable | write_enable)) | ~memory_write_done & write_enable;
+assign stall        = fsm_busy | (~hit & write_enable) | ~memory_write_done & write_enable;
 assign memory_read  = fsm_busy;
 assign memory_write = write_enable & hit;
 

@@ -21,7 +21,7 @@ wire stall;                 // [to CPU]     stall signal for data cache
 wire [15:0] memory_address; // [fr D-Cache] address to be read from memory 
 wire [15:0] memory_data;    // [fr D-Cache] data read from memory 
 wire memory_data_valid;     // [fr D-Cache] data valid signal for data memory 
-wire memory_read_data;      // [to D-Cache] data read from memory
+wire [15:0] memory_read_data;      // [to D-Cache] data read from memory
 
 wire mem_valid;
 wire mem_enable;
@@ -37,10 +37,10 @@ processor processor(
     .rst_n(rst_n),
     .pc(pc),
     .instruction(instruction),
-    .pcStall(pc_stall),
+    .pc_stall(pc_stall),
 
     //for D-cache
-    .dataStall(data_stall),
+    .data_stall(data_stall),
     .write_enable(write_enable),
     .data_address(write_address),
     .data_to_cache(write_data),
@@ -58,15 +58,15 @@ cache instruction_cache(
     .data_out(instruction),
     .stall(pc_stall),
     .memory_address(pc_cache_address),  //out
-    .memory_data(pc_data),              //in
+    .memory_data(memory_read_data),              //in
     .memory_data_valid(pc_valid),       //in
     .memory_read(inst_read),            //out
-    .memory_write(1'b0),                //disabled 
-    .memory_read_data(1'b1)      //in   //disabled
+    .memory_write(),                //disabled 
+    .memory_write_done(1'b1)      //in   //disabled
 );
 
 //instantiate the instruction memory
-multicycle_memory memory(
+memory4c memory(
     .clk(clk),
     .rst(rst_n),
     .data_out(data_mem_to_arbiter),
@@ -87,13 +87,12 @@ cache data_cache(
     .write_enable(write_enable),
     .data_out(data_out),
     .stall(data_stall),
-    .dmem_write_done(dmem_write_done), //(1) check note inside cache
     .memory_address(memory_address),    //out
     .memory_data(memory_read_data),
     .memory_data_valid(memory_data_valid),      
     .memory_read(memory_data_read_bit), 
     .memory_write(memory_data_write_bit),
-    .mem_write_done(dmem_write_done), //in
+    .memory_write_done(dmem_write_done) //in
 );
 
 //wire dmem_write_done, imem_write_done;
@@ -113,7 +112,7 @@ arbiter arbiter(
     .imem_data_valid(pc_valid),
     .dmem_write_done(dmem_write_done),      
     .memory_address(addr_arbiter_to_mem),
-    .data_to_cache(memory_read_data pc_data),   //(1)
+    .data_to_cache(memory_read_data),   //(1)
     .write_to_memory(data_arbiter_to_mem),
     .enable(mem_enable),
     .wr(mem_wr)

@@ -37,7 +37,7 @@ module MSet(
 	wire [1:0] BlockEnable_real; 
 	assign BlockEnable_real = {BlockEnable, ~BlockEnable};
 
-	Block blk[1:0]( 
+	MBlock blk[1:0]( 
 		.clk(clk), 
 		.rst(rst), 
 		.Din(DataIn), 
