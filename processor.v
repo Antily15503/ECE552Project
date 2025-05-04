@@ -146,29 +146,29 @@ module processor(
      - operation instruction from instruction fetch stage to determine write register (instr_ID)
 */
     //EXcontrols register
-    dff ID_EX_EXcontrols [6:0] (.q(EXcontrols_EX), .d(data_stall ? EX_controls_EX : EXcontrols), .wen(1'b1), .clk(clk), .rst(~rst_n));
+    dff ID_EX_EXcontrols [6:0] (.q(EXcontrols_EX), .d(EXcontrols), .wen(~data_stall), .clk(clk), .rst(~rst_n));
     //MEMcontrols register
-    dff ID_EX_MEMcontrols [1:0] (.q(MEMcontrols_EX), .d(data_stall ? MEM_controls_EX : MEMcontrols), .wen(1'b1), .clk(clk), .rst(~rst_n));
+    dff ID_EX_MEMcontrols [1:0] (.q(MEMcontrols_EX), .d(MEMcontrols), .wen(~data_stall), .clk(clk), .rst(~rst_n));
     //WBcontrols register
-    dff ID_EX_WBcontrols [1:0] (.q(WBcontrols_EX), .d(data_stall ? WBcontrol_EX : WBcontrols), .wen(1'b1), .clk(clk), .rst(~rst_n));
+    dff ID_EX_WBcontrols [1:0] (.q(WBcontrols_EX), .d(WBcontrols), .wen(~data_stall), .clk(clk), .rst(~rst_n));
     //register that stores register data from register Source1
-    dff ID_EX_regSource1Data [15:0] (.q(regSource1Data_EX), .d(data_stall ? regSource1Data_EX : regSource1Data), .wen(1'b1), .clk(clk), .rst(~rst_n));
+    dff ID_EX_regSource1Data [15:0] (.q(regSource1Data_EX), .d(regSource1Data), .wen(~data_stall), .clk(clk), .rst(~rst_n));
     //register that stores register data from register Source2
-    dff ID_EX_regSource2Data [15:0] (.q(regSource2Data_EX), .d(data_stall ? regSource2Data_EX: regSource2Data), .wen(1'b1), .clk(clk), .rst(~rst_n));
+    dff ID_EX_regSource2Data [15:0] (.q(regSource2Data_EX), .d(regSource2Data), .wen(~data_stall), .clk(clk), .rst(~rst_n));
     //register address for register Source1
-    dff ID_EX_regSource1 [3:0] (.q(regSource1_EX), .d(data_stall ? regSource1_EX : regSource1), .wen(1'b1), .clk(clk), .rst(~rst_n));
+    dff ID_EX_regSource1 [3:0] (.q(regSource1_EX), .d(regSource1), .wen(~data_stall), .clk(clk), .rst(~rst_n));
     //register address for register Source2
-    dff ID_EX_regSource2 [3:0] (.q(regSource2_EX), .d(data_stall ? regSource2_EX: regSource2), .wen(1'b1), .clk(clk), .rst(~rst_n));
+    dff ID_EX_regSource2 [3:0] (.q(regSource2_EX), .d(regSource2), .wen(~data_stall), .clk(clk), .rst(~rst_n));
     //register address to store pc_ID
-    dff ID_EX_pc [15:0] (.q(pc_EX), .d(data_stall ? pc_EX :pc_ID), .wen(1'b1), .clk(clk), .rst(~rst_n));
+    dff ID_EX_pc [15:0] (.q(pc_EX), .d(pc_ID), .wen(~data_stall), .clk(clk), .rst(~rst_n));
     //register that stores immediate data from instruction
-    dff ID_EX_immEx [15:0] (.q(imm_EX), .d(data_stall ? imm_EX : immEx), .wen(1'b1), .clk(clk), .rst(~rst_n));
+    dff ID_EX_immEx [15:0] (.q(imm_EX), .d(immEx), .wen(~data_stall), .clk(clk), .rst(~rst_n));
     //register that stores operation instruction from instruction fetch stage
-    dff ID_EX_instr [15:0] (.q(instr_EX), .d(data_stall ? instr_EX : instr_ID), .wen(1'b1), .clk(clk), .rst(~rst_n));
+    dff ID_EX_instr [15:0] (.q(instr_EX), .d(instr_ID), .wen(~data_stall), .clk(clk), .rst(~rst_n));
     //register that stores register value to be written into register file
-    dff ID_EX_regW [3:0] (.q(regW_EX), .d(data_stall ? regW_EX : regW), .wen(1'b1), .clk(clk), .rst(~rst_n));
+    dff ID_EX_regW [3:0] (.q(regW_EX), .d(regW), .wen(~data_stall), .clk(clk), .rst(~rst_n));
     //passing halt signal through ID/EX
-    dff IF_EX_halt (.q(halt_EX), .d(data_stall ? halt_EX : halt_ID), .wen(!(stall & 1'b1)), .clk(clk), .rst(~rst_n | branchTake));
+    dff IF_EX_halt (.q(halt_EX), .d(halt_ID), .wen(!(stall & ~data_stall)), .clk(clk), .rst(~rst_n | branchTake));
 
 /****************************     Execution Stage (EX)   *********************************/
 //EX stage signals
@@ -237,19 +237,19 @@ wire halt_MEM;
      - register value to be written into register file (regW)
 */
     //MEMcontrols register
-    dff EX_MEM_MEMcontrols [1:0] (.q(MEMcontrols_MEM), .d(data_stall? MEMcontrols_MEM : MEMcontrols_EX), .wen(1'b1), .clk(clk), .rst(~rst_n));
+    dff EX_MEM_MEMcontrols [1:0] (.q(MEMcontrols_MEM), .d(MEMcontrols_EX), .wen(~data_stall), .clk(clk), .rst(~rst_n));
     //WBcontrols register
-    dff EX_MEM_WBcontrols [1:0] (.q(WBcontrols_MEM), .d(data_stall? WBcontrols_MEM : WBcontrols_EX), .wen(1'b1), .clk(clk), .rst(~rst_n));
+    dff EX_MEM_WBcontrols [1:0] (.q(WBcontrols_MEM), .d(WBcontrols_EX), .wen(~data_stall), .clk(clk), .rst(~rst_n));
     //register that stores register data from register Source2 from EX stage
-    dff EX_MEM_regSource2Data [15:0] (.q(regSource2Data_MEM), .d(data_stall? regSource2Data_MEM : regSource2Data_EX), .wen(1'b1), .clk(clk), .rst(~rst_n));
+    dff EX_MEM_regSource2Data [15:0] (.q(regSource2Data_MEM), .d(regSource2Data_EX), .wen(~data_stall), .clk(clk), .rst(~rst_n));
     //register that passes reg B address to MEM stage
-    dff EX_MEM_regSource2 [3:0] (.q(regSource2_MEM), .d(data_stall? regSource2_MEM : regSource2_EX), .wen(1'b1), .clk(clk), .rst(~rst_n));
+    dff EX_MEM_regSource2 [3:0] (.q(regSource2_MEM), .d(regSource2_EX), .wen(~data_stall), .clk(clk), .rst(~rst_n));
     //register that stores ALU output data
-    dff EX_MEM_aluOut [15:0] (.q(aluOut_MEM), .d(data_stall? aluOut_MEM : aluOut), .wen(1'b1), .clk(clk), .rst(~rst_n));
+    dff EX_MEM_aluOut [15:0] (.q(aluOut_MEM), .d(aluOut), .wen(~data_stall), .clk(clk), .rst(~rst_n));
     //register that stores register value to be written into register file
-    dff EX_MEM_regW [3:0] (.q(regW_MEM), .d(data_stall? regW_MEM : regW_EX), .wen(1'b1), .clk(clk), .rst(~rst_n));
+    dff EX_MEM_regW [3:0] (.q(regW_MEM), .d(regW_EX), .wen(~data_stall), .clk(clk), .rst(~rst_n));
     //passing halt signal through EX/MEM
-    dff EX_MEM_halt (.q(halt_MEM), .d(data_stall? halt_MEM : halt_EX), .wen(!(stall & 1'b1)), .clk(clk), .rst(~rst_n | branchTake));
+    dff EX_MEM_halt (.q(halt_MEM), .d(halt_EX), .wen(!(stall & ~data_stall)), .clk(clk), .rst(~rst_n | branchTake));
 
 
 /****************************     Memory Access Stage (MEM)   *********************************/
@@ -265,7 +265,7 @@ wire halt_MEM;
     wire [15:0] data_out;
     assign data_address = aluOut_MEM;
     //assign memEnable = MEMcontrols[1]; //CONTROL SIGNAL FOR MEMREAD: 1 for read, 0 for write
-    assign write_enable = MEMcontrols[0]; //CONTROL SIGNAL FOR MEMWRITE: 1 for write, 0 for read
+    assign write_enable = MEMcontrols_MEM[0]; //CONTROL SIGNAL FOR MEMWRITE: 1 for write, 0 for read
     assign data_to_cache = (ForwardC) ? writeData_WB : regSource2Data_MEM;
     assign data_out = data_to_cpu;
     // cpu_MEM MEM(
