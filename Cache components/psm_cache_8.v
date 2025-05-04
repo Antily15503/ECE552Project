@@ -3,7 +3,7 @@ module psm_cache_8(
     input wire [2:0] shift_val,
     output wire [7:0]shift_out
 );
-wire [8:0] shift;
+wire [7:0] shift;
 assign shift = 8'h01; // Default value for shift
 wire [7:0] shift_a, shift_b;
 

@@ -67,8 +67,8 @@ module cpu_IF(
 wire [15:0] pre_instr;
 /* If stall is true, assign instruction to the instruction from the ID stage (instr_ID)
 //if branch is true, assign it to a NOP instruction (0xA000), otherwise use the instruction fetched from memory*/
-assign pre_instr = (stall | data_stall) ? (instr_ID) : (branch ? 16'hA000 : instr_I_cache);
-assign instr = pc_stall ?  instr_ID : pre_instr;
+assign pre_instr = ( data_stall) ? (instr_ID) : (branch ? 16'hA000 : (pc_stall ? 16'hA000 : instr_I_cache));
+assign instr = stall ? instr_ID : pre_instr;
 
 assign halt = &(instr[15:12]); // Halt instruction is 1111xxxx, so if the upper 4 bits are all 1s, halt is true
 

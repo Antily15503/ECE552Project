@@ -29,12 +29,14 @@ wire write_tag_array; //enable write at the end of the fill, when we need to wri
 assign tag_bits = address[15:10];
 assign set_bits = address[9:4];
 assign block_bit = address[0];
-assign offset = address[3:1];
 
 wire [63:0] one_hot_set;
 wire [7:0] one_hot_offset;
-
 wire hit;
+wire fsm_busy;
+wire [2:0] write_block;
+
+assign offset = fsm_busy ? write_block : address[3:1];
 
 psm_cache_64 set_shifter(.shift_val(set_bits),.shift_out(one_hot_set));
 
@@ -73,7 +75,8 @@ wire meta_lru = meta_data_out[0];
 assign hit = meta_valid & (meta_tag == tag_bits);
 
 //FSM 
-wire fsm_busy;
+
+wire [2:0] current_block;
 
 //FSM is only for cache filling in a cache miss, it does not write
 cache_fill_FSM cache_miss_handler(
@@ -86,12 +89,16 @@ cache_fill_FSM cache_miss_handler(
     .fsm_busy(fsm_busy),
     .write_data_array(write_data_array),
     .write_tag_array(write_tag_array),
-    .memory_address(memory_address)
+    .memory_address(memory_address),
+    .write_block(write_block),
+    .current_block(current_block)
 );
 
-assign stall        = fsm_busy | ~memory_write_done & write_enable;
-assign memory_read  = fsm_busy & (cache_miss_handler.count_d != 3'h7);
+assign stall        = fsm_busy | (~memory_write_done & write_enable);
 assign memory_write = write_enable & hit;
+
+//we're done reading from memory but we're not ready to give the data to the processor yet
+assign memory_read  = fsm_busy & (current_block != 3'h7);
 
 endmodule
 `default_nettype wire
