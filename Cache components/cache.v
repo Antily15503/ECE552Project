@@ -36,7 +36,7 @@ wire hit;
 wire fsm_busy;
 wire [2:0] write_block;
 
-assign offset = fsm_busy ? write_block : address[3:1];
+assign offset = write_data_array ? write_block : address[3:1];
 
 psm_cache_64 set_shifter(.shift_val(set_bits),.shift_out(one_hot_set));
 
@@ -59,7 +59,7 @@ wire [7:0] meta_data_out;
 MetaDataArray meta_data_array(
     .clk(clk),
     .rst(~rst_n),
-    .DataIn({tag_bits, 2'b00}), //TODO: implement Valid and LRU bits
+    .DataIn({tag_bits, 2'b11}), //TODO: implement Valid and LRU bits
     .Write(write_tag_array), //might need to be only be on miss
     .BlockEnable(block_bit),
     .SetEnable(one_hot_set),
@@ -72,7 +72,7 @@ wire meta_valid = meta_data_out[1];
 wire meta_lru = meta_data_out[0]; 
 
 // detect hits
-assign hit = meta_valid & (meta_tag == tag_bits);
+assign hit = ~write_tag_array & meta_valid & (meta_tag == tag_bits);
 
 //FSM 
 

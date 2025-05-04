@@ -26,12 +26,16 @@ wire state_ff;
 reg nextstate;
 dff stateflop(.d(nextstate), .q(state_ff), .wen(1'b1), .clk(clk), .rst(~rst_n));
 
-wire state_delay1, state_delay2, state_delay3, state_delay4;
+wire state_delay1, state_delay2, state_delay3, state_delay4, state_delay5, state_delay6, state_delay7, state_delay8;
 
 dff stateff1(.d(state_ff),.q(state_delay1),.wen(1'b1),.clk(clk),.rst(~rst_n));
 dff stateff2(.d(state_delay1),.q(state_delay2),.wen(1'b1),.clk(clk),.rst(~rst_n));
 dff stateff3(.d(state_delay2),.q(state_delay3),.wen(1'b1),.clk(clk),.rst(~rst_n));
 dff stateff4(.d(state_delay3),.q(state_delay4),.wen(1'b1),.clk(clk),.rst(~rst_n));
+dff stateff5(.d(state_delay4),.q(state_delay5),.wen(1'b1),.clk(clk),.rst(~rst_n));
+dff stateff6(.d(state_delay5),.q(state_delay6),.wen(1'b1),.clk(clk),.rst(~rst_n));
+dff stateff7(.d(state_delay6),.q(state_delay7),.wen(1'b1),.clk(clk),.rst(~rst_n));
+dff stateff8(.d(state_delay7),.q(state_delay8),.wen(1'b1),.clk(clk),.rst(~rst_n));
 
 wire [3:0] c1, c2, c3, c4;
 assign write_block = c4[2:0];
@@ -46,10 +50,10 @@ always @(*) begin
     write_tag_array_sm = 1'b0;
     increment = 1'b0;
     nextstate = 1'b0;
-    case (state_delay4)
+    case (state_ff)
         0: begin
             fsm_busy_sm = miss_detected;
-            nextstate = miss_detected;
+            nextstate = miss_detected & ~state_delay4;
             write_tag_array_sm = 1'b0;
             
             // if (miss_detected) begin
@@ -61,8 +65,8 @@ always @(*) begin
             // end
         end
         1: begin
-            fsm_busy_sm = ~(count == 4'h7);
-            nextstate = ~((count == 4'h7) && memory_data_valid_delay3); 
+            fsm_busy_sm = 1'b1;//~(count == 4'h7);
+            nextstate = ~((count == 4'h7) && memory_data_valid); 
             increment = ~(count == 4'h7);
             //increment = ~count[3];
             write_data_array_sm = ~count[3]; //might cause issues
@@ -85,20 +89,26 @@ always @(*) begin
     endcase
 end
 assign fsm_busy = fsm_busy_sm;
-assign write_data_array = write_data_array_sm;
+//assign write_data_array = write_data_array_sm;
 
 //assign write_tag_array = write_tag_array_sm;
 wire write_tag_delay1, write_tag_delay2, write_tag_delay3, write_tag_delay4;
-dff write_tagff1(.d(write_tag_array_sm),.q(write_tag_delay1),.wen(1'b1),.clk(clk),.rst(~rst_n));
+dff write_tagff1(.d(state_ff & ~nextstate),.q(write_tag_delay1),.wen(1'b1),.clk(clk),.rst(~rst_n));
 dff write_tagff2(.d(write_tag_delay1),.q(write_tag_delay2),.wen(1'b1),.clk(clk),.rst(~rst_n));
 dff write_tagff3(.d(write_tag_delay2),.q(write_tag_delay3),.wen(1'b1),.clk(clk),.rst(~rst_n));
 dff write_tagff4(.d(write_tag_delay3),.q(write_tag_delay4),.wen(1'b1),.clk(clk),.rst(~rst_n));
 assign write_tag_array = write_tag_delay4;
 
+wire write_data_array1;
+wire write_data_array2, write_data_array3;
+dff write_data_array_ff(.d(write_data_array_sm),.q(write_data_array1),.wen(1'b1),.clk(clk),.rst(~rst_n));
+dff write_data_array_ff2(.d(write_data_array1),.q(write_data_array2),.wen(1'b1),.clk(clk),.rst(~rst_n));
+dff write_data_array_ff3(.d(write_data_array2),.q(write_data_array3),.wen(1'b1),.clk(clk),.rst(~rst_n));
+dff write_data_array_ff4(.d(write_data_array3),.q(write_data_array),.wen(1'b1),.clk(clk),.rst(~rst_n));
 
 //incrementer
 dff count_reg[3:0] (
-    .d((count == 4'h7) ? 4'h7 : count_d),
+    .d((count[2:0] == 3'h7) ? 4'hF : count_d),
     .q(count),
     .wen(1'b1),
     .clk(clk),

@@ -17,7 +17,7 @@ module DataArray(
 		.clk(clk),
 		.rst(rst),
 		.DataIn(DataIn),
-		.Write(Write),
+		.Write({64{Write}} & SetEnable),
 		.BlockEnable(BlockEnable),
 		.SetEnable(SetEnable),
 		.WordEnable(WordEnable),
@@ -37,7 +37,7 @@ module Set(
 );
 	wire [1:0] BlockEnable_real; 
 	assign BlockEnable_real = {BlockEnable, ~BlockEnable};
-
+	wire[15:0] DataOut_real;
 	Block blk[1:0]( 
 		.clk(clk), 
 		.rst(rst), 
@@ -45,8 +45,9 @@ module Set(
 		.WriteEnable(Write), 
 		.Enable(BlockEnable_real), 
 		.WordEnable(WordEnable), 
-		.Dout(DataOut)
+		.Dout(DataOut_real)
 	);
+	assign DataOut = (SetEnable) ? DataOut_real : 16'bz; //Only for the enabled cache block, you enable the specific word
 
 endmodule
 

@@ -18,7 +18,7 @@ module MetaDataArray(
 		.clk(clk), 
 		.rst(rst), 
 		.DataIn(DataIn), 
-		.Write(Write), 
+		.Write({64{Write}} & SetEnable), 
 		.BlockEnable(BlockEnable), 
 		.SetEnable(SetEnable), 
 		.DataOut(DataOut)
@@ -36,6 +36,8 @@ module MSet(
 );
 	wire [1:0] BlockEnable_real; 
 	assign BlockEnable_real = {BlockEnable, ~BlockEnable};
+	wire[7:0] DataOut_real;
+	assign DataOut = (SetEnable) ? DataOut_real : 8'bz; //Only for the enabled cache block, you enable the specific word
 
 	MBlock blk[1:0]( 
 		.clk(clk), 
@@ -43,7 +45,7 @@ module MSet(
 		.Din(DataIn), 
 		.WriteEnable(Write), 
 		.Enable(BlockEnable_real), 
-		.Dout(DataOut)
+		.Dout(DataOut_real)
 	);
 endmodule
 
